@@ -6,89 +6,127 @@
     <title>Cypress Testing Reports - Sistema de Reportes</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background-color: #f8f9fa;
+            color: #212529;
+            line-height: 1.6;
         }
         .container {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            padding: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 20px;
             text-align: center;
-            max-width: 600px;
-            margin: 20px;
+        }
+        .header {
+            margin-bottom: 40px;
         }
         h1 {
-            color: #2c3e50;
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: #495057;
             margin-bottom: 10px;
-            font-size: 2.5em;
         }
         .subtitle {
-            color: #7f8c8d;
+            font-size: 1.1rem;
+            color: #6c757d;
             margin-bottom: 30px;
-            font-size: 1.2em;
+        }
+        .status-card {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .status-card h3 {
+            margin: 0 0 15px 0;
+            color: #495057;
+            font-size: 1.3rem;
+            font-weight: 500;
+        }
+        .status-card p {
+            margin: 0;
+            color: #6c757d;
+        }
+        .actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 40px 0;
         }
         .button {
             display: inline-block;
-            background: #3498db;
+            padding: 12px 24px;
+            background-color: #007bff;
             color: white;
             text-decoration: none;
-            padding: 15px 30px;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 1.1em;
-            transition: all 0.3s ease;
-            margin: 10px;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: background-color 0.2s ease;
+            border: 1px solid #007bff;
         }
         .button:hover {
-            background: #2980b9;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            background-color: #0056b3;
+            border-color: #0056b3;
         }
         .button.secondary {
-            background: #2ecc71;
+            background-color: #6c757d;
+            border-color: #6c757d;
         }
         .button.secondary:hover {
-            background: #27ae60;
-        }
-        .status {
-            background: #f8f9fa;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 20px 0;
-            border-left: 4px solid #3498db;
-        }
-        .status h3 {
-            margin: 0 0 10px 0;
-            color: #2c3e50;
+            background-color: #545b62;
+            border-color: #545b62;
         }
         .footer {
-            margin-top: 30px;
-            color: #95a5a6;
-            font-size: 0.9em;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid #e9ecef;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 40px 20px;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            .button {
+                width: 100%;
+                max-width: 280px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1> Cypress Testing Reports</h1>
-        <p class="subtitle">Sistema Profesional de Reportes de Testing End-to-End</p>
-
-        <div class="status">
-            <h3>Sistema Operativo</h3>
-            <p>Reportes automatizados con timestamps y organización por fecha</p>
+        <div class="header">
+            <h1>Cypress Testing Reports</h1>
+            <p class="subtitle">Sistema Profesional de Reportes de Testing End-to-End</p>
         </div>
 
-        <a href="reports/" class="button"> Ver Reportes de Testing</a>
-        <a href="https://github.com/lucasfernandez789/Cypress-ReportingSystem" class="button secondary" target="_blank"> Ver Código en GitHub</a>
+        <div class="status-card">
+            <h3>Sistema Operativo</h3>
+            <p>Reportes automatizados con timestamps y organizacion por fecha</p>
+        </div>
 
-        
+        <div class="actions">
+            <a href="reports/" class="button">Ver Reportes de Testing</a>
+            <a href="https://github.com/lucasfernandez789/Cypress-ReportingSystem" class="button secondary" target="_blank">Ver Codigo en GitHub</a>
+        </div>
+
+        <div class="footer">
+            <p>Generado automaticamente • Ultima actualizacion: Septiembre 2025</p>
+        </div>
     </div>
 </body>
 </html>
