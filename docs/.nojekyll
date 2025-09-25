@@ -1,0 +1,2 @@
+# Este archivo evita que GitHub Pages procese archivos con Jekyll
+# Necesario para que Cypress reports funcionen correctamente

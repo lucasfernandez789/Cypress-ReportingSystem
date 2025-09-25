@@ -1,0 +1,32 @@
+{
+  "name": "cypress-leyes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "cypress run",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "cypress:run-reports": "cypress run --reporter cypress-multi-reporters --reporter-options configFile=reporter-config.json",
+    "posttest": "npm run report:merge && npm run report:generate",
+    "report:merge": "mochawesome-merge cypress/reports/mocha/*.json > cypress/reports/report.json",
+    "report:generate": "marge cypress/reports/report.json --reportDir cypress/reports --assetsDir cypress/reports/assets --reportFilename index.html",
+    "test:full-report": "npm run clean-reports && cypress run --record=false --spec 'cypress/e2e/**/*.cy.js' && npm run report:merge && npm run report:generate-timestamped",
+    "test:timestamped": "npm run clean-reports && cypress run --record=false --spec 'cypress/e2e/**/*.cy.js' && npm run report:merge && npm run report:generate-timestamped && npm run report:index",
+    "report:generate-timestamped": "node -e \"const now = new Date(); const timestamp = now.toISOString().replace(/[:.]/g, '-').slice(0, -5); const date = now.toISOString().split('T')[0]; require('fs').mkdirSync('cypress/reports/' + date, { recursive: true }); require('child_process').execSync('marge cypress/reports/report.json --reportDir cypress/reports/' + date + ' --assetsDir cypress/reports/' + date + '/assets --reportFilename report-' + timestamp + '.html'); console.log('Reporte generado: cypress/reports/' + date + '/report-' + timestamp + '.html');\"",
+    "clean-reports": "if exist cypress\\reports\\mocha\\*.json del cypress\\reports\\mocha\\*.json && if exist cypress\\reports\\report.json del cypress\\reports\\report.json",
+    "report:history": "ls -la cypress/reports/20*/report-*.html | head -20",
+    "report:index": "node generate-report-index.js",
+    "report:publish-github": "node publish-reports-github.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^15.3.0",
+    "cypress-multi-reporters": "^2.0.5",
+    "mochawesome": "^7.1.4",
+    "mochawesome-merge": "^5.0.0",
+    "mochawesome-report-generator": "^6.3.0"
+  }
+}
