@@ -7,3 +7,4 @@ Cypress.Commands.add('login', () => {
     cy.get(botonIngreso).click(); 
   });
 });
+
