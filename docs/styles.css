@@ -44,22 +44,45 @@ h1 {
     padding: 30px;
     margin: 30px 0;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    position: relative;
 }
 
-.status-card h3 {
-    margin: 0 0 15px 0;
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.card-header h3 {
+    margin: 0;
     color: #495057;
     font-size: 1.3rem;
     font-weight: 500;
 }
 
+.info-icon {
+    font-size: 1.2rem;
+    color: #6c757d;
+    cursor: help;
+    transition: color 0.2s ease;
+}
+
+.info-icon:hover {
+    color: #007bff;
+}
+
 .status-card p {
-    margin: 0;
+    margin: 0 0 20px 0;
     color: #6c757d;
 }
 
-.actions {
-    margin: 40px 0;
+.card-actions {
+    text-align: center;
+}
+
+.card-actions {
+    text-align: center;
 }
 
 .button {
