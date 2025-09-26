@@ -7,24 +7,41 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <img src="logo.png" alt="Logo" class="logo">
-            <h1>Sistema de Reportes de Testing</h1>
-            <p class="subtitle">Reportes automatizados con timestamps y organizacion por fecha</p>
+    <div class="page-container">
+        <div class="content-wrapper">
+            <div class="hero-section">
+                <div class="text-center mb-8 md:mb-12">
+                    <div class="flex justify-center mb-4 md:mb-6">
+                        <img src="logo.png" alt="icon balance" class="logo-responsive" />
+                    </div>
+                    <h1 class="main-title">
+                        Sistema de Reportes de Testing
+                    </h1>
+                    <p class="main-subtitle">
+                        Reportes automatizados con timestamps y organizacion por fecha
+                    </p>
+                </div>
+
+                <div class="cards-grid">
+                    <div class="status-card">
+                        <div class="card-header">
+                            <h3>Reportes Disponibles</h3>
+                            <span class="info-icon" title="Aquí encontrarás todos los reportes de testing automatizados organizados por fecha y hora, con información detallada sobre cada ejecución">ℹ️</span>
+                        </div>
+                        <p>Accede a todos los reportes de testing organizados por fecha y hora</p>
+                        <div class="card-actions">
+                            <a href="reports/" class="button">Ver Reportes de Testing</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="status-card">
-            <div class="card-header">
-                <h3>Reportes Disponibles</h3>
-                <span class="info-icon" title="Aquí encontrarás todos los reportes de testing automatizados organizados por fecha y hora, con información detallada sobre cada ejecución">ℹ️</span>
+        <footer class="footer">
+            <div class="container">
+                <p>Generado automaticamente • Ultima actualizacion: Septiembre 2025</p>
             </div>
-            <p>Accede a todos los reportes de testing organizados por fecha y hora</p>
-            <div class="card-actions">
-                <a href="reports/" class="button">Ver Reportes de Testing</a>
-            </div>
-        </div>
-
+        </footer>
     </div>
 </body>
 </html>
