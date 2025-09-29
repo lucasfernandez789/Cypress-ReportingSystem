@@ -104,7 +104,7 @@ function syncReportsToDocsFolder() {
   // Ordenar por fecha descendente
   reportFiles.sort((a, b) => b.fullDate - a.fullDate);
 
-  // Generar index.html para docs/reports con mejor organización
+  // Generar index.html para docs/reports con buscador por fecha
   const docsIndexHtml = `
 <!DOCTYPE html>
 <html lang="es">
@@ -116,6 +116,7 @@ function syncReportsToDocsFolder() {
     <style>
         .collapsible-section { transition: all 0.3s ease; }
         .report-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; }
+        .hidden { display: none !important; }
     </style>
 </head>
 <body class="font-sans bg-gray-50 min-h-screen">
@@ -124,7 +125,7 @@ function syncReportsToDocsFolder() {
         <div class="bg-white rounded-lg shadow-md p-6 mb-6">
             <div class="flex items-center justify-between mb-4">
                 <div>
-                    <h1 class="text-3xl font-bold text-gray-800 mb-2">📊 Reportes de Testing Cypress</h1>
+                    <h1 class="text-3xl font-bold text-gray-800 mb-2">Reportes de Testing Cypress</h1>
                     <p class="text-gray-600">Sistema automatizado de reportes de testing</p>
                 </div>
                 <div class="text-right">
@@ -148,30 +149,32 @@ function syncReportsToDocsFolder() {
             </div>
         </div>
 
-        <!-- Estadísticas por fecha -->
+        <!-- Buscador por fecha -->
         <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-            <h2 class="text-xl font-semibold text-gray-800 mb-4">📈 Resumen por Fecha</h2>
-            <div class="report-grid">
-                ${(() => {
-                  const dateGroups = {};
-                  reportFiles.forEach(report => {
-                    if (!dateGroups[report.date]) {
-                      dateGroups[report.date] = [];
-                    }
-                    dateGroups[report.date].push(report);
-                  });
-
-                  return Object.entries(dateGroups)
-                    .sort(([a], [b]) => new Date(b) - new Date(a))
-                    .map(([date, reports]) => `
-                      <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
-                        <div class="font-semibold text-gray-800">${date}</div>
-                        <div class="text-2xl font-bold text-blue-600">${reports.length}</div>
-                        <div class="text-sm text-gray-600">ejecuciones</div>
-                      </div>
-                    `).join('');
-                })()}
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">Buscar Reportes</h2>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Fecha específica:</label>
+                    <input type="date" id="dateFilter" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Desde:</label>
+                    <input type="date" id="dateFrom" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Hasta:</label>
+                    <input type="date" id="dateTo" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="flex items-end gap-2">
+                    <button onclick="filterReports()" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
+                        Buscar
+                    </button>
+                    <button onclick="clearFilters()" class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition-colors">
+                        Limpiar
+                    </button>
+                </div>
             </div>
+            <div id="searchResults" class="mt-4 text-sm text-gray-600"></div>
         </div>
 
         <!-- Reportes organizados por fecha -->
@@ -196,7 +199,7 @@ function syncReportsToDocsFolder() {
               });
 
               return `
-                <div class="bg-white rounded-lg shadow-md mb-6 overflow-hidden">
+                <div class="bg-white rounded-lg shadow-md mb-6 overflow-hidden date-section" data-date="${date}">
                   <!-- Header de fecha -->
                   <div class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-4 cursor-pointer" 
                        onclick="toggleSection('section-${date}')">
@@ -245,7 +248,7 @@ function syncReportsToDocsFolder() {
                               <a href="${report.file}" 
                                  class="inline-block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition-colors duration-200" 
                                  target="_blank">
-                                📄 Ver Reporte Completo
+                                Ver Reporte Completo
                               </a>
                             </div>
                           `).join('')}
@@ -260,9 +263,9 @@ function syncReportsToDocsFolder() {
         <!-- Footer -->
         <div class="text-center text-gray-500 text-sm mt-8 p-4">
           <div class="flex items-center justify-center gap-2 mb-2">
-            <span>🔄 Sincronizado automáticamente</span>
+            <span>Sincronizado automáticamente</span>
             <span>•</span>
-            <span>📊 ${reportFiles.length} reportes disponibles</span>
+            <span>${reportFiles.length} reportes disponibles</span>
           </div>
           <div>Última actualización: ${new Date().toLocaleString('es-ES')}</div>
         </div>
@@ -282,8 +285,76 @@ function syncReportsToDocsFolder() {
         }
       }
 
-      // Inicializar: mostrar solo la fecha más reciente
-      document.addEventListener('DOMContentLoaded', function() {
+      function filterReports() {
+        const dateFilter = document.getElementById('dateFilter').value;
+        const dateFrom = document.getElementById('dateFrom').value;
+        const dateTo = document.getElementById('dateTo').value;
+        const sections = document.querySelectorAll('.date-section');
+        const resultsDiv = document.getElementById('searchResults');
+        
+        let visibleCount = 0;
+        let totalReports = 0;
+
+        sections.forEach(section => {
+          const sectionDate = section.getAttribute('data-date');
+          let isVisible = false;
+
+          if (dateFilter) {
+            // Búsqueda por fecha específica
+            isVisible = sectionDate === dateFilter;
+          } else if (dateFrom || dateTo) {
+            // Búsqueda por rango
+            const date = new Date(sectionDate);
+            const fromDate = dateFrom ? new Date(dateFrom) : new Date('1900-01-01');
+            const toDate = dateTo ? new Date(dateTo) : new Date('2100-12-31');
+            isVisible = date >= fromDate && date <= toDate;
+          } else {
+            // Sin filtros, mostrar todo
+            isVisible = true;
+          }
+
+          if (isVisible) {
+            section.classList.remove('hidden');
+            const reportsInSection = section.querySelectorAll('.report-grid > div').length;
+            totalReports += reportsInSection;
+            visibleCount++;
+            
+            // Expandir sección automáticamente cuando se filtra
+            const sectionContent = section.querySelector('[id^="section-"]');
+            const arrow = section.querySelector('[id^="arrow-"]');
+            if (sectionContent && arrow) {
+              sectionContent.style.display = 'block';
+              arrow.style.transform = 'rotate(0deg)';
+            }
+          } else {
+            section.classList.add('hidden');
+          }
+        });
+
+        // Mostrar resultados
+        if (dateFilter || dateFrom || dateTo) {
+          resultsDiv.innerHTML = \`Mostrando \${visibleCount} fechas con \${totalReports} reportes\`;
+        } else {
+          resultsDiv.innerHTML = '';
+        }
+      }
+
+      function clearFilters() {
+        document.getElementById('dateFilter').value = '';
+        document.getElementById('dateFrom').value = '';
+        document.getElementById('dateTo').value = '';
+        document.getElementById('searchResults').innerHTML = '';
+        
+        const sections = document.querySelectorAll('.date-section');
+        sections.forEach(section => {
+          section.classList.remove('hidden');
+        });
+
+        // Volver al estado inicial (solo primera fecha expandida)
+        initializeSections();
+      }
+
+      function initializeSections() {
         const sections = document.querySelectorAll('[id^="section-"]');
         sections.forEach((section, index) => {
           if (index > 0) {
@@ -293,6 +364,11 @@ function syncReportsToDocsFolder() {
             if (arrow) arrow.style.transform = 'rotate(-90deg)';
           }
         });
+      }
+
+      // Inicializar: mostrar solo la fecha más reciente
+      document.addEventListener('DOMContentLoaded', function() {
+        initializeSections();
       });
     </script>
 </body>
@@ -301,9 +377,9 @@ function syncReportsToDocsFolder() {
   const docsIndexPath = path.join(docsReportsDir, 'index.html');
   fs.writeFileSync(docsIndexPath, docsIndexHtml);
 
-  console.log(`✅ Reportes sincronizados en docs: ${docsIndexPath}`);
-  console.log(`📊 Total de reportes encontrados: ${reportFiles.length}`);
-  console.log(`📁 Archivos copiados desde cypress/reports/ a docs/reports/`);
+  console.log(` Reportes sincronizados en docs: ${docsIndexPath}`);
+  console.log(` Total de reportes encontrados: ${reportFiles.length}`);
+  console.log(` Archivos copiados desde cypress/reports/ a docs/reports/`);
 }
 
 syncReportsToDocsFolder();

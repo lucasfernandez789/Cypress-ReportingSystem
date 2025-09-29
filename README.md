@@ -2,7 +2,7 @@
 
 > Sistema profesional de testing automatizado con Cypress y reportes organizados para el proyecto de Leyes.
 
-## 🚀 Inicio Rápido
+## Inicio Rápido
 
 ```bash
 # Instalar dependencias
@@ -18,7 +18,7 @@ npm run docs:sync
 npm run cypress:open
 ```
 
-## 📁 Estructura del Proyecto
+## Estructura del Proyecto
 
 ```
 cypress/
@@ -39,7 +39,7 @@ scripts/                        # Utilitarios
 └── sync-reports-to-docs.js     # Sincronización de reportes
 ```
 
-## ⚙️ Configuración Inicial
+## Configuración Inicial
 
 ### 1. Variables de Entorno
 
@@ -54,7 +54,7 @@ PASS=tu_password_real
 CYPRESS_BASE_URL=https://testing.hlt.gob:3007
 ```
 
-> ⚠️ **Seguridad:** El archivo `.env` está en `.gitignore` para evitar subir credenciales al repositorio.
+> **Seguridad:** El archivo `.env` está en `.gitignore` para evitar subir credenciales al repositorio.
 
 ### 2. GitHub Pages (Opcional)
 
