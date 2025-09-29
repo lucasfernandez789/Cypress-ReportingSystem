@@ -86,7 +86,15 @@ function syncReportsToDocsFolder() {
         }
         
         // Registrar para el índice
-        const date = item.match(/report-(\d{4}-\d{2}-\d{2})/)?.[1] || 'unknown';
+        // Si está en una carpeta con fecha, usar la fecha de la carpeta, si no, extraer del archivo
+        let date;
+        if (relativePath && relativePath.match(/\d{4}-\d{2}-\d{2}/)) {
+          // Extraer fecha de la ruta de la carpeta (ej: "2025-09-25/report-...")
+          date = relativePath.match(/(\d{4}-\d{2}-\d{2})/)?.[1] || 'unknown';
+        } else {
+          // Extraer fecha del nombre del archivo (ej: "report-2025-09-25T...")
+          date = item.match(/report-(\d{4}-\d{2}-\d{2})/)?.[1] || 'unknown';
+        }
         const time = item.match(/T(\d{2}-\d{2}-\d{2})/)?.[1]?.replace(/-/g, ':') || 'unknown';
 
         reportFiles.push({
