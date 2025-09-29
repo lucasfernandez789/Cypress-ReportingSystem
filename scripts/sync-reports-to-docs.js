@@ -104,7 +104,7 @@ function syncReportsToDocsFolder() {
   // Ordenar por fecha descendente
   reportFiles.sort((a, b) => b.fullDate - a.fullDate);
 
-  // Generar index.html para docs/reports
+  // Generar index.html para docs/reports con mejor organización
   const docsIndexHtml = `
 <!DOCTYPE html>
 <html lang="es">
@@ -113,45 +113,188 @@ function syncReportsToDocsFolder() {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reportes de Testing Cypress</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .collapsible-section { transition: all 0.3s ease; }
+        .report-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; }
+    </style>
 </head>
-<body class="font-sans m-5 bg-gray-100">
-    <div class="max-w-[1200px] mx-auto bg-white p-5 rounded-lg shadow-md">
-        <div class="mb-6">
-            <a href="../index.html" class="text-blue-500 hover:text-blue-700 text-sm">&larr; Volver al inicio</a>
-        </div>
-        
-        <h1 class="text-gray-800 border-b-2 border-blue-500 pb-2.5">Reportes de Testing Cypress</h1>
-        <p class="font-bold mb-4">Total de reportes: ${reportFiles.length}</p>
-        
-        <div class="bg-blue-50 border border-blue-200 rounded p-4 mb-6">
-            <p class="text-sm text-blue-800">
-                <strong>Nota:</strong> Los reportes se sincronizan automáticamente desde cypress/reports/.
-            </p>
-        </div>
-
-        ${reportFiles.reduce((acc, report, index) => {
-          const currentDate = report.date;
-          const prevDate = index > 0 ? reportFiles[index - 1].date : null;
-
-          if (currentDate !== prevDate) {
-            acc += `
-        <div class="my-7.5">
-            <div class="bg-blue-500 text-white p-2.5 rounded mb-2.5">${currentDate}</div>`;
-          }
-
-          acc += `
-            <div class="border border-gray-300 my-2.5 p-4 rounded bg-gray-50 hover:bg-blue-50">
-                <a href="${report.file}" class="text-blue-500 no-underline font-bold text-base hover:underline" target="_blank">
-                    Reporte ${report.time}
-                </a>
-                <div class="text-gray-600 text-sm mt-1.5">
-                    ${report.time} | ${report.file}
+<body class="font-sans bg-gray-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <div class="flex items-center justify-between mb-4">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-800 mb-2">📊 Reportes de Testing Cypress</h1>
+                    <p class="text-gray-600">Sistema automatizado de reportes de testing</p>
                 </div>
-            </div>`;
+                <div class="text-right">
+                    <div class="bg-blue-100 text-blue-800 px-4 py-2 rounded-lg">
+                        <span class="font-bold text-2xl">${reportFiles.length}</span>
+                        <div class="text-sm">Reportes Total</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex flex-wrap gap-4 text-sm">
+                <div class="flex items-center gap-2">
+                    <span class="w-3 h-3 bg-blue-500 rounded"></span>
+                    <span>Sincronizado automáticamente desde cypress/reports/</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <a href="../index.html" class="text-blue-600 hover:text-blue-800 flex items-center gap-1">
+                        ← Volver al inicio
+                    </a>
+                </div>
+            </div>
+        </div>
 
-          return acc;
-        }, '')}
+        <!-- Estadísticas por fecha -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">📈 Resumen por Fecha</h2>
+            <div class="report-grid">
+                ${(() => {
+                  const dateGroups = {};
+                  reportFiles.forEach(report => {
+                    if (!dateGroups[report.date]) {
+                      dateGroups[report.date] = [];
+                    }
+                    dateGroups[report.date].push(report);
+                  });
+
+                  return Object.entries(dateGroups)
+                    .sort(([a], [b]) => new Date(b) - new Date(a))
+                    .map(([date, reports]) => `
+                      <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
+                        <div class="font-semibold text-gray-800">${date}</div>
+                        <div class="text-2xl font-bold text-blue-600">${reports.length}</div>
+                        <div class="text-sm text-gray-600">ejecuciones</div>
+                      </div>
+                    `).join('');
+                })()}
+            </div>
+        </div>
+
+        <!-- Reportes organizados por fecha -->
+        ${(() => {
+          const dateGroups = {};
+          reportFiles.forEach(report => {
+            if (!dateGroups[report.date]) {
+              dateGroups[report.date] = [];
+            }
+            dateGroups[report.date].push(report);
+          });
+
+          return Object.entries(dateGroups)
+            .sort(([a], [b]) => new Date(b) - new Date(a))
+            .map(([date, reports]) => {
+              const reportsCount = reports.length;
+              const dateFormatted = new Date(date).toLocaleDateString('es-ES', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+              });
+
+              return `
+                <div class="bg-white rounded-lg shadow-md mb-6 overflow-hidden">
+                  <!-- Header de fecha -->
+                  <div class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-4 cursor-pointer" 
+                       onclick="toggleSection('section-${date}')">
+                    <div class="flex items-center justify-between">
+                      <div>
+                        <h3 class="text-xl font-semibold">${dateFormatted}</h3>
+                        <p class="text-blue-100 text-sm">${reportsCount} ejecuciones de tests</p>
+                      </div>
+                      <div class="flex items-center gap-4">
+                        <div class="text-right">
+                          <div class="text-sm text-blue-100">Última ejecución</div>
+                          <div class="font-semibold">${reports[0].time}</div>
+                        </div>
+                        <div id="arrow-${date}" class="transform transition-transform duration-300">
+                          ▼
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- Lista de reportes -->
+                  <div id="section-${date}" class="collapsible-section">
+                    <div class="p-4">
+                      <div class="report-grid">
+                        ${reports
+                          .sort((a, b) => b.fullDate - a.fullDate)
+                          .map((report, index) => `
+                            <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow duration-200 hover:border-blue-300">
+                              <div class="flex items-start justify-between mb-3">
+                                <div class="flex items-center gap-2">
+                                  <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                                  <span class="font-semibold text-gray-700">Ejecución ${index + 1}</span>
+                                </div>
+                                <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                                  ${report.time}
+                                </span>
+                              </div>
+                              
+                              <div class="mb-3">
+                                <div class="text-sm text-gray-600 mb-1">Archivo:</div>
+                                <div class="text-xs font-mono text-gray-800 bg-gray-50 p-2 rounded">
+                                  ${report.file}
+                                </div>
+                              </div>
+                              
+                              <a href="${report.file}" 
+                                 class="inline-block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition-colors duration-200" 
+                                 target="_blank">
+                                📄 Ver Reporte Completo
+                              </a>
+                            </div>
+                          `).join('')}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              `;
+            }).join('');
+        })()}
+
+        <!-- Footer -->
+        <div class="text-center text-gray-500 text-sm mt-8 p-4">
+          <div class="flex items-center justify-center gap-2 mb-2">
+            <span>🔄 Sincronizado automáticamente</span>
+            <span>•</span>
+            <span>📊 ${reportFiles.length} reportes disponibles</span>
+          </div>
+          <div>Última actualización: ${new Date().toLocaleString('es-ES')}</div>
+        </div>
     </div>
+
+    <script>
+      function toggleSection(sectionId) {
+        const section = document.getElementById(sectionId);
+        const arrow = document.getElementById('arrow-' + sectionId.replace('section-', ''));
+        
+        if (section.style.display === 'none') {
+          section.style.display = 'block';
+          arrow.style.transform = 'rotate(0deg)';
+        } else {
+          section.style.display = 'none';
+          arrow.style.transform = 'rotate(-90deg)';
+        }
+      }
+
+      // Inicializar: mostrar solo la fecha más reciente
+      document.addEventListener('DOMContentLoaded', function() {
+        const sections = document.querySelectorAll('[id^="section-"]');
+        sections.forEach((section, index) => {
+          if (index > 0) {
+            section.style.display = 'none';
+            const dateId = section.id.replace('section-', '');
+            const arrow = document.getElementById('arrow-' + dateId);
+            if (arrow) arrow.style.transform = 'rotate(-90deg)';
+          }
+        });
+      });
+    </script>
 </body>
 </html>`;
 
