@@ -17,7 +17,9 @@
     "clean-reports": "if exist cypress\\reports\\mocha\\*.json del cypress\\reports\\mocha\\*.json && if exist cypress\\reports\\report.json del cypress\\reports\\report.json",
     "report:history": "ls -la cypress/reports/20*/report-*.html | head -20",
     "report:index": "node generate-report-index.js",
-    "report:publish-github": "node publish-reports-github.js"
+    "report:sync-docs": "node scripts/sync-reports-to-docs.js",
+    "report:publish-github": "node publish-reports-github.js",
+    "docs:sync": "npm run report:index && npm run report:sync-docs"
   },
   "keywords": [],
   "author": "",

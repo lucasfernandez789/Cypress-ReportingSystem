@@ -1,4 +1,12 @@
 #!/usr/bin/env node
+/**
+ * Script para generar el índice de reportes de Cypress
+ * 
+ * Propósito: Genera un index.html en cypress/reports/ que lista todos los reportes HTML
+ * generados por las ejecuciones de tests. Mantiene cypress/reports como fuente única.
+ * 
+ * Para sincronizar con docs/ usar: npm run report:sync-docs
+ */
 const fs = require('fs');
 const path = require('path');
 

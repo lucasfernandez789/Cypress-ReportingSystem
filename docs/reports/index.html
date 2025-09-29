@@ -4,55 +4,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Historial de Reportes Cypress</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
-        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
-        .report-item { border: 1px solid #ddd; margin: 10px 0; padding: 15px; border-radius: 5px; background: #fafafa; }
-        .report-item:hover { background: #f0f8ff; }
-        .report-link { color: #3498db; text-decoration: none; font-weight: bold; font-size: 16px; }
-        .report-link:hover { text-decoration: underline; }
-        .report-meta { color: #666; font-size: 14px; margin-top: 5px; }
-        .status { padding: 3px 8px; border-radius: 3px; font-size: 12px; font-weight: bold; }
-        .status.success { background: #d4edda; color: #155724; }
-        .status.failure { background: #f8d7da; color: #721c24; }
-        .date-group { margin: 30px 0; }
-        .date-header { background: #3498db; color: white; padding: 10px; border-radius: 5px; margin-bottom: 10px; }
-    </style>
+    <title>Reportes de Testing Cypress</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div class="container">
-        <h1>Historial de Reportes Cypress</h1>
-        <p><strong>Total de reportes:</strong> 3</p>
+<body class="font-sans m-5 bg-gray-100">
+    <div class="max-w-[1200px] mx-auto bg-white p-5 rounded-lg shadow-md">
+        <div class="mb-6">
+            <a href="../index.html" class="text-blue-500 hover:text-blue-700 text-sm">&larr; Volver al inicio</a>
+        </div>
+        
+        <h1 class="text-gray-800 border-b-2 border-blue-500 pb-2.5">Reportes de Testing Cypress</h1>
+        <p class="font-bold mb-4">Total de reportes: 3</p>
+        
+        <div class="bg-blue-50 border border-blue-200 rounded p-4 mb-6">
+            <p class="text-sm text-blue-800">
+                <strong>Nota:</strong> Los reportes se almacenan en <code>cypress/reports/</code> y se sincronizan automáticamente.
+            </p>
+        </div>
 
         
-        <div class="date-group">
-            <div class="date-header">2025-09-25</div>
-            <div class="report-item">
-                <a href="2025-09-25/report-2025-09-25T13-47-35.html" class="report-link" target="_blank">
+        <div class="my-7.5">
+            <div class="bg-blue-500 text-white p-2.5 rounded mb-2.5">2025-09-25</div>
+            <div class="border border-gray-300 my-2.5 p-4 rounded bg-gray-50 hover:bg-blue-50">
+                <a href="../../cypress/reports/2025-09-25/report-2025-09-25T13-47-35.html" class="text-blue-500 no-underline font-bold text-base hover:underline" target="_blank">
                     Reporte 13:47:35
                 </a>
-                <div class="report-meta">
-                    13:47:35 | 2025-09-25/report-2025-09-25T13-47-35.html
+                <div class="text-gray-600 text-sm mt-1.5">
+                    13:47:35 | Fuente: cypress/reports/2025-09-25/report-2025-09-25T13-47-35.html
                 </div>
             </div>
-            <div class="report-item">
-                <a href="2025-09-25/report-2025-09-25T14-15-26.html" class="report-link" target="_blank">
+            <div class="border border-gray-300 my-2.5 p-4 rounded bg-gray-50 hover:bg-blue-50">
+                <a href="../../cypress/reports/2025-09-25/report-2025-09-25T14-15-26.html" class="text-blue-500 no-underline font-bold text-base hover:underline" target="_blank">
                     Reporte 14:15:26
                 </a>
-                <div class="report-meta">
-                    14:15:26 | 2025-09-25/report-2025-09-25T14-15-26.html
+                <div class="text-gray-600 text-sm mt-1.5">
+                    14:15:26 | Fuente: cypress/reports/2025-09-25/report-2025-09-25T14-15-26.html
                 </div>
             </div>
-        <div class="date-group">
-            <div class="date-header">2025-09-26</div>
-            <div class="report-item">
-                <a href="2025-09-26/report-2025-09-26T14-28-13.html" class="report-link" target="_blank">
+        <div class="my-7.5">
+            <div class="bg-blue-500 text-white p-2.5 rounded mb-2.5">2025-09-26</div>
+            <div class="border border-gray-300 my-2.5 p-4 rounded bg-gray-50 hover:bg-blue-50">
+                <a href="../../cypress/reports/2025-09-26/report-2025-09-26T14-28-13.html" class="text-blue-500 no-underline font-bold text-base hover:underline" target="_blank">
                     Reporte 14:28:13
                 </a>
-                <div class="report-meta">
-                    14:28:13 | 2025-09-26/report-2025-09-26T14-28-13.html
+                <div class="text-gray-600 text-sm mt-1.5">
+                    14:28:13 | Fuente: cypress/reports/2025-09-26/report-2025-09-26T14-28-13.html
                 </div>
             </div>
     </div>
