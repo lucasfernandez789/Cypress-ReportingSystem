@@ -300,14 +300,14 @@ function syncReportsToDocsFolder() {
           let isVisible = false;
 
           if (dateFilter) {
-            // Búsqueda por fecha específica
+            // Búsqueda por fecha específica - comparación directa de strings
             isVisible = sectionDate === dateFilter;
           } else if (dateFrom || dateTo) {
-            // Búsqueda por rango
-            const date = new Date(sectionDate);
-            const fromDate = dateFrom ? new Date(dateFrom) : new Date('1900-01-01');
-            const toDate = dateTo ? new Date(dateTo) : new Date('2100-12-31');
-            isVisible = date >= fromDate && date <= toDate;
+            // Búsqueda por rango - usar comparación de strings para evitar problemas de zona horaria
+            const dateStr = sectionDate;
+            const fromStr = dateFrom || '1900-01-01';
+            const toStr = dateTo || '2100-12-31';
+            isVisible = dateStr >= fromStr && dateStr <= toStr;
           } else {
             // Sin filtros, mostrar todo
             isVisible = true;
