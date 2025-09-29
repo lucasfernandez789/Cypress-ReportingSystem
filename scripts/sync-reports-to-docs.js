@@ -199,7 +199,10 @@ function syncReportsToDocsFolder() {
             .sort(([a], [b]) => new Date(b) - new Date(a))
             .map(([date, reports]) => {
               const reportsCount = reports.length;
-              const dateFormatted = new Date(date).toLocaleDateString('es-ES', { 
+              // Crear fecha local evitando problemas de timezone
+              const [year, month, day] = date.split('-');
+              const localDate = new Date(year, month - 1, day);
+              const dateFormatted = localDate.toLocaleDateString('es-ES', { 
                 weekday: 'long', 
                 year: 'numeric', 
                 month: 'long', 
@@ -308,7 +311,7 @@ function syncReportsToDocsFolder() {
           let isVisible = false;
 
           if (dateFilter) {
-            // Búsqueda por fecha específica - comparación directa de strings
+            // Búsqueda por fecha específica - comparación exacta
             isVisible = sectionDate === dateFilter;
           } else if (dateFrom || dateTo) {
             // Búsqueda por rango - usar comparación de strings para evitar problemas de zona horaria
