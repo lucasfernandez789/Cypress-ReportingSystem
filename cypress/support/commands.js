@@ -1,10 +1,13 @@
 import { inputUsername, inputPassword, botonIngreso } from '../support/selectors';
 
 Cypress.Commands.add('login', () => {
-  cy.fixture('../fixtures/usuario.json').then((data) => {
-    cy.get(inputUsername).type(data.usuario.user);
-    cy.get(inputPassword).type(data.usuario.pass);
-    cy.get(botonIngreso).click(); 
-  });
+  // Usar variables de entorno en lugar de fixtures para mayor seguridad
+  const username = Cypress.env('USER');
+  const password = Cypress.env('PASS');
+
+  cy.get(inputUsername).type(username);
+  cy.get(inputPassword).type(password);
+  cy.get(botonIngreso).click();
 });
 
+//aca usa el .env para poner el usuario

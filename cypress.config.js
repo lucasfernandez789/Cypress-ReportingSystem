@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
@@ -12,6 +14,11 @@ module.exports = defineConfig({
     },
     // Directorio donde se guardarán los reportes
     screenshotsFolder: 'cypress/screenshots',
-    videosFolder: 'cypress/videos'
+    videosFolder: 'cypress/videos',
+    // Variables de entorno desde .env
+    env: {
+      USER: process.env.USER,
+      PASS: process.env.PASS
+    }
   },
 });

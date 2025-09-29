@@ -50,27 +50,13 @@ function generateReportIndex() {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Historial de Reportes Cypress</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
-        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
-        .report-item { border: 1px solid #ddd; margin: 10px 0; padding: 15px; border-radius: 5px; background: #fafafa; }
-        .report-item:hover { background: #f0f8ff; }
-        .report-link { color: #3498db; text-decoration: none; font-weight: bold; font-size: 16px; }
-        .report-link:hover { text-decoration: underline; }
-        .report-meta { color: #666; font-size: 14px; margin-top: 5px; }
-        .status { padding: 3px 8px; border-radius: 3px; font-size: 12px; font-weight: bold; }
-        .status.success { background: #d4edda; color: #155724; }
-        .status.failure { background: #f8d7da; color: #721c24; }
-        .date-group { margin: 30px 0; }
-        .date-header { background: #3498db; color: white; padding: 10px; border-radius: 5px; margin-bottom: 10px; }
-    </style>
+    <title>Reportes de Testing Cypress</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div class="container">
-        <h1>Historial de Reportes Cypress</h1>
-        <p><strong>Total de reportes:</strong> ${reportFiles.length}</p>
+<body class="font-sans m-5 bg-gray-100">
+    <div class="max-w-[1200px] mx-auto bg-white p-5 rounded-lg shadow-md">
+        <h1 class="text-gray-800 border-b-2 border-blue-500 pb-2.5">Historial de Reportes Cypress</h1>
+        <p class="font-bold">Total de reportes: ${reportFiles.length}</p>
 
         ${reportFiles.reduce((acc, report, index) => {
           const currentDate = report.date;
@@ -78,16 +64,16 @@ function generateReportIndex() {
 
           if (currentDate !== prevDate) {
             acc += `
-        <div class="date-group">
-            <div class="date-header">${currentDate}</div>`;
+        <div class="my-7.5">
+            <div class="bg-blue-500 text-white p-2.5 rounded mb-2.5">${currentDate}</div>`;
           }
 
           acc += `
-            <div class="report-item">
-                <a href="${report.file}" class="report-link" target="_blank">
+            <div class="border border-gray-300 my-2.5 p-4 rounded bg-gray-50 hover:bg-blue-50">
+                <a href="${report.file}" class="text-blue-500 no-underline font-bold text-base hover:underline" target="_blank">
                     Reporte ${report.time}
                 </a>
-                <div class="report-meta">
+                <div class="text-gray-600 text-sm mt-1.5">
                     ${report.time} | ${report.file}
                 </div>
             </div>`;
