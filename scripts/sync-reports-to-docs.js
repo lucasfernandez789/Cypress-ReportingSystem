@@ -7,6 +7,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const generateReportsJson = require('./generate-reports-json');
 
 function copyFileSync(source, target) {
   // Crear directorio de destino si no existe
@@ -38,6 +39,7 @@ function copyDirSync(source, target) {
 function syncReportsToDocsFolder() {
   const sourceDir = path.join(__dirname, '..', 'cypress', 'reports');
   const docsReportsDir = path.join(__dirname, '..', 'docs', 'reports');
+  const publicDir = path.join(__dirname, '..', 'public');
 
   // Limpiar directorio de destino (excepto index.html que se regenerará)
   if (fs.existsSync(docsReportsDir)) {
@@ -388,9 +390,37 @@ function syncReportsToDocsFolder() {
   const docsIndexPath = path.join(docsReportsDir, 'index.html');
   fs.writeFileSync(docsIndexPath, docsIndexHtml);
 
+  // Generar el archivo JSON para la aplicación React
+  const docsReportsJsonPath = path.join(docsReportsDir, 'report.json');
+  generateReportsJson(sourceDir, docsReportsJsonPath);
+
+  // Copiar también a public/reports para modo desarrollo
+  const publicReportsDir = path.join(__dirname, '..', 'public', 'reports');
+  if (!fs.existsSync(publicReportsDir)) {
+    fs.mkdirSync(publicReportsDir, { recursive: true });
+  }
+  const publicReportsJsonPath = path.join(publicReportsDir, 'report.json');
+  fs.copyFileSync(docsReportsJsonPath, publicReportsJsonPath);
+
+  // Copiar también los directorios de reportes individuales a public/reports
+  const sourceItems = fs.readdirSync(sourceDir);
+  for (const item of sourceItems) {
+    if (item === 'assets' || item === 'mocha' || item === 'report.json' || item === 'index.html') continue;
+
+    const sourcePath = path.join(sourceDir, item);
+    const publicPath = path.join(publicReportsDir, item);
+
+    if (fs.lstatSync(sourcePath).isDirectory()) {
+      copyDirSync(sourcePath, publicPath);
+    }
+  }
+
   console.log(` Reportes sincronizados en docs: ${docsIndexPath}`);
   console.log(` Total de reportes encontrados: ${reportFiles.length}`);
   console.log(` Archivos copiados desde cypress/reports/ a docs/reports/`);
+  console.log(` JSON generado para aplicación React: ${docsReportsJsonPath}`);
+  console.log(` JSON copiado a public/reports para modo desarrollo: ${publicReportsJsonPath}`);
+  console.log(` Directorios de reportes copiados a public/reports para modo desarrollo`);
 }
 
 syncReportsToDocsFolder();
