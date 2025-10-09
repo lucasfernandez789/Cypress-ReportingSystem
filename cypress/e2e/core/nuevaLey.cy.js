@@ -14,7 +14,7 @@ describe("Nueva Ley", () => {
     // Esperar a que el menú esté completamente abierto
     cy.contains('Nueva Ley').should('be.visible').click();
     cy.get('#idLey').should('exist').and('be.visible').type('12345');
-
+    
   });
   /*it("Deberia editar una ley existente", () => {
     //Edicion de una ley existente  
