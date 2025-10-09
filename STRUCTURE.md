@@ -1,10 +1,43 @@
 # Estructura del Proyecto - Documentación Técnica Detallada
 
-> Esta es la documentación técnica detallada de la estructura. Para inicio rápido, ver [README.md](./README.md)
+> Esta es la documentación técnica detallada de la **Versión 3.0** del sistema Cypress Testing & Reporting con interfaz web React moderna, API backend, eliminación directa, desplegables y paginación.
+
+## 🆕 Arquitectura Actualizada v3.0
+
+### **Aplicación Web React + Sistema de Testing + API Backend**
+
+- **Frontend**: React 18.3.1 con Vite 7.1.9
+- **Testing**: Cypress 15.3.0 con Mochawesome
+- **Backend**: 🆕 Express.js API para operaciones avanzadas
+- **Styling**: Tailwind CSS 3.4.18
+- **Build**: Automatización completa con scripts npm
 
 ## Análisis Detallado de la Organización
 
-### `cypress/`
+### `src/` -  Aplicación Web React
+
+Contiene el código fuente de la aplicación React para visualización de reportes:
+
+```
+src/
+├── components/                 # Componentes reutilizables
+│   └── Layout.jsx             # Layout principal con navegación
+├── pages/                     # Páginas de la aplicación
+│   ├── Home.jsx               # Página de inicio
+│   └── Reports.jsx            # Visualización de reportes por fecha
+├── App.jsx                    # Configuración de rutas (React Router)
+├── main.jsx                   # Punto de entrada de la aplicación
+└── index.css                  # Estilos globales y Tailwind
+```
+
+**Características principales:**
+- **Layout.jsx**: Navegación y estructura base
+- **Reports.jsx**: Interfaz para explorar reportes con filtros
+- **Enrutamiento**: React Router DOM para navegación SPA
+- **Responsive**: Diseño adaptativo con Tailwind CSS
+
+### `cypress/` - Sistema de Testing
+
 Contiene toda la configuración y artefactos relacionados con testing:
 
 ```
@@ -20,66 +53,116 @@ cypress/
 └── support/                    # Comandos y configuraciones
 ```
 
-### `docs/`
-Documentación pública organizada para GitHub Pages:
+### `docs/` - GitHub Pages + Aplicación Build
+
+Contiene la aplicación React compilada y reportes para publicación web:
 
 ```
 docs/
-├── assets/                     # Assets organizados
-│   ├── css/                    # Estilos
-│   ├── js/                     # Scripts
+├── assets/                     #  Assets organizados de la aplicación
+│   ├── css/                    # Estilos compilados
+│   ├── js/                     # Scripts compilados
 │   └── images/                 # Imágenes y logos
-├── reports/                    # Solo índice que apunta a cypress/reports
-│   └── index.html              # Navegador de reportes para docs
-└── index.html                  # Página principal
+├── reports/                    # Reportes para visualización web
+│   ├── index.html              # Navegador React de reportes
+│   ├── report.json             # Datos JSON consolidados
+│   ├── 2025-09-29/             # Reportes organizados por fecha
+│   │   ├── report-2025-09-29T10-30-15.html
+│   │   └── assets/             # CSS, JS, fonts del reporte
+│   └── 2025-09-30/             # Más fechas...
+└── index.html                  # 🆕 Aplicación React compilada
 ```
 
-### `scripts/`
-Scripts utilitarios para automatización:
+**Funciones:**
+- **Aplicación web**: Build de React para visualización de reportes
+- **GitHub Pages**: Publicación automática desde esta carpeta
+- **Assets organizados**: Estructura optimizada para web
+- **Reportes históricos**: Acceso a todos los reportes por fecha
+
+### `scripts/` - Utilitarios de Automatización
+
+Scripts personalizados para gestión automatizada del proyecto:
 
 ```
 scripts/
-└── sync-reports-to-docs.js     # Sincroniza reportes para GitHub Pages
+├── generate-report-index.js     # Genera índices HTML de reportes
+├── generate-reports-json.js     # Procesa y consolida datos JSON
+└── sync-reports-to-docs.js      # Sincronización automática cypress/ → docs/
 ```
 
-## Flujo de Reportes
+**Funciones de cada script:**
+- **generate-report-index.js**: Crea páginas HTML navegables
+- **generate-reports-json.js**: Procesa datos JSON de múltiples fuentes
+- **sync-reports-to-docs.js**: Copia reportes para publicación web
 
-### Principio: Fuente Única de Verdad
+### `public/` - Assets Estáticos
+
+Assets públicos servidos directamente por Vite:
+
+```
+public/
+├── assets/                     # Assets organizados
+│   ├── css/                    # Estilos adicionales
+│   ├── js/                     # Scripts adicionales
+│   ├── images/                 # Imágenes y logos
+│   │   ├── logo-legis-act-D-yCoXSC.png
+│   │   └── bug_report.svg
+│   └── js/                     # Scripts públicos
+└── reports/                    # Reportes timestamped (opcional)
+```
+
+**Características:**
+- **Assets globales**: Disponibles en toda la aplicación
+- **Rutas directas**: `/assets/images/logo.png`
+- **Vite integration**: Copiados automáticamente al build
+
+## 🆕 Flujo de Reportes Actualizado
+
+### Principio: Automatización Completa
 - **`cypress/reports/`** = Fuente única donde Cypress genera reportes
-- **`docs/reports/`** = Solo índice/navegador que apunta a cypress/reports
+- **`docs/reports/`** = Copia automática para aplicación web
+- **`src/pages/Reports.jsx`** = Interfaz React para visualización
 
-### Scripts Disponibles
+### Scripts Disponibles v3.0
 
 | Script | Propósito | Cuándo Usarlo |
 |--------|-----------|---------------|
-| `npm run test:timestamped` | Ejecuta tests y genera reportes con timestamp | Testing diario |
-| `npm run report:index` | Genera índice en cypress/reports/ | Después de ejecutar tests |
-| `npm run report:sync-docs` | Sincroniza reportes para docs/ | Para GitHub Pages |
-| `npm run docs:sync` | Ejecuta ambos: index + sync | Flujo completo recomendado |
+| `npm run test` | **FLUJO COMPLETO**: Tests + reportes + limpieza + sincronización | **Diariamente** |
+| `npm run api-server` |  Servidor API para eliminación web | **Desarrollo con eliminación** |
+| `npm run delete-report` |  Eliminar ejecución desde terminal | **Alternativa manual** |
+| `npm run report:merge` | Combinar JSONs individuales | Post-test automático |
+| `npm run report:generate` | Generar HTML con timestamp | Post-test automático |
+| `npm run report:sync-docs` | Sincronizar a docs/ y public/ | Post-test automático |
+| `npm run clean-reports` | Limpiar JSONs acumulados | Automático en `npm test` |
 
-> **Tip:** Para uso diario, solo necesitas `npm run test:timestamped` seguido de `npm run docs:sync`
+> ** Flujo recomendado:** Solo `npm run test` + `npm start` + `npm run api-server` para experiencia completa
 
-## Beneficios de esta Organización
+## Beneficios de esta Organización v3.0
 
-### 1. **Separación Clara de Responsabilidades**
-- `core/` = Funcionalidades base estables
-- `features/` = Casos específicos y nuevos desarrollos
-- `cypress/reports/` = Reportes técnicos
-- `docs/reports/` = Presentación pública
+### 1. **Aplicación Web Moderna**
+- 🆕 Interfaz React con desplegables animados por fecha
+- 🆕 Paginación automática (5 fechas por página)
+- 🆕 Eliminación directa desde la web (sin terminal)
+- Diseño responsive con Tailwind CSS
+- Navegación SPA fluida con React Router
 
-### 2. **Sin Duplicación**
-- Los archivos HTML de reportes solo existen en `cypress/reports/`
-- `docs/reports/` solo contiene enlaces, no archivos duplicados
+### 2. **API Backend Avanzada**
+- 🆕 Servidor Express.js con endpoints REST
+- 🆕 Eliminación de reportes vía API (DELETE /api/delete-report)
+- 🆕 CORS configurado para desarrollo local
+- 🆕 Regeneración automática de índices JSON
 
-### 3. **GitHub Pages Ready**
-- `docs/` está optimizado para GitHub Pages
-- Assets organizados en subcarpetas
-- Rutas relativas correctas
+### 3. **Automatización Completa**
+- `npm run test` genera todo automáticamente + limpieza
+- Copia automática a `docs/` y `public/` para web
+- Build optimizado para GitHub Pages
+- Scripts npm corregidos para Windows PowerShell
 
-### 4. **Escalabilidad**
-- Fácil añadir nuevos tests en `features/`
-- Reportes históricos organizados por fecha
-- Scripts reutilizables
+### 4. **Gestión Inteligente de Reportes**
+- 🆕 Limpieza automática de JSONs acumulados
+- 🆕 Eliminación selectiva por ejecución específica
+- Historial organizado por fechas con navegación intuitiva
+- Sincronización automática entre carpetas
 
 ## Uso Recomendado
 
@@ -138,47 +221,73 @@ El script `scripts/sync-reports-to-docs.js`:
 
 
 
-### Estructura Actual 
+### 🆕 Estructura Actual Completa v3.0
 ```
-docs/
-├── assets/              # ✅ Assets organizados
-│   ├── css/
-│   ├── js/
-│   └── images/
-└── reports/             # ✅ Solo índice/navegador
-    └── index.html       # ✅ Enlaces, no duplicación
+cypress-leyes/
+├── src/                    # 🆕 Aplicación React moderna
+│   ├── components/         # Componentes reutilizables
+│   ├── pages/             # Páginas de la aplicación
+│   │   ├── Home.jsx       # Página de inicio
+│   │   └── Reports.jsx    # 🆕 Interfaz avanzada con desplegables/paginación
+│   ├── App.jsx            # Enrutamiento React Router
+│   └── main.jsx           # Punto de entrada Vite
+├── cypress/               # Tests automatizados
+│   ├── e2e/               # Casos de test
+│   │   ├── core/          # Funcionalidades base
+│   │   └── features/      # Tests específicos
+│   ├── reports/           # Reportes técnicos (fuente única)
+│   └── support/           # Configuración y comandos
+├── docs/                  # Build + GitHub Pages
+│   ├── assets/            # Assets compilados
+│   └── reports/           # Reportes para visualización web
+├── scripts/               # 🆕 Utilitarios automatizados v3.0
+│   ├── api-server.js      # 🆕 Servidor Express API
+│   ├── delete-report.js   # 🆕 Eliminación desde terminal
+│   └── ...                # Scripts existentes
+├── public/                # Assets estáticos
+└── package.json           # Dependencias actualizadas
 
-# Documentación consolidada
-├── README.md            # ✅ Punto de entrada único
-└── STRUCTURE.md         # ✅ Detalles técnicos
-```
-
-## Escalabilidad y Mantenimiento
-
-### Para Nuevos Tests
-```bash
-
-# 1. Crear archivo en la carpeta apropiada
-cypress/e2e/core/nueva-funcionalidad.cy.js      # Para funcionalidades base
-cypress/e2e/features/nueva-card.cy.js           # Para cards específicas
-
-# 2. Ejecutar para generar reportes
-npm run test:timestamped
-
-# 3. Sincronizar para docs (opcional)
-npm run docs:sync
-```
-
-### Para Nuevos Assets en docs/
-```bash
-# Seguir la estructura organizada
-docs/assets/css/nuevo-estilo.css
-docs/assets/js/nuevo-script.js
-docs/assets/images/nueva-imagen.png
+# Documentación consolidada v3.0
+├── README.md              # ✅ Guía principal completa
+└── STRUCTURE.md           # ✅ Detalles técnicos actualizados
 ```
 
-### Para Nuevos Scripts
-```bash
-# Añadir en scripts/ y registrar en package.json
-scripts/nueva-utilidad.js
-```
+## 🆕 Características Técnicas v3.0
+
+### **Interfaz React Avanzada**
+- **Desplegables Animados**: Secciones por fecha con transiciones suaves
+- **Paginación Inteligente**: 5 fechas por página con navegación intuitiva
+- **Eliminación Directa**: Botones de eliminación con confirmación modal
+- **Responsive Design**: Adaptable a móviles y tablets
+- **Estados de Carga**: Indicadores visuales durante operaciones
+
+### **API Backend Express.js**
+- **DELETE /api/delete-report**: Endpoint para eliminación de reportes
+- **CORS Configurado**: Para desarrollo local con React
+- **Manejo de Errores**: Respuestas estructuradas con códigos HTTP
+- **Regeneración Automática**: Actualización de índices JSON post-eliminación
+
+### **Automatización Mejorada**
+- **Limpieza Automática**: JSONs acumulados eliminados entre tests
+- **Sincronización Multi-carpeta**: `docs/` y `public/` actualizados automáticamente
+- **Scripts Paralelos**: API server + aplicación React simultáneos
+- **Gestión de Procesos**: Background processes con control de estado
+
+### **Gestión de Estado React**
+- **useState Hooks**: Para expandedDates, currentPage, loading states
+- **useEffect**: Para carga inicial de datos y sincronización
+- **Fetch API**: Comunicación con backend para operaciones CRUD
+- **Error Boundaries**: Manejo robusto de errores en UI
+
+## Checklist de Nuevas Funcionalidades v3.0
+
+- [x] **API Backend**: Servidor Express con endpoints REST
+- [x] **Eliminación Web**: Sin necesidad de comandos terminal
+- [x] **UI Desplegable**: Secciones colapsables por fecha con animaciones
+- [x] **Paginación**: Sistema de páginas para navegación eficiente
+- [x] **Limpieza Automática**: JSONs acumulados eliminados automáticamente
+- [x] **Sincronización Mejorada**: Múltiples carpetas actualizadas
+- [x] **Documentación Completa**: README y STRUCTURE actualizados
+- [x] **Scripts npm**: Nuevos comandos para API y eliminación
+- [x] **Responsive Design**: Interfaz adaptable a diferentes dispositivos
+- [x] **Estados de Carga**: UX mejorada con indicadores visuales
