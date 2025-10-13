@@ -34,13 +34,13 @@ function PaginacionReportes({
   if (totalPages <= 1) return null;
 
   return (
-    <div className="flex justify-center items-center space-x-2 mt-8">
+    <div className="mt-8 flex items-center justify-center space-x-2">
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className="px-3 py-2 rounded-md bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+        className="flex items-center justify-center rounded-md border border-gray-300 bg-white px-3 py-2 text-gray-700 transition-colors duration-200 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
       >
-        ← Anterior
+        <span className="material-symbols-outlined text-base">arrow_back</span>
       </button>
 
       {getVisiblePages().map((page, index) => (
@@ -48,12 +48,12 @@ function PaginacionReportes({
           key={index}
           onClick={() => typeof page === 'number' && onPageChange(page)}
           disabled={page === '...'}
-          className={`px-3 py-2 rounded-md border transition-colors duration-200 ${
+          className={`rounded-md border px-3 py-2 transition-colors duration-200 ${
             page === currentPage
-              ? 'bg-blue-600 text-white border-blue-600'
+              ? 'border-blue-600 bg-blue-600 text-white'
               : page === '...'
-              ? 'bg-white border-gray-300 text-gray-700 cursor-default'
-              : 'bg-white border-gray-300 text-gray-700 hover:bg-gray-50'
+              ? 'cursor-default border-gray-300 bg-white text-gray-700'
+              : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
           }`}
         >
           {page}
@@ -63,9 +63,9 @@ function PaginacionReportes({
       <button
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className="px-3 py-2 rounded-md bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+        className="flex items-center justify-center rounded-md border border-gray-300 bg-white px-3 py-2 text-gray-700 transition-colors duration-200 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
       >
-        Siguiente →
+        <span className="material-symbols-outlined text-base" style={{transform: 'rotate(180deg)'}}>arrow_back</span>
       </button>
     </div>
   )

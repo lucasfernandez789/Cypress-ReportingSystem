@@ -31,8 +31,8 @@ function generateReportsJson(reportsDir, outputFile) {
         let category = 'other';
         try {
           const htmlContent = fs.readFileSync(fullPath, 'utf8');
-          const hasCore = htmlContent.includes('cypress\\\\e2e\\\\core\\\\');
-          const hasFeatures = htmlContent.includes('cypress\\\\e2e\\\\features\\\\');
+          const hasCore = htmlContent.includes('cypress\\\\e2e\\\\core');
+          const hasFeatures = htmlContent.includes('cypress\\\\e2e\\\\features');
 
           if (hasCore && hasFeatures) {
             category = 'mixed'; // Contiene ambos tipos de tests

@@ -5,8 +5,8 @@ import Footer from '../components/common/Footer'
 
 function Home() {
   return (
-    <div className="h-screen flex flex-col w-full">
-      <div className="flex-grow container mx-auto px-8 py-12 sm:py-8 md:py-12 2xl:py-12 xl:h-[70vh] flex flex-col justify-center">
+    <div className="flex h-screen w-full flex-col">
+      <div className="container mx-auto flex flex-grow flex-col justify-center px-8 py-12 sm:py-8 md:py-12 xl:h-[70vh] 2xl:py-12">
         <SeccionPrincipal />
         <TarjetasAcceso />
       </div>

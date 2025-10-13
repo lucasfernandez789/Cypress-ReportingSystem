@@ -42,7 +42,7 @@ export function useReports(category = null) {
           if (category) {
             formattedReports = formattedReports.map(report => ({
               ...report,
-              files: report.files.filter(file => file.category === category)
+              files: report.files.filter(file => file.category === category || file.category === 'mixed')
             })).filter(report => report.files.length > 0);
           }
 
@@ -151,9 +151,13 @@ export function useReports(category = null) {
   const getFilteredAndPaginatedReports = () => {
     let filtered = reports;
 
+    // Aplicar filtro de fecha específica si existe
     if (dateFilter) {
       filtered = filtered.filter(report => report.date === dateFilter);
-    } else if (dateFrom || dateTo) {
+    }
+
+    // Aplicar filtro de rango de fechas si existe
+    if (dateFrom || dateTo) {
       filtered = filtered.filter(report => {
         const dateStr = report.date;
         const fromStr = dateFrom || '1900-01-01';

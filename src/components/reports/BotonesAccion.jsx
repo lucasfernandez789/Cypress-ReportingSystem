@@ -2,12 +2,12 @@ import React from 'react'
 
 function BotonesAccion({ filePath, date, onDelete }) {
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex items-center justify-between">
       <a
         href={`/reports/${filePath}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center gap-1 px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-sm hover:bg-blue-100 transition-colors duration-200"
+        className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-3 py-1 text-sm text-blue-600 transition-colors duration-200 hover:bg-blue-100"
       >
         Ver reporte
         <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
@@ -17,7 +17,7 @@ function BotonesAccion({ filePath, date, onDelete }) {
 
       <button
         onClick={() => onDelete(date, filePath)}
-        className="inline-flex items-center gap-1 px-3 py-1 bg-red-50 text-red-600 rounded-full text-sm hover:bg-red-100 transition-colors duration-200"
+        className="inline-flex items-center gap-1 rounded-full bg-red-50 px-3 py-1 text-sm text-red-600 transition-colors duration-200 hover:bg-red-100"
         title="Eliminar esta ejecución"
       >
         <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">

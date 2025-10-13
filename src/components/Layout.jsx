@@ -9,10 +9,10 @@ function Layout() {
     <div className="min-h-screen bg-gray-100">
       {!isHomePage && (
         <nav className="bg-white shadow-sm">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between h-16">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="flex h-16 justify-between">
               <div className="flex">
-                <div className="flex-shrink-0 flex items-center">
+                <div className="flex flex-shrink-0 items-center">
                   <img className="h-8 w-auto" src="/assets/images/logo-legis-act-D-yCoXSC.png" alt="Logo" />
                 </div>
               </div>
@@ -21,7 +21,7 @@ function Layout() {
         </nav>
       )}
       <main>
-        <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
           <Outlet />
         </div>
       </main>

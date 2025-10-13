@@ -29,7 +29,7 @@ function Reports() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Reportes por Fecha</h2>
+        <h2 className="mb-4 text-2xl font-bold text-gray-900">Reportes por Fecha</h2>
 
         <EstadisticasReportes visibleCount={visibleCount} totalReports={totalReports} />
 
@@ -68,7 +68,7 @@ function Reports() {
             />
           </>
         ) : (
-          <div className="text-center py-12">
+          <div className="py-12 text-center">
             <h3 className="text-lg font-medium text-gray-900">No hay reportes disponibles</h3>
             <p className="mt-2 text-sm text-gray-500">
               No se encontraron reportes para mostrar. Ejecuta algunas pruebas primero.

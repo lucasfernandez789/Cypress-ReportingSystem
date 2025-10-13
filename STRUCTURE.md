@@ -1,15 +1,49 @@
 # Estructura del Proyecto - Documentación Técnica Detallada
 
-> Esta es la documentación técnica detallada de la **Versión 3.1** del sistema Cypress Testing & Reporting con interfaz web React moderna, arquitectura modular, custom hooks, API backend, eliminación directa, desplegables y paginación.
+> Esta es la ```
+cypress/
+├── e2e/
+│   ├── core/                   # 🆕 Funcionalidades base (categoría Core)
+│   │   └── nuevaLey.cy.js      # Test## Beneficios de esta Organización v4.0
 
-## 🆕 Arquitectura Actualizada v3.1
+### 1. **Categorización Automática Inteligente**
+- 🆕 Sistema de IA que analiza contenido HTML para categorizar reportes
+- 🆕 Detección automática de rutas Core/Features en reportes
+- 🆕 Material Symbols icons para navegación visual intuitiva
+- 🆕 Páginas dedicadas `/core` y `/features` con filtros específicos
+- 🆕 Reportes mixtos incluidos automáticamente cuando corresponde
 
-### **Aplicación Web React + Sistema de Testing + API Backend**
+### 2. **Aplicación Web Moderna con ESLint**
+- 🆕 Interfaz React con desplegables animados por fecha
+- 🆕 Paginación automática (5 fechas por página)
+- 🆕 Eliminación directa desde la web (sin terminal)
+- 🆕 ESLint configurado con plugin Tailwind CSS
+- 🆕 Diseño responsive con Tailwind CSS
+- 🆕 Navegación SPA fluida con React Router
+
+### 3. **API Backend Avanzada**
+- 🆕 Servidor Express.js con endpoints REST
+- 🆕 Eliminación de reportes vía API (DELETE /api/delete-report)
+- 🆕 CORS configurado para desarrollo local
+- 🆕 Regeneración automática de índices JSONidades principales
+│   └── features/               # 🆕 Features específicas (categoría Features)
+│       └── (tests futuros)     # Tests para casos específicos/features
+├── fixtures/                   # Datos de prueba
+├── reports/                    # Reportes técnicos (fuente única)
+├── screenshots/                # Capturas de errores
+└── support/                    # Comandos y configuraciones
+```n técnica detallada de la **Versión 4.0** del sistema Cypress Testing & Reporting con interfaz web React moderna, categorización automática Core/Features, Material Symbols, ESLint configurado y arquitectura modular avanzada.
+
+## 🆕 Arquitectura Actualizada v4.0
+
+### **Aplicación Web React + Sistema de Testing + API Backend + Categorización Inteligente**
 
 - **Frontend**: React 18.3.1 con Vite 7.1.9
-- **Testing**: Cypress 15.3.0 con Mochawesome
+- **Testing**: Cypress 15.3.0 con Mochawesome + categorización automática
 - **Backend**: Express.js API para operaciones avanzadas
-- **Styling**: Tailwind CSS 3.4.18
+- **Styling**: Tailwind CSS 3.4.18 con ESLint configurado
+- **Icons**: Material Symbols de Google Fonts
+- **Categorización**: Core/Features automática basada en contenido HTML
 - **Arquitectura**: Componentes modulares con custom hooks
 - **Build**: Automatización completa con scripts npm
 
@@ -26,6 +60,7 @@ src/
 │   │   └── Footer.jsx         # Footer común a toda la aplicación
 │   ├── home/                  # Componentes específicos de la página Home
 │   │   ├── SeccionPrincipal.jsx   # Sección principal con logo y título
+│   │   ├── TarjetasAcceso.jsx     # 🆕 Tarjetas Core/Features con Material Symbols
 │   │   └── TarjetaReportes.jsx    # Tarjeta de navegación a reportes
 │   ├── reports/               # Componentes específicos de reportes
 │   │   ├── EstadisticasReportes.jsx  # Dashboard de estadísticas
@@ -38,8 +73,10 @@ src/
 ├── hooks/                     # 🆕 Custom hooks para lógica reutilizable
 │   └── useReports.js          # Hook principal para gestión de reportes
 ├── pages/                     # Páginas principales (vistas limpias)
-│   ├── Home.jsx               # Página de inicio (82 líneas - súper limpia)
-│   └── Reports.jsx            # Visualización de reportes (83 líneas - súper limpia)
+│   ├── Home.jsx               # Página de inicio con tarjetas Core/Features
+│   ├── CoreReports.jsx        # 🆕 Reportes dedicados para funcionalidades Core
+│   ├── FeatureReports.jsx     # 🆕 Reportes dedicados para funcionalidades Features
+│   └── Reports.jsx            # Interfaz avanzada de reportes (legacy)
 ├── App.jsx                    # Configuración de rutas (React Router)
 ├── main.jsx                   # Punto de entrada de la aplicación
 └── index.css                  # Estilos globales y Tailwind
@@ -115,7 +152,7 @@ Scripts personalizados para gestión automatizada del proyecto:
 ```
 scripts/
 ├── generate-report-index.js     # Genera índices HTML de reportes
-├── generate-reports-json.js     # Procesa y consolida datos JSON
+├── generate-reports-json.js     # 🆕 Procesa y consolida datos JSON con categorización automática
 └── sync-reports-to-docs.js      # Sincronización automática cypress/ → docs/
 ```
 
@@ -166,7 +203,38 @@ public/
 
 > ** Flujo recomendado:** Solo `npm run test` + `npm start` + `npm run api-server` para experiencia completa
 
-## Beneficios de esta Organización v3.0
+##  Sistema de Categorización Automática Core/Features
+
+### Cómo Funciona la Inteligencia Artificial de Categorización
+El sistema utiliza análisis de contenido HTML para categorizar automáticamente cada reporte:
+
+**Algoritmo de Detección:**
+1. **Análisis HTML**: Examina el contenido completo del reporte generado
+2. **Detección de Rutas**: Busca patrones `cypress\\e2e\\core\\` y `cypress\\e2e\\features\\`
+3. **Clasificación**: Asigna categoría basada en las rutas encontradas
+4. **Metadata Enriquecida**: Agrega información de categoría al JSON del reporte
+
+**Categorías del Sistema:**
+- **Core** : Funcionalidades básicas y críticas del sistema
+- **Features** : Funcionalidades específicas y avanzadas
+- **Mixed** : Reportes que combinan ambas categorías
+
+### Navegación por Categorías Dedicadas
+- **Home Page**: Tarjetas con Material Symbols para acceso directo
+- **Páginas Especializadas**: `/core` y `/features` con filtros específicos
+- **Filtros Inteligentes**: Incluyen reportes mixtos cuando corresponde
+
+### Material Symbols Integration
+```html
+<!-- index.html -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+
+<!-- En componentes React -->
+<span className="material-symbols-outlined text-6xl text-gray-400">science</span>     <!-- Core -->
+<span className="material-symbols-outlined text-6xl text-gray-400">extension</span>  <!-- Features -->
+```
+
+## Beneficios de esta Organización v4.0
 
 ### 1. **Aplicación Web Moderna**
 - 🆕 Interfaz React con desplegables animados por fecha
@@ -250,38 +318,44 @@ El script `scripts/sync-reports-to-docs.js`:
 
 
 
-### 🆕 Estructura Actual Completa v3.0
+### 🆕 Estructura Actual Completa v4.0
 ```
 cypress-leyes/
 ├── src/                    # 🆕 Aplicación React moderna
 │   ├── components/         # Componentes reutilizables
 │   ├── pages/             # Páginas de la aplicación
-│   │   ├── Home.jsx       # Página de inicio
-│   │   └── Reports.jsx    # 🆕 Interfaz avanzada con desplegables/paginación
+│   │   ├── Home.jsx       # Página de inicio con tarjetas Core/Features
+│   │   ├── CoreReports.jsx    # 🆕 Reportes dedicados Core
+│   │   ├── FeatureReports.jsx # 🆕 Reportes dedicados Features
+│   │   └── Reports.jsx    # Interfaz avanzada (legacy)
 │   ├── App.jsx            # Enrutamiento React Router
 │   └── main.jsx           # Punto de entrada Vite
 ├── cypress/               # Tests automatizados
 │   ├── e2e/               # Casos de test
-│   │   ├── core/          # Funcionalidades base
-│   │   └── features/      # Tests específicos
+│   │   ├── core/          # 🆕 Categoría Core (funcionalidades base)
+│   │   └── features/      # 🆕 Categoría Features (funcionalidades específicas)
 │   ├── reports/           # Reportes técnicos (fuente única)
 │   └── support/           # Configuración y comandos
 ├── docs/                  # Build + GitHub Pages
 │   ├── assets/            # Assets compilados
 │   └── reports/           # Reportes para visualización web
-├── scripts/               # 🆕 Utilitarios automatizados v3.0
+├── scripts/               # 🆕 Utilitarios automatizados v4.0
 │   ├── api-server.js      # 🆕 Servidor Express API
 │   ├── delete-report.js   # 🆕 Eliminación desde terminal
-│   └── ...                # Scripts existentes
+│   ├── generate-reports-json.js # 🆕 Categorización automática inteligente
+│   └── sync-reports-to-docs.js  # Sincronización automática
+├── .vscode/               # 🆕 Configuración VS Code
+│   └── settings.json      # Configuración Tailwind CSS
+├── eslint.config.js       # 🆕 ESLint v9 con plugin Tailwind
 ├── public/                # Assets estáticos
 └── package.json           # Dependencias actualizadas
 
-# Documentación consolidada v3.0
+# Documentación consolidada v4.0
 ├── README.md              # ✅ Guía principal completa
 └── STRUCTURE.md           # ✅ Detalles técnicos actualizados
 ```
 
-## 🆕 Características Técnicas v3.1
+## 🆕 Características Técnicas v4.0
 
 ### **Arquitectura Modular React**
 - **Componentes Modulares**: Separación por funcionalidad (home/, common/, reports/)
@@ -316,8 +390,14 @@ cypress-leyes/
 - **Fetch API**: Comunicación con backend para operaciones CRUD
 - **Error Boundaries**: Manejo robusto de errores en UI
 
-## Checklist de Nuevas Funcionalidades v3.1
+## Checklist de Nuevas Funcionalidades v4.0
 
+- [x] **Categorización Automática**: Sistema de IA que analiza HTML para clasificar Core/Features
+- [x] **Material Symbols Icons**: Iconografía consistente con Google Fonts (science/extension)
+- [x] **Páginas Dedicadas**: `/core` y `/features` con navegación especializada
+- [x] **ESLint Configurado**: Plugin Tailwind CSS resuelve problemas de linting
+- [x] **Configuración VS Code**: Settings.json para reconocimiento de Tailwind
+- [x] **Iconos Gris Claro**: Mejor apariencia visual y consistencia
 - [x] **Arquitectura Modular**: Componentes organizados por funcionalidad
 - [x] **Custom Hooks**: Lógica de negocio centralizada en `useReports.js`
 - [x] **Separación de Responsabilidades**: UI vs lógica vs estado claramente separados
@@ -328,6 +408,8 @@ cypress-leyes/
 - [x] **Eliminación Web**: Sin necesidad de comandos terminal
 - [x] **UI Desplegable**: Secciones colapsables por fecha con animaciones
 - [x] **Paginación**: Sistema de páginas para navegación eficiente
+- [x] **Responsive Design**: Adaptable a móviles y tablets
+- [x] **Estados de Carga**: UX mejorada con indicadores visuales
 - [x] **Limpieza Automática**: JSONs acumulados eliminados automáticamente
 - [x] **Sincronización Mejorada**: Múltiples carpetas actualizadas
 - [x] **Documentación Completa**: README y STRUCTURE actualizados

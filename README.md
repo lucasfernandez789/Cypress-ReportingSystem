@@ -1,7 +1,7 @@
 ﻿# Cypress Testing & Reporting System
 ## Sistema Completo de Testing Automatizado con Interfaz Web Moderna
 
-> **Versión 3.0** - Testing automatizado con Cypress, reportes organizados por fecha, interfaz web React con eliminación directa, desplegables y paginación.
+> **Versión 4.0** - Testing automatizado con Cypress, reportes organizados por categorías Core/Features, interfaz web React con Material Symbols, ESLint configurado y categorización automática inteligente.
 
 ## Inicio Rápido
 
@@ -9,7 +9,7 @@
 # Instalar dependencias
 npm install
 
-# EJECUTAR TESTS (con reportes automáticos)
+# EJECUTAR TESTS (con reportes automáticos categorizados)
 npm run test
 
 # VER REPORTES EN APLICACIÓN WEB
@@ -18,34 +18,42 @@ npm start
 # INICIAR SERVIDOR API (para eliminación directa)
 npm run api-server
 
+# VERIFICAR CÓDIGO (ESLint + Tailwind)
+npm run lint
+
 # ABRIR CYPRESS EN MODO INTERACTIVO
 npm run cypress:open
 ```
 
 ## Características Principales
 
-### Testing Automatizado
+### Testing Automatizado Inteligente
 - **Cypress 15.3.0** con configuración multi-reporter
+- **Categorización automática** Core vs Features basada en contenido HTML
 - **Limpieza automática** de archivos JSON entre ejecuciones
-- **Reportes Mochawesome** organizados por fecha y timestamp
+- **Reportes Mochawesome** organizados por fecha, timestamp y categoría
 - **Screenshots automáticos** en caso de fallos
 
-### Interfaz Web Moderna
+### Interfaz Web Moderna con Material Symbols
 - **React 18.3.1** con Vite 7.1.9 para desarrollo rápido
-- **Tailwind CSS 3.4.18** para diseño responsive
+- **Tailwind CSS 3.4.18** con ESLint configurado
+- **Material Symbols** de Google Fonts para iconografía consistente
 - **Arquitectura modular** con componentes reutilizables
 - **Custom hooks** para lógica de negocio centralizada
+- **Categorización visual** Core/Features con iconos diferenciados
 - **Eliminación directa** desde la web (sin terminal)
 - **Desplegables por fecha** con animaciones
 - **Paginación inteligente** (5 fechas por página)
-- **Filtros avanzados** por fecha específica o rangos
+- **Filtros avanzados** por fecha específica, rangos y categorías
 
-### Sistema de Reportes
-- **Generación automática** después de cada test
-- **Historial completo** de todas las ejecuciones
+### Sistema de Reportes Inteligente
+- **Categorización automática** basada en rutas de archivos (`cypress/e2e/core/` vs `cypress/e2e/features/`)
+- **Generación automática** después de cada test con metadata enriquecida
+- **Historial completo** de todas las ejecuciones por categoría
 - **Organización por fecha** con múltiples ejecuciones por día
 - **Sincronización automática** entre desarrollo y producción
 - **API REST** para operaciones avanzadas
+- **Filtros por categoría** Core/Features/Mixed
 
 ## Estructura del Proyecto
 
@@ -69,15 +77,18 @@ cypress-leyes/
 │   ├── hooks/                   # Custom hooks para lógica reutilizable
 │   │   └── useReports.js        # Hook principal para gestión de reportes
 │   ├── pages/                   # Páginas principales (vistas)
-│   │   ├── Home.jsx             # Página de inicio (82 líneas)
-│   │   └── Reports.jsx          # Interfaz avanzada de reportes (83 líneas)
+│   │   ├── Home.jsx             # Página de inicio con tarjetas Core/Features
+│   │   ├── CoreReports.jsx      # 🆕 Reportes de funcionalidades Core
+│   │   ├── FeatureReports.jsx   # 🆕 Reportes de funcionalidades Features
+│   │   └── Reports.jsx          # Interfaz avanzada de reportes (legacy)
 │   ├── App.jsx                  # Enrutamiento React Router
 │   ├── main.jsx                 # Punto de entrada
 │   └── index.css                # Estilos Tailwind
 ├── cypress/                      # Tests automatizados
 │   ├── e2e/
-│   │   ├── core/                # Funcionalidades base
-│   │   └── features/            # Features específicas
+│   │   ├── core/                # 🆕 Funcionalidades base (categoría Core)
+│   │   │   └── nuevaLey.cy.js   # Tests de funcionalidades principales
+│   │   └── features/            # 🆕 Features específicas (categoría Features)
 │   ├── fixtures/                # Datos de prueba
 │   ├── reports/                 # Reportes técnicos (fuente única)
 │   ├── screenshots/             # Capturas de errores
@@ -89,7 +100,7 @@ cypress-leyes/
 ├── scripts/                     # Automatización avanzada
 │   ├── api-server.js            # Servidor API para eliminación
 │   ├── delete-report.js         # Eliminación desde terminal
-│   ├── generate-reports-json.js # Procesamiento JSON
+│   ├── generate-reports-json.js # 🆕 Procesamiento JSON con categorización automática
 │   └── sync-reports-to-docs.js  # Sincronización automática
 ├── public/                      # Assets estáticos desarrollo
 │   └── reports/                 # Copia automática para dev
@@ -107,6 +118,8 @@ cypress-leyes/
 |---------|-------------|
 | `npm start` | Inicia servidor de desarrollo (Vite) |
 | `npm run build` | Compila aplicación para producción |
+| `npm run lint` | 🆕 Verifica código con ESLint + Tailwind |
+| `npm run lint:fix` | 🆕 Corrige automáticamente problemas de código |
 | `npm run preview` | Vista previa del build |
 
 ### Testing con Cypress
@@ -337,6 +350,51 @@ curl http://localhost:3001/api/health
 npm run delete-report "fecha" "archivo"
 ```
 
+## 🆕 Sistema de Categorización Automática
+
+### Cómo Funciona la Categorización
+El sistema analiza automáticamente el contenido HTML de cada reporte generado para determinar su categoría:
+
+- **Core**: Tests de funcionalidades básicas y críticas del sistema
+  - Detecta rutas: `cypress/e2e/core/`
+  - Icono: 🔬 (science) - Material Symbol
+  
+- **Features**: Tests de funcionalidades específicas y avanzadas
+  - Detecta rutas: `cypress/e2e/features/`
+  - Icono: 🧩 (extension) - Material Symbol
+  
+- **Mixed**: Tests que combinan ambas categorías
+  - Contiene ambas rutas en el mismo reporte
+
+### Navegación por Categorías
+- **Página Home**: Tarjetas con Material Symbols para acceder a Core/Features
+- **Páginas Dedicadas**: `/core` y `/features` con filtros específicos
+- **Filtros Inteligentes**: Incluyen reportes mixtos cuando corresponde
+
+### Configuración ESLint + Tailwind CSS
+```json
+// eslint.config.js - Configuración moderna ESLint v9
+import js from '@eslint/js';
+import tsparser from '@typescript-eslint/parser';
+import tailwind from 'eslint-plugin-tailwindcss';
+
+export default [
+  js.configs.recommended,
+  {
+    files: ['src/**/*.{js,jsx}'],
+    plugins: { tailwindcss: tailwind },
+    rules: {
+      'tailwindcss/no-custom-classname': 'off',
+      'tailwindcss/classnames-order': 'warn'
+    }
+  }
+];
+```
+
+**Comandos de linting:**
+- `npm run lint` - Verificar código
+- `npm run lint:fix` - Corregir automáticamente
+
 ## Contribución
 
 1. Fork el proyecto
@@ -356,5 +414,5 @@ npm run delete-report "fecha" "archivo"
 ---
 
 **Última actualización:** Octubre 2025
-**Versión:** 3.1.0
-**Novedades:** Arquitectura modular con componentes reutilizables, custom hooks, separación de responsabilidades, interfaz ultra-limpia, eliminación de código no utilizado
+**Versión:** 4.0.0
+**Novedades:** Categorización automática Core/Features, Material Symbols icons, ESLint configurado, navegación dedicada por categorías, iconos gris claro, arquitectura modular mejorada

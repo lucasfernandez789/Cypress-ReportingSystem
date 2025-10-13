@@ -3,10 +3,10 @@ import ReporteItem from './ReporteItem'
 
 function ReporteFecha({ report, isExpanded, onToggleExpansion, onDeleteExecution }) {
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden date-section" data-date={report.date}>
+    <div className="date-section overflow-hidden rounded-lg bg-white shadow-md" data-date={report.date}>
       {/* Header de fecha - Clickable para expandir/colapsar */}
       <div
-        className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-4 cursor-pointer hover:from-blue-700 hover:to-indigo-700 transition-colors duration-200"
+        className="cursor-pointer bg-gradient-to-r from-blue-600 to-indigo-600 p-4 text-white transition-colors duration-200 hover:from-blue-700 hover:to-indigo-700"
         onClick={() => onToggleExpansion(report.date)}
       >
         <div className="flex items-center justify-between">
@@ -21,7 +21,7 @@ function ReporteFecha({ report, isExpanded, onToggleExpansion, onDeleteExecution
             </svg>
             <div>
               <h3 className="text-xl font-semibold">{report.dateFormatted}</h3>
-              <p className="text-blue-100 text-sm">{report.files ? report.files.length : 0} ejecuciones de tests</p>
+              <p className="text-sm text-blue-100">{report.files ? report.files.length : 0} ejecuciones de tests</p>
             </div>
           </div>
           <div className="text-right">
@@ -33,7 +33,7 @@ function ReporteFecha({ report, isExpanded, onToggleExpansion, onDeleteExecution
 
       {/* Contenido desplegable */}
       {isExpanded && (
-        <div className="p-4 border-t border-gray-200">
+        <div className="border-t border-gray-200 p-4">
           <div className="grid gap-4">
             {report.files && report.files.map((file, fileIndex) => (
               <ReporteItem
