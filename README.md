@@ -33,6 +33,8 @@ npm run cypress:open
 ### Interfaz Web Moderna
 - **React 18.3.1** con Vite 7.1.9 para desarrollo rápido
 - **Tailwind CSS 3.4.18** para diseño responsive
+- **Arquitectura modular** con componentes reutilizables
+- **Custom hooks** para lógica de negocio centralizada
 - **Eliminación directa** desde la web (sin terminal)
 - **Desplegables por fecha** con animaciones
 - **Paginación inteligente** (5 fechas por página)
@@ -50,38 +52,52 @@ npm run cypress:open
 ```
 cypress-leyes/
 ├── src/                           # Aplicación React moderna
-│   ├── components/
+│   ├── components/                # Componentes modulares organizados
+│   │   ├── common/               # Componentes compartidos
+│   │   │   └── Footer.jsx        # Footer reutilizable
+│   │   ├── home/                 # Componentes específicos de Home
+│   │   │   ├── SeccionPrincipal.jsx  # Sección principal con logo
+│   │   │   └── TarjetaReportes.jsx   # Tarjeta de navegación
+│   │   ├── reports/              # Componentes específicos de reportes
+│   │   │   ├── EstadisticasReportes.jsx  # Estadísticas de reportes
+│   │   │   ├── FiltrosReportes.jsx       # Sistema de filtros
+│   │   │   ├── PaginacionReportes.jsx    # Paginación inteligente
+│   │   │   ├── ReporteFecha.jsx          # Sección desplegable por fecha
+│   │   │   ├── ReporteItem.jsx           # Item individual de reporte
+│   │   │   └── BotonesAccion.jsx         # Botones de acción (ver/eliminar)
 │   │   └── Layout.jsx            # Layout con navegación
-│   ├── pages/
-│   │   ├── Home.jsx              # Página de inicio
-│   │   └── Reports.jsx           # Interfaz avanzada de reportes
-│   ├── App.jsx                   # Enrutamiento React Router
-│   ├── main.jsx                  # Punto de entrada
-│   └── index.css                 # Estilos Tailwind
-├── cypress/                       # Tests automatizados
+│   ├── hooks/                   # Custom hooks para lógica reutilizable
+│   │   └── useReports.js        # Hook principal para gestión de reportes
+│   ├── pages/                   # Páginas principales (vistas)
+│   │   ├── Home.jsx             # Página de inicio (82 líneas)
+│   │   └── Reports.jsx          # Interfaz avanzada de reportes (83 líneas)
+│   ├── App.jsx                  # Enrutamiento React Router
+│   ├── main.jsx                 # Punto de entrada
+│   └── index.css                # Estilos Tailwind
+├── cypress/                      # Tests automatizados
 │   ├── e2e/
-│   │   ├── core/                 # Funcionalidades base
-│   │   └── features/             # Features específicas
-│   ├── fixtures/                 # Datos de prueba
-│   ├── reports/                  # Reportes técnicos (fuente única)
-│   ├── screenshots/              # Capturas de errores
-│   └── support/                  # Comandos y configuración
-├── docs/                         # GitHub Pages + app build
-│   ├── assets/                   # Assets organizados
-│   ├── reports/                  # Reportes web + JSON índice
-│   └── index.html                # App React compilada
-├── scripts/                      # Automatización avanzada
-│   ├── api-server.js             # Servidor API para eliminación
-│   ├── delete-report.js          # Eliminación desde terminal
-│   ├── generate-reports-json.js  # Procesamiento JSON
-│   └── sync-reports-to-docs.js   # Sincronización automática
-├── public/                       # Assets estáticos desarrollo
-│   └── reports/                  # Copia automática para dev
-├── package.json                  # Dependencias y scripts
+│   │   ├── core/                # Funcionalidades base
+│   │   └── features/            # Features específicas
+│   ├── fixtures/                # Datos de prueba
+│   ├── reports/                 # Reportes técnicos (fuente única)
+│   ├── screenshots/             # Capturas de errores
+│   └── support/                 # Comandos y configuración
+├── docs/                        # GitHub Pages + app build
+│   ├── assets/                  # Assets organizados
+│   ├── reports/                 # Reportes web + JSON índice
+│   └── index.html               # App React compilada
+├── scripts/                     # Automatización avanzada
+│   ├── api-server.js            # Servidor API para eliminación
+│   ├── delete-report.js         # Eliminación desde terminal
+│   ├── generate-reports-json.js # Procesamiento JSON
+│   └── sync-reports-to-docs.js  # Sincronización automática
+├── public/                      # Assets estáticos desarrollo
+│   └── reports/                 # Copia automática para dev
+├── package.json                 # Dependencias y scripts
 ├── vite.config.js               # Configuración Vite
 ├── cypress.config.js            # Configuración Cypress
-├── README.md                     # Esta documentación
-└── STRUCTURE.md                  # Documentación técnica
+├── README.md                    # Esta documentación
+└── STRUCTURE.md                 # Documentación técnica
 ```
 
 ## Comandos Disponibles
@@ -193,17 +209,29 @@ fetch('http://localhost:3001/api/delete-report', {
 - **Build Tool**: Vite 7.1.9 (desarrollo rápido)
 - **Styling**: Tailwind CSS 3.4.18
 - **Routing**: React Router DOM 6.30.1
+- **Arquitectura**: Componentes modulares con separación de responsabilidades
+- **Custom Hooks**: Lógica de negocio centralizada y reutilizable
 
-### Sistema de Testing Cypress
-- **Cypress**: 15.3.0 con configuración multi-reporter
-- **Reportes**: Mochawesome con organización automática
-- **Screenshots**: Capturas automáticas en fallos
+### Estructura de Componentes
+```
+📁 components/
+├── 📁 common/     # Componentes compartidos (Footer)
+├── 📁 home/       # Componentes específicos de Home
+├── 📁 reports/    # Componentes específicos de reportes
+└── Layout.jsx     # Layout principal
+```
 
-### API Backend Express
-- **Framework**: Express.js con CORS
-- **Endpoints**: RESTful para operaciones de reportes
-- **Puerto**: 3001 (configurable)
-- **Funciones**: Eliminación, health check, consulta de reportes
+### Custom Hooks
+```
+📁 hooks/
+└── useReports.js  # Gestión completa del estado de reportes
+```
+
+### Patrón de Diseño Implementado
+- **Single Responsibility**: Cada componente tiene una función específica
+- **Composition over Inheritance**: Componentes compuestos para funcionalidad compleja
+- **Custom Hooks**: Lógica reutilizable separada de la UI
+- **Props Interface**: Comunicación clara entre componentes padre-hijo
 
 ## Configuración Inicial
 
@@ -256,6 +284,19 @@ Sincroniza reportes desde `cypress/reports/` hacia `docs/reports/` y `public/rep
 
 ## Mejores Prácticas Implementadas
 
+### Arquitectura de Software
+- **Componentes modulares**: Separación clara por funcionalidad (home/, common/, reports/)
+- **Single Responsibility Principle**: Cada componente tiene una única responsabilidad
+- **Custom hooks**: Lógica de negocio centralizada y reutilizable
+- **Composition pattern**: Componentes compuestos para funcionalidad compleja
+
+### Desarrollo Frontend
+- **Separación de concerns**: UI vs lógica de negocio vs estado
+- **Props interface**: Comunicación clara y tipada entre componentes
+- **Reutilización**: Componentes diseñados para ser reutilizables
+- **Mantenibilidad**: Código fácil de modificar y extender
+
+### Automatización y Testing
 - **Separación de concerns**: cypress/ vs docs/ vs public/
 - **Fuente única de verdad**: `cypress/reports/` como origen
 - **Automatización completa**: Flujo `npm run test` → reportes listos
@@ -315,5 +356,5 @@ npm run delete-report "fecha" "archivo"
 ---
 
 **Última actualización:** Octubre 2025
-**Versión:** 3.0.0
-**Novedades:** API Server, eliminación web, desplegables, paginación, limpieza automática
+**Versión:** 3.1.0
+**Novedades:** Arquitectura modular con componentes reutilizables, custom hooks, separación de responsabilidades, interfaz ultra-limpia, eliminación de código no utilizado

@@ -1,15 +1,16 @@
 # Estructura del Proyecto - Documentación Técnica Detallada
 
-> Esta es la documentación técnica detallada de la **Versión 3.0** del sistema Cypress Testing & Reporting con interfaz web React moderna, API backend, eliminación directa, desplegables y paginación.
+> Esta es la documentación técnica detallada de la **Versión 3.1** del sistema Cypress Testing & Reporting con interfaz web React moderna, arquitectura modular, custom hooks, API backend, eliminación directa, desplegables y paginación.
 
-## 🆕 Arquitectura Actualizada v3.0
+## 🆕 Arquitectura Actualizada v3.1
 
 ### **Aplicación Web React + Sistema de Testing + API Backend**
 
 - **Frontend**: React 18.3.1 con Vite 7.1.9
 - **Testing**: Cypress 15.3.0 con Mochawesome
-- **Backend**: 🆕 Express.js API para operaciones avanzadas
+- **Backend**: Express.js API para operaciones avanzadas
 - **Styling**: Tailwind CSS 3.4.18
+- **Arquitectura**: Componentes modulares con custom hooks
 - **Build**: Automatización completa con scripts npm
 
 ## Análisis Detallado de la Organización
@@ -20,21 +21,49 @@ Contiene el código fuente de la aplicación React para visualización de report
 
 ```
 src/
-├── components/                 # Componentes reutilizables
+├── components/                 # 🆕 Arquitectura modular de componentes
+│   ├── common/                # Componentes compartidos y reutilizables
+│   │   └── Footer.jsx         # Footer común a toda la aplicación
+│   ├── home/                  # Componentes específicos de la página Home
+│   │   ├── SeccionPrincipal.jsx   # Sección principal con logo y título
+│   │   └── TarjetaReportes.jsx    # Tarjeta de navegación a reportes
+│   ├── reports/               # Componentes específicos de reportes
+│   │   ├── EstadisticasReportes.jsx  # Dashboard de estadísticas
+│   │   ├── FiltrosReportes.jsx       # Sistema de filtros avanzado
+│   │   ├── PaginacionReportes.jsx    # Paginación inteligente
+│   │   ├── ReporteFecha.jsx          # Sección desplegable por fecha
+│   │   ├── ReporteItem.jsx           # Item individual de ejecución
+│   │   └── BotonesAccion.jsx         # Botones de acción (ver/eliminar)
 │   └── Layout.jsx             # Layout principal con navegación
-├── pages/                     # Páginas de la aplicación
-│   ├── Home.jsx               # Página de inicio
-│   └── Reports.jsx            # Visualización de reportes por fecha
+├── hooks/                     # 🆕 Custom hooks para lógica reutilizable
+│   └── useReports.js          # Hook principal para gestión de reportes
+├── pages/                     # Páginas principales (vistas limpias)
+│   ├── Home.jsx               # Página de inicio (82 líneas - súper limpia)
+│   └── Reports.jsx            # Visualización de reportes (83 líneas - súper limpia)
 ├── App.jsx                    # Configuración de rutas (React Router)
 ├── main.jsx                   # Punto de entrada de la aplicación
 └── index.css                  # Estilos globales y Tailwind
 ```
 
-**Características principales:**
-- **Layout.jsx**: Navegación y estructura base
-- **Reports.jsx**: Interfaz para explorar reportes con filtros
-- **Enrutamiento**: React Router DOM para navegación SPA
-- **Responsive**: Diseño adaptativo con Tailwind CSS
+**Características principales de la arquitectura:**
+- **Componentes modulares**: Separación por funcionalidad (home/, common/, reports/)
+- **Single Responsibility**: Cada componente tiene una única responsabilidad
+- **Custom hooks**: Lógica de negocio centralizada en `useReports.js`
+- **Composition pattern**: Componentes compuestos para funcionalidad compleja
+- **Reutilización**: Componentes diseñados para ser reutilizables
+- **Mantenibilidad**: Código fácil de localizar y modificar
+
+**Flujo de composición:**
+```
+Reports.jsx (Vista)
+├── useReports.js (Lógica centralizada)
+├── EstadisticasReportes.jsx (UI - Estadísticas)
+├── FiltrosReportes.jsx (UI - Filtros)
+├── ReporteFecha.jsx (UI - Fecha desplegable)
+│   ├── ReporteItem.jsx (UI - Item individual)
+│   │   └── BotonesAccion.jsx (UI - Botones)
+└── PaginacionReportes.jsx (UI - Paginación)
+```
 
 ### `cypress/` - Sistema de Testing
 
@@ -252,7 +281,15 @@ cypress-leyes/
 └── STRUCTURE.md           # ✅ Detalles técnicos actualizados
 ```
 
-## 🆕 Características Técnicas v3.0
+## 🆕 Características Técnicas v3.1
+
+### **Arquitectura Modular React**
+- **Componentes Modulares**: Separación por funcionalidad (home/, common/, reports/)
+- **Single Responsibility**: Cada componente tiene una única responsabilidad
+- **Custom Hooks**: Lógica de negocio centralizada en `useReports.js`
+- **Composition Pattern**: Componentes compuestos para funcionalidad compleja
+- **Reutilización**: Componentes diseñados para ser reutilizables
+- **Mantenibilidad**: Código fácil de localizar y modificar
 
 ### **Interfaz React Avanzada**
 - **Desplegables Animados**: Secciones por fecha con transiciones suaves
@@ -279,8 +316,14 @@ cypress-leyes/
 - **Fetch API**: Comunicación con backend para operaciones CRUD
 - **Error Boundaries**: Manejo robusto de errores en UI
 
-## Checklist de Nuevas Funcionalidades v3.0
+## Checklist de Nuevas Funcionalidades v3.1
 
+- [x] **Arquitectura Modular**: Componentes organizados por funcionalidad
+- [x] **Custom Hooks**: Lógica de negocio centralizada en `useReports.js`
+- [x] **Separación de Responsabilidades**: UI vs lógica vs estado claramente separados
+- [x] **Componentes Reutilizables**: Diseño para máxima reutilización
+- [x] **Código Ultra-Limpio**: Páginas súper concisas (82-83 líneas)
+- [x] **Mantenibilidad Mejorada**: Fácil localizar y modificar componentes
 - [x] **API Backend**: Servidor Express con endpoints REST
 - [x] **Eliminación Web**: Sin necesidad de comandos terminal
 - [x] **UI Desplegable**: Secciones colapsables por fecha con animaciones
