@@ -26,13 +26,33 @@ function generateReportsJson(reportsDir, outputFile) {
           date = item.match(/report-(\d{4}-\d{2}-\d{2})/)?.[1] || 'unknown';
         }
         const time = item.match(/T(\d{2}-\d{2}-\d{2})/)?.[1]?.replace(/-/g, ':') || 'unknown';
-        
+
+        // Determinar categoría leyendo el contenido del archivo HTML
+        let category = 'other';
+        try {
+          const htmlContent = fs.readFileSync(fullPath, 'utf8');
+          const hasCore = htmlContent.includes('cypress\\\\e2e\\\\core\\\\');
+          const hasFeatures = htmlContent.includes('cypress\\\\e2e\\\\features\\\\');
+
+          if (hasCore && hasFeatures) {
+            category = 'mixed'; // Contiene ambos tipos de tests
+          } else if (hasCore) {
+            category = 'core';
+          } else if (hasFeatures) {
+            category = 'features';
+          }
+        } catch (error) {
+          // Si no se puede leer el archivo, dejar como 'other'
+          console.warn(`No se pudo determinar categoría para ${fullPath}:`, error.message);
+        }
+
         // Crear el objeto de reporte
         const report = {
           date,
           time,
           path: path.join(relativePath, item).replace(/\\/g, '/'),
-          url: path.join(relativePath, item).replace(/\\/g, '/')
+          url: path.join(relativePath, item).replace(/\\/g, '/'),
+          category
         };
 
         // Agrupar por fecha

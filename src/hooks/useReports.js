@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export function useReports() {
+export function useReports(category = null) {
   const [reports, setReports] = useState([]);
   const [visibleCount, setVisibleCount] = useState(0);
   const [totalReports, setTotalReports] = useState(0);
@@ -20,7 +20,7 @@ export function useReports() {
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data) && data.length > 0) {
-          const formattedReports = data.map(dateGroup => ({
+          let formattedReports = data.map(dateGroup => ({
             date: dateGroup.date,
             dateFormatted: dateGroup.dateFormatted,
             lastExecution: dateGroup.lastExecution,
@@ -28,6 +28,7 @@ export function useReports() {
               path: file.path,
               time: file.time,
               date: file.date,
+              category: file.category || 'other', // Usar la categoría del JSON
               stats: {
                 passes: 1,
                 failures: 0,
@@ -36,6 +37,14 @@ export function useReports() {
               executionNumber: index + 1
             }))
           }));
+
+          // Filtrar por categoría si se especifica
+          if (category) {
+            formattedReports = formattedReports.map(report => ({
+              ...report,
+              files: report.files.filter(file => file.category === category)
+            })).filter(report => report.files.length > 0);
+          }
 
           setReports(formattedReports);
           const totalExecutions = formattedReports.reduce((sum, report) => sum + report.files.length, 0);

@@ -13,6 +13,19 @@ function ReporteItem({ file, fileIndex, date, onDelete }) {
               ({file.stats.passes}/{file.stats.total} tests exitosos)
             </span>
           </span>
+          {file.category && (
+            <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+              file.category === 'core'
+                ? 'bg-gray-100 text-gray-800'
+                : file.category === 'features'
+                ? 'bg-blue-100 text-blue-800'
+                : 'bg-purple-100 text-purple-800' // mixed
+            }`}>
+              {file.category === 'core' ? '🔧 Core' :
+               file.category === 'features' ? '✨ Features' :
+               '🔀 Mixed'}
+            </span>
+          )}
         </div>
         <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
           {file.time}
