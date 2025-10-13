@@ -1,5 +1,25 @@
 [
   {
+    "date": "2025-10-13",
+    "files": [
+      {
+        "date": "2025-10-13",
+        "time": "09:13:56",
+        "path": "2025-10-13/report-2025-10-13T09-13-56.html",
+        "url": "2025-10-13/report-2025-10-13T09-13-56.html"
+      },
+      {
+        "date": "2025-10-13",
+        "time": "11:39:59",
+        "path": "2025-10-13/report-2025-10-13T11-39-59.html",
+        "url": "2025-10-13/report-2025-10-13T11-39-59.html"
+      }
+    ],
+    "dateFormatted": "lunes, 13 de octubre de 2025",
+    "executions": 2,
+    "lastExecution": "11:39:59"
+  },
+  {
     "date": "2025-10-09",
     "files": [
       {
