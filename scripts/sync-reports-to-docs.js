@@ -5,9 +5,12 @@
  * Copia reportes necesarios a docs/reports para GitHub Pages
  */
 
-const fs = require('fs');
-const path = require('path');
-const generateReportsJson = require('./generate-reports-json');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import generateReportsJson from './generate-reports-json.js';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 function copyFileSync(source, target) {
   // Crear directorio de destino si no existe
@@ -258,7 +261,7 @@ function syncReportsToDocsFolder() {
                                 </div>
                               </div>
                               
-                              <a href="${report.file}" 
+                              <a href="/Cypress-ReportingSystem/reports/${report.file}" 
                                  class="inline-block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition-colors duration-200" 
                                  target="_blank">
                                 Ver Reporte Completo
