@@ -143,6 +143,7 @@ cypress-leyes/
 | `npm run report:generate` | Genera reporte HTML con timestamp |
 | `npm run report:sync-docs` | Sincroniza reportes a docs/ y public/ |
 | `npm run clean-reports` | Limpia archivos JSON acumulados |
+| `npm run clean-generated` | 🆕 Limpia TODOS archivos generados automáticamente |
 | `npm run delete-report` | Elimina ejecución específica desde terminal |
 
 ### Servidores y API

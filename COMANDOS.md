@@ -214,16 +214,19 @@ Esta guía explica detalladamente **todos los comandos npm** del proyecto, organ
 
 ## 🧹 Limpieza y Utilidades
 
-### `npm run clean-reports`
+### `npm run clean-generated`
 **Cuándo usar:**
-- Antes de ejecutar tests para evitar conflictos
-- Para limpiar reportes antiguos acumulados
-- Al inicio de sesiones de testing
+- Después de sesiones de testing intensivas
+- Para limpiar archivos generados antes de commits
+- Mantenimiento regular del repositorio
+- Cuando el .gitignore no funcione correctamente
 
 **Para qué sirve:**
-- Elimina archivos JSON de reportes anteriores
-- Prepara entorno limpio para nuevos tests
-- Evita conflictos entre ejecuciones
+- Elimina TODOS los archivos generados automáticamente
+- Limpia reportes en `docs/reports/` y `public/reports/`
+- Remueve assets generados en `docs/assets/` y `public/assets/`
+- Deja el repositorio limpio con solo código fuente
+- Útil para mantener el repo organizado
 
 ### `npm run delete-report` → `"node scripts/delete-report.js"`
 **Cuándo usar:**
