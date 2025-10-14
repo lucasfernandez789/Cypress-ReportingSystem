@@ -1,4 +1,6 @@
 import React from 'react'
+import { Routes, Route } from 'react-router-dom'
+import Layout from './components/Layout'
 
 console.log('App component imports loaded')
 
@@ -6,17 +8,21 @@ function App() {
   console.log('App function called')
   try {
     return (
-      <div style={{
-        backgroundColor: 'green',
-        color: 'white',
-        fontSize: '24px',
-        padding: '20px',
-        minHeight: '100vh'
-      }}>
-        <h1>🚀 APP COMPONENT WORKS!</h1>
-        <p>If you see this, the App component is working correctly.</p>
-        <p>Time: {new Date().toLocaleString()}</p>
-      </div>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={
+            <div style={{
+              backgroundColor: 'purple',
+              color: 'white',
+              fontSize: '20px',
+              padding: '15px'
+            }}>
+              <h2>🏠 HOME PAGE</h2>
+              <p>This is the home page content.</p>
+            </div>
+          } />
+        </Route>
+      </Routes>
     )
   } catch (error) {
     console.error('Error in App component:', error)

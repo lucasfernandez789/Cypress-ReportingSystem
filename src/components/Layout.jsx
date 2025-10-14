@@ -1,33 +1,28 @@
 import React from 'react'
-import { Outlet, useLocation } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 
 function Layout() {
-  const location = useLocation()
-  const isHomePage = location.pathname === '/'
-
-  console.log('Layout component rendering...', { pathname: location.pathname, isHomePage })
+  console.log('Layout component rendering...')
 
   return (
-    <div className="min-h-screen bg-gray-100" style={{backgroundColor: 'red', minHeight: '100vh', padding: '20px'}}>
-      <h1 style={{color: 'white', fontSize: '24px'}}>Layout Component Rendered</h1>
-      {!isHomePage && (
-        <nav className="bg-white shadow-sm">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="flex h-16 justify-between">
-              <div className="flex">
-                <div className="flex flex-shrink-0 items-center">
-                  <img className="h-8 w-auto" src="/Cypress-ReportingSystem/assets/images/logo-legis-act-D-yCoXSC.png" alt="Logo" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </nav>
-      )}
-      <main>
-        <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-          <Outlet />
-        </div>
-      </main>
+    <div style={{
+      backgroundColor: 'orange',
+      color: 'black',
+      fontSize: '18px',
+      padding: '10px',
+      minHeight: '100vh'
+    }}>
+      <h1>📐 LAYOUT COMPONENT</h1>
+      <p>If you see this, Layout is working.</p>
+      <div style={{
+        backgroundColor: 'yellow',
+        padding: '10px',
+        margin: '10px 0',
+        border: '2px solid black'
+      }}>
+        <h2>Content Area:</h2>
+        <Outlet />
+      </div>
     </div>
   )
 }
