@@ -3,7 +3,7 @@ const react = require('@vitejs/plugin-react')
 const path = require('path')
 
 module.exports = defineConfig({
-  base: '/Cypress-ReportingSystem/',
+  base: './',
   plugins: [react()],
   server: {
     port: 5173,

@@ -60,8 +60,7 @@ src/
 │   │   └── Footer.jsx         # Footer común a toda la aplicación
 │   ├── home/                  # Componentes específicos de la página Home
 │   │   ├── SeccionPrincipal.jsx   # Sección principal con logo y título
-│   │   ├── TarjetasAcceso.jsx     # 🆕 Tarjetas Core/Features con Material Symbols
-│   │   └── TarjetaReportes.jsx    # Tarjeta de navegación a reportes
+│   │   └── TarjetasAcceso.jsx     # 🆕 Tarjetas Core/Features con Material Symbols
 │   ├── reports/               # Componentes específicos de reportes
 │   │   ├── EstadisticasReportes.jsx  # Dashboard de estadísticas
 │   │   ├── FiltrosReportes.jsx       # Sistema de filtros avanzado
@@ -151,13 +150,11 @@ Scripts personalizados para gestión automatizada del proyecto:
 
 ```
 scripts/
-├── generate-report-index.js     # Genera índices HTML de reportes
 ├── generate-reports-json.js     # 🆕 Procesa y consolida datos JSON con categorización automática
 └── sync-reports-to-docs.js      # Sincronización automática cypress/ → docs/
 ```
 
 **Funciones de cada script:**
-- **generate-report-index.js**: Crea páginas HTML navegables
 - **generate-reports-json.js**: Procesa datos JSON de múltiples fuentes
 - **sync-reports-to-docs.js**: Copia reportes para publicación web
 

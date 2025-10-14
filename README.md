@@ -64,8 +64,7 @@ cypress-leyes/
 │   │   ├── common/               # Componentes compartidos
 │   │   │   └── Footer.jsx        # Footer reutilizable
 │   │   ├── home/                 # Componentes específicos de Home
-│   │   │   ├── SeccionPrincipal.jsx  # Sección principal con logo
-│   │   │   └── TarjetaReportes.jsx   # Tarjeta de navegación
+│   │   │   └── SeccionPrincipal.jsx  # Sección principal con logo
 │   │   ├── reports/              # Componentes específicos de reportes
 │   │   │   ├── EstadisticasReportes.jsx  # Estadísticas de reportes
 │   │   │   ├── FiltrosReportes.jsx       # Sistema de filtros
