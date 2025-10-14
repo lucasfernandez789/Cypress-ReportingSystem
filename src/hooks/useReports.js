@@ -16,7 +16,7 @@ export function useReports(category = null) {
   }, []);
 
   const loadReports = () => {
-    fetch('/reports/report.json')
+    fetch('/Cypress-ReportingSystem/reports/report.json')
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data) && data.length > 0) {

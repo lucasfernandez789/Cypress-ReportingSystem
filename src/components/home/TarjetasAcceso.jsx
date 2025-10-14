@@ -1,9 +1,6 @@
 import React from 'react'
 
-console.log('TarjetasAcceso component rendering...')
-
 function TarjetasAcceso({ onNavigate }) {
-  console.log('TarjetasAcceso function called')
   return (
     <div className="flex justify-center gap-8">
       {/* Tarjeta Core */}
