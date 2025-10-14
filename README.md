@@ -1,7 +1,7 @@
 ﻿# Cypress Testing & Reporting System
 ## Sistema Completo de Testing Automatizado con Interfaz Web Moderna
 
-> **Versión 4.1** - Testing automatizado con Cypress, reportes organizados por categorías Core/Features, interfaz web React con Material Symbols, ESLint configurado, paginación inteligente y pipeline completamente automatizado.
+> **Versión 4.2** - Testing automatizado con Cypress, reportes organizados por categorías Core/Features/Mixed, interfaz web React con Material Symbols, ESLint configurado, paginación inteligente y pipeline completamente automatizado.
 
 ## Inicio Rápido
 
@@ -80,6 +80,7 @@ cypress-leyes/
 │   │   ├── Home.jsx             # Página de inicio con tarjetas Core/Features
 │   │   ├── CoreReports.jsx      # 🆕 Reportes de funcionalidades Core
 │   │   ├── FeatureReports.jsx   # 🆕 Reportes de funcionalidades Features
+│   │   ├── MixedReports.jsx     # 🆕 Reportes combinados (Core + Features)
 │   │   └── Reports.jsx          # Interfaz avanzada de reportes (legacy)
 │   ├── App.jsx                  # Enrutamiento React Router
 │   ├── main.jsx                 # Punto de entrada
@@ -125,7 +126,9 @@ cypress-leyes/
 ### Testing con Cypress
 | Comando | Descripción |
 |---------|-------------|
-| `npm run test` | **PRINCIPAL**: Tests + reportes automáticos + limpieza |
+| `npm run test` | **PRINCIPAL**: Tests completos + reportes automáticos + limpieza |
+| `npm run test:core` | 🆕 Ejecuta solo tests Core (`cypress/e2e/core/**/*`) |
+| `npm run test:features` | 🆕 Ejecuta solo tests Features (`cypress/e2e/features/**/*`) |
 | `npm run cypress:open` | Abre Cypress en modo interactivo |
 | `npm run cypress:run` | Ejecuta tests en modo headless |
 | `npm run cypress:run-reports` | Tests con configuración multi-reporter |

@@ -4,13 +4,13 @@
 cypress/
 ├── e2e/
 │   ├── core/                   # 🆕 Funcionalidades base (categoría Core)
-│   │   └── nuevaLey.cy.js      # Test## Beneficios de esta Organización v4.0
+│   │   └── nuevaLey.cy.js      # Test## Beneficios de esta Organización v4.2
 
 ### 1. **Categorización Automática Inteligente**
 - 🆕 Sistema de IA que analiza contenido HTML para categorizar reportes
 - 🆕 Detección automática de rutas Core/Features en reportes
 - 🆕 Material Symbols icons para navegación visual intuitiva
-- 🆕 Páginas dedicadas `/core` y `/features` con filtros específicos
+- 🆕 Páginas dedicadas `/core`, `/features` y `/mixed` con filtros específicos
 - 🆕 Reportes mixtos incluidos automáticamente cuando corresponde
 
 ### 2. **Paginación Inteligente Mejorada**
@@ -34,9 +34,9 @@ cypress/
 ├── reports/                    # Reportes técnicos (fuente única)
 ├── screenshots/                # Capturas de errores
 └── support/                    # Comandos y configuraciones
-```n técnica detallada de la **Versión 4.0** del sistema Cypress Testing & Reporting con interfaz web React moderna, categorización automática Core/Features, Material Symbols, ESLint configurado y arquitectura modular avanzada.
+```n técnica detallada de la **Versión 4.2** del sistema Cypress Testing & Reporting con interfaz web React moderna, categorización automática Core/Features/Mixed, Material Symbols, ESLint configurado y arquitectura modular avanzada.
 
-## 🆕 Arquitectura Actualizada v4.0
+## 🆕 Arquitectura Actualizada v4.2
 
 ### **Aplicación Web React + Sistema de Testing + API Backend + Categorización Inteligente**
 
@@ -45,7 +45,7 @@ cypress/
 - **Backend**: Express.js API para operaciones avanzadas
 - **Styling**: Tailwind CSS 3.4.18 con ESLint configurado
 - **Icons**: Material Symbols de Google Fonts
-- **Categorización**: Core/Features automática basada en contenido HTML
+- **Categorización**: Core/Features/Mixed automática basada en contenido HTML
 - **Arquitectura**: Componentes modulares con custom hooks
 - **Build**: Automatización completa con scripts npm
 
