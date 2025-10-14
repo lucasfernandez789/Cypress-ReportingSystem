@@ -1,0 +1,67 @@
+[
+  {
+    "date": "2025-10-13",
+    "files": [
+      {
+        "date": "2025-10-13",
+        "time": "09:13:56",
+        "path": "2025-10-13/report-2025-10-13T09-13-56.html",
+        "url": "2025-10-13/report-2025-10-13T09-13-56.html",
+        "category": "core"
+      },
+      {
+        "date": "2025-10-13",
+        "time": "09:20:51",
+        "path": "2025-10-13/report-2025-10-13T09-20-51.html",
+        "url": "2025-10-13/report-2025-10-13T09-20-51.html",
+        "category": "core"
+      },
+      {
+        "date": "2025-10-13",
+        "time": "11:00:51",
+        "path": "2025-10-13/report-2025-10-13T11-00-51.html",
+        "url": "2025-10-13/report-2025-10-13T11-00-51.html",
+        "category": "mixed"
+      },
+      {
+        "date": "2025-10-13",
+        "time": "11:03:13",
+        "path": "2025-10-13/report-2025-10-13T11-03-13.html",
+        "url": "2025-10-13/report-2025-10-13T11-03-13.html",
+        "category": "mixed"
+      },
+      {
+        "date": "2025-10-13",
+        "time": "11:39:59",
+        "path": "2025-10-13/report-2025-10-13T11-39-59.html",
+        "url": "2025-10-13/report-2025-10-13T11-39-59.html",
+        "category": "core"
+      }
+    ],
+    "dateFormatted": "lunes, 13 de octubre de 2025",
+    "executions": 5,
+    "lastExecution": "11:39:59"
+  },
+  {
+    "date": "2025-10-09",
+    "files": [
+      {
+        "date": "2025-10-09",
+        "time": "14:41:42",
+        "path": "2025-10-09/report-2025-10-09T14-41-42.html",
+        "url": "2025-10-09/report-2025-10-09T14-41-42.html",
+        "category": "core"
+      },
+      {
+        "date": "2025-10-09",
+        "time": "14:44:26",
+        "path": "2025-10-09/report-2025-10-09T14-44-26.html",
+        "url": "2025-10-09/report-2025-10-09T14-44-26.html",
+        "category": "core"
+      }
+    ],
+    "dateFormatted": "jueves, 9 de octubre de 2025",
+    "executions": 2,
+    "lastExecution": "14:44:26"
+  }
+]
