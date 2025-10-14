@@ -1,16 +1,16 @@
 ﻿import React from 'react'
-import { BrowserRouter as Router } from 'react-router-dom'
+import { HashRouter as Router } from 'react-router-dom'
 
-console.log('Testing React Router - BrowserRouter only')
+console.log('Testing React Router - HashRouter (GitHub Pages compatible)')
 
 function App() {
   console.log('App function called')
 
   return (
     <Router>
-      <div style={{backgroundColor: 'blue', color: 'white', padding: '20px'}}>
-        <h1>🔵 BLUE TEST - REACT ROUTER</h1>
-        <p>BrowserRouter is working</p>
+      <div style={{backgroundColor: 'green', color: 'white', padding: '20px'}}>
+        <h1>� GREEN TEST - HASH ROUTER</h1>
+        <p>HashRouter works with GitHub Pages</p>
         <p>Time: {new Date().toLocaleString()}</p>
       </div>
     </Router>
