@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import App from './App'
 import './index.css'
 
-console.log('🚀 Testing App component...')
+console.log('🚀 NEW VERSION - App starting...')
 
 const rootElement = document.getElementById('root')
 console.log('Root element:', rootElement)
