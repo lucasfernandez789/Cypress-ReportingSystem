@@ -1,13 +1,19 @@
 ﻿import React from 'react'
+import { BrowserRouter as Router } from 'react-router-dom'
 
-console.log('Simple React test')
+console.log('Testing React Router - BrowserRouter only')
 
 function App() {
+  console.log('App function called')
+
   return (
-    <div style={{backgroundColor: 'orange', color: 'black', padding: '20px'}}>
-      <h1>ORANGE TEST</h1>
-      <p>This should work</p>
-    </div>
+    <Router>
+      <div style={{backgroundColor: 'blue', color: 'white', padding: '20px'}}>
+        <h1>🔵 BLUE TEST - REACT ROUTER</h1>
+        <p>BrowserRouter is working</p>
+        <p>Time: {new Date().toLocaleString()}</p>
+      </div>
+    </Router>
   )
 }
 
