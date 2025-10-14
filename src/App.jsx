@@ -6,7 +6,10 @@ import Reports from './pages/Reports'
 import CoreReports from './pages/CoreReports'
 import FeatureReports from './pages/FeatureReports'
 
+console.log('App component rendering...')
+
 function App() {
+  console.log('App function called')
   return (
     <Routes>
       <Route path="/" element={<Layout />}>

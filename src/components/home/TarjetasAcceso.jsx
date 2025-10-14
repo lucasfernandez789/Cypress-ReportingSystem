@@ -1,7 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+console.log('TarjetasAcceso component rendering...')
+
 function TarjetasAcceso() {
+  console.log('TarjetasAcceso function called')
   return (
     <div className="flex justify-center gap-8">
       {/* Tarjeta Core */}

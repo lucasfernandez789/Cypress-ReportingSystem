@@ -5,6 +5,8 @@ function Layout() {
   const location = useLocation()
   const isHomePage = location.pathname === '/'
 
+  console.log('Layout component rendering...', { pathname: location.pathname, isHomePage })
+
   return (
     <div className="min-h-screen bg-gray-100">
       {!isHomePage && (
