@@ -13,19 +13,21 @@ cypress/
 - 🆕 Páginas dedicadas `/core` y `/features` con filtros específicos
 - 🆕 Reportes mixtos incluidos automáticamente cuando corresponde
 
-### 2. **Aplicación Web Moderna con ESLint**
-- 🆕 Interfaz React con desplegables animados por fecha
-- 🆕 Paginación automática (5 fechas por página)
-- 🆕 Eliminación directa desde la web (sin terminal)
-- 🆕 ESLint configurado con plugin Tailwind CSS
+### 2. **Paginación Inteligente Mejorada**
+- 🆕 **Siempre visible**: Muestra "1" incluso con una sola página
+- 🆕 **5 fechas por página**: Optimizado para mejor performance
+- 🆕 **Flechas rojas consistentes**: Color igual que SVG del home
+- 🆕 **Navegación intuitiva**: Controles anteriores/siguientes
 - 🆕 Diseño responsive con Tailwind CSS
 - 🆕 Navegación SPA fluida con React Router
 
-### 3. **API Backend Avanzada**
+### 3. **Pipeline Completamente Automatizado**
+- 🆕 Scripts convertidos a ES modules para compatibilidad moderna
+- 🆕 Eliminación de carpetas redundantes (reports/ raíz eliminada)
+- 🆕 Sincronización automática perfecta entre cypress/ → docs/ → public/
+- 🆕 npm run test crea carpeta del día actual sin fallos
 - 🆕 Servidor Express.js con endpoints REST
-- 🆕 Eliminación de reportes vía API (DELETE /api/delete-report)
-- 🆕 CORS configurado para desarrollo local
-- 🆕 Regeneración automática de índices JSONidades principales
+- 🆕 Eliminación de reportes vía API (DELETE /api/delete-report)idades principales
 │   └── features/               # 🆕 Features específicas (categoría Features)
 │       └── (tests futuros)     # Tests para casos específicos/features
 ├── fixtures/                   # Datos de prueba
@@ -347,12 +349,12 @@ cypress-leyes/
 ├── public/                # Assets estáticos
 └── package.json           # Dependencias actualizadas
 
-# Documentación consolidada v4.0
+# Documentación consolidada v4.1
 ├── README.md              # ✅ Guía principal completa
 └── STRUCTURE.md           # ✅ Detalles técnicos actualizados
 ```
 
-## 🆕 Características Técnicas v4.0
+## 🆕 Características Técnicas v4.1
 
 ### **Arquitectura Modular React**
 - **Componentes Modulares**: Separación por funcionalidad (home/, common/, reports/)
@@ -364,7 +366,7 @@ cypress-leyes/
 
 ### **Interfaz React Avanzada**
 - **Desplegables Animados**: Secciones por fecha con transiciones suaves
-- **Paginación Inteligente**: 5 fechas por página con navegación intuitiva
+- **Paginación Mejorada**: Siempre visible, 5 fechas por página, flechas rojas consistentes
 - **Eliminación Directa**: Botones de eliminación con confirmación modal
 - **Responsive Design**: Adaptable a móviles y tablets
 - **Estados de Carga**: Indicadores visuales durante operaciones
@@ -387,7 +389,15 @@ cypress-leyes/
 - **Fetch API**: Comunicación con backend para operaciones CRUD
 - **Error Boundaries**: Manejo robusto de errores en UI
 
-## Checklist de Nuevas Funcionalidades v4.0
+### **Mejoras v4.1 - Pipeline Completamente Automatizado**
+- **Scripts ES Modules**: Convertidos de CommonJS para compatibilidad moderna
+- **Eliminación Carpetas Redundantes**: reports/ raíz eliminada para evitar inconsistencias
+- **Sincronización Perfecta**: Pipeline cypress/ → docs/ → public/ sin fallos
+- **npm run test**: Crea carpeta del día actual automáticamente
+- **Paginación Siempre Visible**: Muestra "1" incluso con una sola página
+- **Flechas Rojas Consistentes**: Color igual que SVG del home para coherencia visual
+
+## Checklist de Nuevas Funcionalidades v4.1
 
 - [x] **Categorización Automática**: Sistema de IA que analiza HTML para clasificar Core/Features
 - [x] **Material Symbols Icons**: Iconografía consistente con Google Fonts (science/extension)
@@ -404,11 +414,13 @@ cypress-leyes/
 - [x] **API Backend**: Servidor Express con endpoints REST
 - [x] **Eliminación Web**: Sin necesidad de comandos terminal
 - [x] **UI Desplegable**: Secciones colapsables por fecha con animaciones
-- [x] **Paginación**: Sistema de páginas para navegación eficiente
+- [x] **Paginación Mejorada**: Siempre visible, 5 fechas/página, flechas rojas
 - [x] **Responsive Design**: Adaptable a móviles y tablets
 - [x] **Estados de Carga**: UX mejorada con indicadores visuales
-- [x] **Limpieza Automática**: JSONs acumulados eliminados automáticamente
-- [x] **Sincronización Mejorada**: Múltiples carpetas actualizadas
+- [x] **Scripts ES Modules**: Convertidos para compatibilidad moderna
+- [x] **Pipeline Automatizado**: npm run test crea carpeta del día sin fallos
+- [x] **Eliminación Carpetas Redundantes**: reports/ raíz eliminada
+- [x] **Sincronización Perfecta**: cypress/ → docs/ → public/ automática
 - [x] **Documentación Completa**: README y STRUCTURE actualizados
 - [x] **Scripts npm**: Nuevos comandos para API y eliminación
 - [x] **Responsive Design**: Interfaz adaptable a diferentes dispositivos

@@ -1,7 +1,7 @@
 ﻿# Cypress Testing & Reporting System
 ## Sistema Completo de Testing Automatizado con Interfaz Web Moderna
 
-> **Versión 4.0** - Testing automatizado con Cypress, reportes organizados por categorías Core/Features, interfaz web React con Material Symbols, ESLint configurado y categorización automática inteligente.
+> **Versión 4.1** - Testing automatizado con Cypress, reportes organizados por categorías Core/Features, interfaz web React con Material Symbols, ESLint configurado, paginación inteligente y pipeline completamente automatizado.
 
 ## Inicio Rápido
 
@@ -33,6 +33,7 @@ npm run cypress:open
 - **Limpieza automática** de archivos JSON entre ejecuciones
 - **Reportes Mochawesome** organizados por fecha, timestamp y categoría
 - **Screenshots automáticos** en caso de fallos
+- **Pipeline completamente automatizado** con sincronización a docs/ y public/
 
 ### Interfaz Web Moderna con Material Symbols
 - **React 18.3.1** con Vite 7.1.9 para desarrollo rápido
@@ -43,7 +44,7 @@ npm run cypress:open
 - **Categorización visual** Core/Features con iconos diferenciados
 - **Eliminación directa** desde la web (sin terminal)
 - **Desplegables por fecha** con animaciones
-- **Paginación inteligente** (5 fechas por página)
+- **Paginación inteligente** (5 fechas por página, siempre visible)
 - **Filtros avanzados** por fecha específica, rangos y categorías
 
 ### Sistema de Reportes Inteligente
@@ -184,6 +185,8 @@ npm run test
 
 #### Paginación Inteligente
 - **5 fechas por página** para mejor performance
+- **Siempre visible** (muestra "1" incluso con una sola página)
+- **Flechas de navegación** con color rojo consistente
 - **Controles de navegación** (Anterior/Siguiente)
 - **Indicador de página** actual
 - **Compatible con filtros**
@@ -413,5 +416,5 @@ export default [
 ---
 
 **Última actualización:** Octubre 2025
-**Versión:** 4.0.0
-**Novedades:** Categorización automática Core/Features, Material Symbols icons, ESLint configurado, navegación dedicada por categorías, iconos gris claro, arquitectura modular mejorada
+**Versión:** 4.1.0
+**Novedades:** Paginación siempre visible con 5 fechas/página, flechas rojas consistentes, pipeline completamente automatizado, scripts convertidos a ES modules, eliminación de carpetas redundantes
