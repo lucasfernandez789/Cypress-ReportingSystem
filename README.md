@@ -109,10 +109,13 @@ cypress-leyes/
 ├── vite.config.js               # Configuración Vite
 ├── cypress.config.js            # Configuración Cypress
 ├── README.md                    # Esta documentación
+├── COMANDOS.md                  # 🆕 Guía completa de comandos npm
 └── STRUCTURE.md                 # Documentación técnica
 ```
 
 ## Comandos Disponibles
+
+> 📖 **Para explicaciones detalladas de cuándo y cómo usar cada comando, consulta [COMANDOS.md](COMANDOS.md)**
 
 ### Desarrollo y Build
 | Comando | Descripción |
