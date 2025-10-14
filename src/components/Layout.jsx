@@ -13,7 +13,7 @@ function Layout() {
             <div className="flex h-16 justify-between">
               <div className="flex">
                 <div className="flex flex-shrink-0 items-center">
-                  <img className="h-8 w-auto" src="/assets/images/logo-legis-act-D-yCoXSC.png" alt="Logo" />
+                  <img className="h-8 w-auto" src="/Cypress-ReportingSystem/assets/images/logo-legis-act-D-yCoXSC.png" alt="Logo" />
                 </div>
               </div>
             </div>

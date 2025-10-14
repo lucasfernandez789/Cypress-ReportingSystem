@@ -5,7 +5,7 @@ function SeccionPrincipal() {
     <div className="mb-8 text-center md:mb-12">
       <div className="mb-4 flex justify-center md:mb-6">
         <img
-          src="/assets/images/logo-legis-act-D-yCoXSC.png"
+          src="/Cypress-ReportingSystem/assets/images/logo-legis-act-D-yCoXSC.png"
           alt="icon balance"
           className="h-20 sm:h-16 md:h-20 lg:h-24"
         />

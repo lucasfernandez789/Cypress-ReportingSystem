@@ -11,7 +11,7 @@ function TarjetasAcceso() {
             className="transition duration-200"
             title="Reportes de testing para funcionalidades básicas y críticas del sistema"
           >
-            <img src="/assets/images/help.svg" alt="icon-help" className="h-5 w-5" />
+            <img src="/Cypress-ReportingSystem/assets/images/help.svg" alt="icon-help" className="h-5 w-5" />
           </button>
         </div>
         <div className="mb-6 flex justify-center">
@@ -38,7 +38,7 @@ function TarjetasAcceso() {
             className="transition duration-200"
             title="Reportes de testing para funcionalidades específicas y avanzadas del sistema"
           >
-            <img src="/assets/images/help.svg" alt="icon-help" className="h-5 w-5" />
+            <img src="/Cypress-ReportingSystem/assets/images/help.svg" alt="icon-help" className="h-5 w-5" />
           </button>
         </div>
         <div className="mb-6 flex justify-center">
