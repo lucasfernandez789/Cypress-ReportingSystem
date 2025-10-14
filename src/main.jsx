@@ -13,14 +13,19 @@ if (!rootElement) {
   console.error('Root element not found!')
 } else {
   console.log('Creating React root...')
-  const root = ReactDOM.createRoot(rootElement)
-  console.log('Rendering app...')
-  root.render(
-    <React.StrictMode>
-      <Router>
-        <App />
-      </Router>
-    </React.StrictMode>
-  )
-  console.log('App rendered successfully!')
+  try {
+    const root = ReactDOM.createRoot(rootElement)
+    console.log('Rendering app...')
+    root.render(
+      <React.StrictMode>
+        <Router>
+          <App />
+        </Router>
+      </React.StrictMode>
+    )
+    console.log('App rendered successfully!')
+  } catch (error) {
+    console.error('Error during React rendering:', error)
+    console.error('Error stack:', error.stack)
+  }
 }

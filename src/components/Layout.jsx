@@ -8,7 +8,8 @@ function Layout() {
   console.log('Layout component rendering...', { pathname: location.pathname, isHomePage })
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-gray-100" style={{backgroundColor: 'red', minHeight: '100vh', padding: '20px'}}>
+      <h1 style={{color: 'white', fontSize: '24px'}}>Layout Component Rendered</h1>
       {!isHomePage && (
         <nav className="bg-white shadow-sm">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
