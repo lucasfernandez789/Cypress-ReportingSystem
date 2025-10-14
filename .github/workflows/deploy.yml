@@ -26,13 +26,10 @@ jobs:
     - name: Build
       run: npm run build
 
-    - name: Copy docs to root
-      run: cp -r docs/* .
-
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       if: github.ref == 'refs/heads/master'
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./
+        publish_dir: ./docs
         cname: lucasfernandez789.github.io
