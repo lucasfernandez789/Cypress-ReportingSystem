@@ -6,10 +6,21 @@ import './index.css'
 
 console.log('🚀 App starting...')
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <Router>
-      <App />
-    </Router>
-  </React.StrictMode>
-)
+const rootElement = document.getElementById('root')
+console.log('Root element:', rootElement)
+
+if (!rootElement) {
+  console.error('Root element not found!')
+} else {
+  console.log('Creating React root...')
+  const root = ReactDOM.createRoot(rootElement)
+  console.log('Rendering app...')
+  root.render(
+    <React.StrictMode>
+      <Router>
+        <App />
+      </Router>
+    </React.StrictMode>
+  )
+  console.log('App rendered successfully!')
+}
