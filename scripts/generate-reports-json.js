@@ -1,5 +1,5 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 // Función para procesar los reportes y generar el archivo JSON
 function generateReportsJson(reportsDir, outputFile) {
@@ -99,4 +99,4 @@ function generateReportsJson(reportsDir, outputFile) {
 }
 
 // Exportar la función
-module.exports = generateReportsJson;
+export default generateReportsJson;
