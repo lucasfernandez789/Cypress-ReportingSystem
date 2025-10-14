@@ -44,11 +44,9 @@ function CoreReports({ onNavigate }) {
                   onClick={() => onNavigate('home')}
                   className="flex items-center gap-2 text-sm font-medium text-red-500 hover:text-red-700"
                 >
-                  <img src="/Cypress-ReportingSystem/assets/images/arrow_left_alt_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="back" className="w-4 h-4 icon-red" />
+                  <img src="/Cypress-ReportingSystem/assets/images/arrow_left_alt_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="back" className="icon-red h-4 w-4" />
                   Volver
                 </button>
-                <span className="text-gray-300">|</span>
-                <span className="text-sm text-gray-500">Reportes Core</span>
               </div>
               <h1 className="mt-2 text-3xl font-bold text-gray-900">
                 Reportes de Testing Core

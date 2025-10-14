@@ -14,7 +14,7 @@ function TarjetasAcceso({ onNavigate }) {
           </button>
         </div>
         <div className="mb-6 flex justify-center">
-          <img src="/Cypress-ReportingSystem/assets/images/science_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="science icon" className="w-16 h-16 icon-gray-dark" />
+          <img src="/Cypress-ReportingSystem/assets/images/science_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="science icon" className="icon-gray-dark h-16 w-16" />
         </div>
         <div className="mb-2 py-2 text-center text-xl font-bold text-gray-800">
           Tests Core
@@ -41,7 +41,7 @@ function TarjetasAcceso({ onNavigate }) {
           </button>
         </div>
         <div className="mb-6 flex justify-center">
-          <img src="/Cypress-ReportingSystem/assets/images/extension_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="extension icon" className="w-16 h-16 icon-gray-dark" />
+          <img src="/Cypress-ReportingSystem/assets/images/extension_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="extension icon" className="icon-gray-dark h-16 w-16" />
         </div>
         <div className="mb-2 py-2 text-center text-xl font-bold text-gray-800">
           Tests Features

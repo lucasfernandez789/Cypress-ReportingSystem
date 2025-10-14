@@ -2,6 +2,7 @@
 import Home from './pages/Home'
 import CoreReports from './pages/CoreReports'
 import FeatureReports from './pages/FeatureReports'
+import MixedReports from './pages/MixedReports'
 
 function App({ onNavigate, currentPage }) {
   const renderCurrentPage = () => {
@@ -12,6 +13,8 @@ function App({ onNavigate, currentPage }) {
         return <CoreReports onNavigate={onNavigate} />
       case 'features':
         return <FeatureReports onNavigate={onNavigate} />
+      case 'mixed':
+        return <MixedReports onNavigate={onNavigate} />
       default:
         return <Home onNavigate={onNavigate} />
     }

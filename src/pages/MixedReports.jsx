@@ -5,7 +5,7 @@ import PaginacionReportes from '../components/reports/PaginacionReportes'
 import EstadisticasReportes from '../components/reports/EstadisticasReportes'
 import ReporteFecha from '../components/reports/ReporteFecha'
 
-function FeatureReports({ onNavigate }) {
+function MixedReports({ onNavigate }) {
   const {
     reports,
     visibleCount,
@@ -26,9 +26,9 @@ function FeatureReports({ onNavigate }) {
     filtered,
     paginated,
     totalPages
-  } = useReports('features')
+  } = useReports('mixed')
 
-  // El hook ya filtra por categoría 'features', así que usamos directamente filtered y paginated
+  // El hook ya filtra por categoría 'mixed', así que usamos directamente filtered y paginated
   const filteredReports = filtered
   const paginatedReports = paginated
 
@@ -47,19 +47,17 @@ function FeatureReports({ onNavigate }) {
                   <img src="/Cypress-ReportingSystem/assets/images/arrow_left_alt_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="back" className="icon-red h-4 w-4" />
                   Volver
                 </button>
-                <span className="text-gray-300">|</span>
-                <span className="text-sm text-gray-500">Reportes Features</span>
               </div>
               <h1 className="mt-2 text-3xl font-bold text-gray-900">
-                Reportes de Testing Features
+                Reportes Mixtos
               </h1>
               <p className="mt-1 text-gray-600">
-                Funcionalidades específicas y avanzadas del sistema
+                Funcionalidades combinadas de core y features
               </p>
             </div>
             <div className="flex items-center gap-2">
-              <span className="inline-flex items-center rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-800">
-                 Features
+              <span className="inline-flex items-center rounded-full bg-purple-100 px-3 py-1 text-sm font-medium text-purple-800">
+                Mixed
               </span>
             </div>
           </div>
@@ -82,42 +80,58 @@ function FeatureReports({ onNavigate }) {
               setDateFrom={setDateFrom}
               dateTo={dateTo}
               setDateTo={setDateTo}
-              onClearFilters={clearFilters}
-              onSearch={filterReports}
+              clearFilters={clearFilters}
+              filterReports={filterReports}
             />
           </div>
 
-          {/* Contenido Principal - Tests */}
+          {/* Contenido Principal */}
           <div className="lg:col-span-3">
-            {/* Lista de Reportes */}
-            <div className="space-y-6">
-              {paginatedReports.length === 0 ? (
-                <div className="py-12 text-center">
-                  <div className="text-lg text-gray-500">No hay reportes de Features disponibles</div>
-                  <p className="mt-2 text-gray-400">Los reportes aparecerán aquí después de ejecutar los tests</p>
-                </div>
-              ) : (
+            {/* Información de paginación */}
+            <div className="mb-6 flex items-center justify-between">
+              <div>
+                <h2 className="text-lg font-semibold text-gray-900">Historial de Ejecuciones</h2>
+                <p className="text-sm text-gray-600">
+                  {visibleCount} fechas con reportes • {totalReports} ejecuciones totales
+                </p>
+              </div>
+              <div className="text-sm text-gray-500">
+                Página {currentPage} de {totalPages}
+              </div>
+            </div>
+
+            {/* Lista de reportes por fecha */}
+            <div className="space-y-4">
+              {paginatedReports.length > 0 ? (
                 paginatedReports.map((report) => (
                   <ReporteFecha
                     key={report.date}
                     report={report}
                     isExpanded={expandedDates.has(report.date)}
                     onToggleExpansion={toggleDateExpansion}
-                    onDeleteExecution={(date, fileIndex) => {
-                      // Lógica para eliminar ejecución
-                      console.log('Eliminar ejecución:', date, fileIndex);
-                    }}
+                    onDeleteExecution={() => {}} // TODO: Implementar eliminación
                   />
                 ))
+              ) : (
+                <div className="rounded-lg border-2 border-dashed border-gray-300 p-8 text-center">
+                  <div className="text-gray-500">
+                    <p className="text-lg font-medium">No hay reportes mixtos</p>
+                    <p className="text-sm">Los reportes mixtos aparecen cuando se ejecutan tests de core y features juntos.</p>
+                  </div>
+                </div>
               )}
             </div>
 
             {/* Paginación */}
-            <PaginacionReportes
-              currentPage={currentPage}
-              totalPages={totalPages}
-              onPageChange={setCurrentPage}
-            />
+            {totalPages > 1 && (
+              <div className="mt-8">
+                <PaginacionReportes
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  onPageChange={setCurrentPage}
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -125,4 +139,4 @@ function FeatureReports({ onNavigate }) {
   )
 }
 
-export default FeatureReports
+export default MixedReports

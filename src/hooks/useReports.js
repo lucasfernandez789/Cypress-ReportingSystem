@@ -42,7 +42,16 @@ export function useReports(category = null) {
           if (category) {
             formattedReports = formattedReports.map(report => ({
               ...report,
-              files: report.files.filter(file => file.category === category || file.category === 'mixed')
+              files: report.files.filter(file => {
+                if (category === 'core') {
+                  return file.category === 'core';
+                } else if (category === 'features') {
+                  return file.category === 'features';
+                } else if (category === 'mixed') {
+                  return file.category === 'mixed';
+                }
+                return file.category === category;
+              })
             })).filter(report => report.files.length > 0);
           }
 
