@@ -14,7 +14,7 @@ function TarjetasAcceso({ onNavigate }) {
           </button>
         </div>
         <div className="mb-6 flex justify-center">
-          <span className="material-symbols-outlined text-6xl text-gray-600">science</span>
+          <i className="material-icons text-6xl text-gray-600">science</i>
         </div>
         <div className="mb-2 py-2 text-center text-xl font-bold text-gray-800">
           Tests Core
@@ -41,7 +41,7 @@ function TarjetasAcceso({ onNavigate }) {
           </button>
         </div>
         <div className="mb-6 flex justify-center">
-          <span className="material-symbols-outlined text-6xl text-gray-600">extension</span>
+          <i className="material-icons text-6xl text-gray-600">extension</i>
         </div>
         <div className="mb-2 py-2 text-center text-xl font-bold text-gray-800">
           Tests Features

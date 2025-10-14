@@ -21,9 +21,9 @@ function ReporteItem({ file, fileIndex, date, onDelete }) {
                 ? 'bg-blue-100 text-blue-800'
                 : 'bg-purple-100 text-purple-800' // mixed
             }`}>
-              {file.category === 'core' ? '🔧 Core' :
-               file.category === 'features' ? '✨ Features' :
-               '🔀 Mixed'}
+              {file.category === 'core' ? 'Core' :
+               file.category === 'features' ? 'Features' :
+               'Mixed'}
             </span>
           )}
         </div>

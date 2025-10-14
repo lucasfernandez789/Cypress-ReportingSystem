@@ -62,7 +62,7 @@ function CoreReports({ onNavigate }) {
             </div>
             <div className="flex items-center gap-2">
               <span className="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-800">
-                🔧 Core
+                Core
               </span>
             </div>
           </div>
