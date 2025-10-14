@@ -1,7 +1,6 @@
 import React from 'react'
-import { Outlet } from 'react-router-dom'
 
-function Layout() {
+function Layout({ children }) {
   console.log('Layout component rendering...')
 
   try {
@@ -23,7 +22,7 @@ function Layout() {
           border: '2px solid black'
         }}>
           <h2>Content Area:</h2>
-          <Outlet />
+          {children}
         </div>
       </div>
     )

@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
 import { useReports } from '../hooks/useReports'
 import FiltrosReportes from '../components/reports/FiltrosReportes'
 import PaginacionReportes from '../components/reports/PaginacionReportes'
 import EstadisticasReportes from '../components/reports/EstadisticasReportes'
 import ReporteFecha from '../components/reports/ReporteFecha'
 
-function CoreReports() {
+function CoreReports({ onNavigate }) {
   const {
     reports,
     visibleCount,
@@ -44,13 +43,13 @@ function CoreReports() {
           <div className="flex items-center justify-between">
             <div>
               <div className="flex items-center gap-4">
-                <Link
-                  to="/"
+                <button
+                  onClick={() => onNavigate('home')}
                   className="flex items-center gap-2 text-sm font-medium text-red-500 hover:text-red-700"
                 >
                   <span className="material-symbols-outlined text-base">arrow_back</span>
                   Volver
-                </Link>
+                </button>
                 <span className="text-gray-300">|</span>
                 <span className="text-sm text-gray-500">Reportes Core</span>
               </div>

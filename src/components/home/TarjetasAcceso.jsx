@@ -1,9 +1,8 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 
 console.log('TarjetasAcceso component rendering...')
 
-function TarjetasAcceso() {
+function TarjetasAcceso({ onNavigate }) {
   console.log('TarjetasAcceso function called')
   return (
     <div className="flex justify-center gap-8">
@@ -26,12 +25,12 @@ function TarjetasAcceso() {
         <p className="mb-4 text-center text-gray-600">
           Funcionalidades básicas y críticas del sistema
         </p>
-        <Link
-          to="/core"
+        <button
+          onClick={() => onNavigate('core')}
           className="rounded bg-blue-500 px-4 py-2 text-center font-bold text-white transition duration-200 hover:bg-blue-600"
         >
           Ver Reportes Core
-        </Link>
+        </button>
       </div>
 
       {/* Tarjeta Features */}
@@ -53,12 +52,12 @@ function TarjetasAcceso() {
         <p className="mb-4 text-center text-gray-600">
           Funcionalidades específicas y avanzadas del sistema
         </p>
-        <Link
-          to="/features"
+        <button
+          onClick={() => onNavigate('features')}
           className="rounded bg-blue-500 px-4 py-2 text-center font-bold text-white transition duration-200 hover:bg-blue-600"
         >
           Ver Reportes Features
-        </Link>
+        </button>
       </div>
     </div>
   )

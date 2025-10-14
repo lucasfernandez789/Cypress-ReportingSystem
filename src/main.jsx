@@ -1,5 +1,6 @@
 ﻿import React from 'react'
 import ReactDOM from 'react-dom/client'
+import Layout from './components/Layout'
 import App from './App'
 import './index.css'
 
@@ -11,7 +12,9 @@ console.log('Root element found:', rootElement)
 const root = ReactDOM.createRoot(rootElement)
 root.render(
   <React.StrictMode>
-    <App />
+    <Layout>
+      <App />
+    </Layout>
   </React.StrictMode>
 )
 
