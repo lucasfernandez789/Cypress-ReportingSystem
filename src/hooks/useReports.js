@@ -9,7 +9,7 @@ export function useReports(category = null) {
   const [dateTo, setDateTo] = useState('');
   const [expandedDates, setExpandedDates] = useState(new Set());
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
+  const itemsPerPage = 1;
 
   useEffect(() => {
     loadReports();

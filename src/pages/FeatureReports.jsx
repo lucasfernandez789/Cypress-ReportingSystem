@@ -47,7 +47,7 @@ function FeatureReports({ onNavigate }) {
                   onClick={() => onNavigate('home')}
                   className="flex items-center gap-2 text-sm font-medium text-red-500 hover:text-red-700"
                 >
-                  <span className="material-symbols-outlined text-base">arrow_back</span>
+                  <img src="/Cypress-ReportingSystem/assets/images/arrow_left_alt_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="back" className="w-4 h-4 icon-red" />
                   Volver
                 </button>
                 <span className="text-gray-300">|</span>

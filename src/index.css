@@ -108,3 +108,12 @@
     opacity: 1;
   }
 }
+
+/* Icon styles */
+.icon-gray-dark {
+  filter: brightness(0.6) contrast(1.0);
+}
+
+.icon-red {
+  filter: invert(25%) sepia(95%) saturate(7450%) hue-rotate(0deg) brightness(1.1) contrast(1.2);
+}
