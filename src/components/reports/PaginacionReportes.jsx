@@ -31,7 +31,15 @@ function PaginacionReportes({
     return rangeWithDots;
   };
 
-  if (totalPages <= 1) return null;
+  if (totalPages <= 1) {
+    return (
+      <div className="mt-8 flex items-center justify-center">
+        <span className="rounded-md border border-gray-300 bg-white px-3 py-2 text-gray-700">
+          1
+        </span>
+      </div>
+    );
+  }
 
   return (
     <div className="mt-8 flex items-center justify-center space-x-2">
@@ -40,7 +48,7 @@ function PaginacionReportes({
         disabled={currentPage === 1}
         className="flex items-center justify-center rounded-md border border-gray-300 bg-white px-3 py-2 text-gray-700 transition-colors duration-200 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
       >
-        <img src="/Cypress-ReportingSystem/assets/images/arrow_left_alt_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="previous" className="w-4 h-4" />
+        <img src="/Cypress-ReportingSystem/assets/images/arrow_left_alt_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="previous" className="w-4 h-4 icon-red" />
       </button>
 
       {getVisiblePages().map((page, index) => (
@@ -65,7 +73,7 @@ function PaginacionReportes({
         disabled={currentPage === totalPages}
         className="flex items-center justify-center rounded-md border border-gray-300 bg-white px-3 py-2 text-gray-700 transition-colors duration-200 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
       >
-        <img src="/Cypress-ReportingSystem/assets/images/arrow_right_alt_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="next" className="w-4 h-4" />
+        <img src="/Cypress-ReportingSystem/assets/images/arrow_right_alt_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="next" className="w-4 h-4 icon-red" />
       </button>
     </div>
   )

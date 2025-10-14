@@ -28,12 +28,9 @@ function CoreReports({ onNavigate }) {
     totalPages
   } = useReports('core')
 
-  const filteredReports = filtered.map(report => ({
-    ...report,
-    files: report.files.filter(file =>
-      file.category === 'core' || file.category === 'mixed'
-    )
-  })).filter(report => report.files.length > 0)
+  // El hook ya filtra por categoría 'core', así que usamos directamente filtered y paginated
+  const filteredReports = filtered
+  const paginatedReports = paginated
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -94,13 +91,13 @@ function CoreReports({ onNavigate }) {
           <div className="lg:col-span-3">
             {/* Lista de Reportes */}
             <div className="space-y-6">
-              {filteredReports.length === 0 ? (
+              {paginatedReports.length === 0 ? (
                 <div className="py-12 text-center">
                   <div className="text-lg text-gray-500">No hay reportes de Core disponibles</div>
                   <p className="mt-2 text-gray-400">Los reportes aparecerán aquí después de ejecutar los tests</p>
                 </div>
               ) : (
-                filteredReports.map((report) => (
+                paginatedReports.map((report) => (
                   <ReporteFecha
                     key={report.date}
                     report={report}
@@ -116,13 +113,11 @@ function CoreReports({ onNavigate }) {
             </div>
 
             {/* Paginación */}
-            {filteredReports.length > 0 && (
-              <PaginacionReportes
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onPageChange={setCurrentPage}
-              />
-            )}
+            <PaginacionReportes
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
+            />
           </div>
         </div>
       </div>
