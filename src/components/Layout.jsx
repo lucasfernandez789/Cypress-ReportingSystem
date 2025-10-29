@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import logoImage from '/assets/images/logoLegislatura-act-CG5hvYd0.png'
+import logoImage from '../assets/images/logo-legis-act-D-yCoXSC.png'
 
 function Layout({ children }) {
   const [currentPage, setCurrentPage] = useState('home')
