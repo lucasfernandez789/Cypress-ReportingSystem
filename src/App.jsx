@@ -23,7 +23,7 @@ import MixedReports from './pages/MixedReports'
  * <App onNavigate={handleNavigate} currentPage="home" />
  * ```
  */
-function App({ onNavigate, currentPage }) {
+function App({ onNavigate = () => {}, currentPage = 'home' }) {
   const renderCurrentPage = () => {
     switch (currentPage) {
       case 'home':
@@ -47,8 +47,8 @@ function App({ onNavigate, currentPage }) {
 }
 
 App.propTypes = {
-  onNavigate: PropTypes.func.isRequired,
-  currentPage: PropTypes.string.isRequired,
+  onNavigate: PropTypes.func,
+  currentPage: PropTypes.string,
 }
 
 export default App

@@ -20,7 +20,7 @@ function BotonesAccion({ filePath, date, onDelete }) {
         className="inline-flex items-center gap-1 rounded-full bg-red-50 px-3 py-1 text-sm text-red-600 transition-colors duration-200 hover:bg-red-100"
         title="Eliminar esta ejecución"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="#dc2626">
           <path fillRule="evenodd" d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
         </svg>
         Eliminar

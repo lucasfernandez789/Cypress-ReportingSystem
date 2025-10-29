@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import logoImage from '../../assets/images/logo-legis-act-D-yCoXSC.png'
 
 /**
  * Main section component for the home page header.
@@ -25,7 +26,7 @@ function SeccionPrincipal() {
     <div className="mb-8 text-center md:mb-12">
       <div className="mb-4 flex justify-center md:mb-6">
         <img
-          src="/Cypress-ReportingSystem/assets/images/logo-legis-act-D-yCoXSC.png"
+          src={logoImage}
           alt="icon balance"
           className="h-20 sm:h-16 md:h-20 lg:h-24"
           onError={(e) => console.error('Logo image failed to load:', e)}
