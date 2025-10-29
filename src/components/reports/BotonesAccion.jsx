@@ -4,7 +4,7 @@ function BotonesAccion({ filePath, date, onDelete }) {
   return (
     <div className="flex items-center justify-between">
       <a
-        href={`${import.meta.env.BASE_URL}docs/reports/${filePath}`}
+        href={`${import.meta.env.BASE_URL}reports/${filePath}`}
         target="_blank"
         rel="noopener noreferrer"
         className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-3 py-1 text-sm text-blue-600 transition-colors duration-200 hover:bg-blue-100"
