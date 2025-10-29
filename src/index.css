@@ -54,27 +54,6 @@
   .text-balance {
     text-wrap: balance;
   }
-
-  .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
-
-  .animate-fade-in {
-    animation: fadeIn 0.3s ease-in-out;
-  }
-
-  .animate-slide-down {
-    animation: slideDown 0.3s ease-out;
-  }
-
-  .animate-slide-up {
-    animation: slideUp 0.3s ease-out;
-  }
 }
 
 /* Animaciones personalizadas */
@@ -85,37 +64,6 @@
   to {
     opacity: 1;
   }
-}
-
-@keyframes slideDown {
-  from {
-    transform: translateY(-10px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes slideUp {
-  from {
-    transform: translateY(10px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-/* Icon styles */
-.icon-gray-dark {
-  filter: brightness(0.6) contrast(1.0);
-}
-
-.icon-red {
-  filter: invert(25%) sepia(95%) saturate(7450%) hue-rotate(0deg) brightness(1.1) contrast(1.2);
 }
 
 /* Icon styles */
