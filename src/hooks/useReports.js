@@ -1,199 +1,151 @@
-import { useState, useEffect } from 'react';
+import { useMemo } from 'react';
+import { useReportsData } from './reports/useReportsData';
+import { useReportsFilters } from './reports/useReportsFilters';
+import { useReportsPagination } from './reports/useReportsPagination';
+import { useReportsExpansion } from './reports/useReportsExpansion';
+import { useReportsActions } from './reports/useReportsActions';
+import { REPORT_CATEGORIES } from '../constants/constants';
 
+/**
+ * Hook personalizado para gestionar datos y estado de reportes de pruebas Cypress.
+ *
+ * Este hook proporciona funcionalidad completa para:
+ * - Cargar y gestionar datos de reportes desde archivos JSON
+ * - Filtrar reportes por categoría (core, features, mixed)
+ * - Filtrado por fechas (fecha específica o rango de fechas)
+ * - Paginación de resultados de reportes
+ * - Expandir/colapsar secciones de fechas de reportes
+ * - Eliminar ejecuciones individuales de pruebas
+ *
+ * El hook carga automáticamente reportes al montar y proporciona métodos
+ * para filtrar, paginar y manipular datos.
+ *
+ * @param {string|null} category - Filtro opcional de categoría ('core', 'features', 'mixed', o null para todos)
+ * @returns {Object} Estado y métodos del hook
+ * @returns {Array} returns.reports - Array de datos de reportes sin procesar
+ * @returns {number} returns.visibleCount - Número de fechas visibles después del filtrado
+ * @returns {number} returns.totalReports - Número total de ejecuciones de reportes
+ * @returns {string} returns.dateFilter - Filtro de fecha específica actual
+ * @returns {string} returns.dateFrom - Fecha de inicio para filtro de rango
+ * @returns {string} returns.dateTo - Fecha de fin para filtro de rango
+ * @returns {Set} returns.expandedDates - Conjunto de identificadores de fechas expandidas
+ * @returns {number} returns.currentPage - Página actual de paginación
+ * @returns {Array} returns.filtered - Array de reportes filtrados
+ * @returns {Array} returns.paginated - Página actual de resultados paginados
+ * @returns {number} returns.totalPages - Número total de páginas
+ * @returns {Function} returns.setDateFilter - Setter para filtro de fecha
+ * @returns {Function} returns.setDateFrom - Setter para fecha desde
+ * @returns {Function} returns.setDateTo - Setter para fecha hasta
+ * @returns {Function} returns.setCurrentPage - Setter para página actual
+ * @returns {Function} returns.loadReports - Función para recargar datos de reportes
+ * @returns {Function} returns.deleteExecution - Función para eliminar una ejecución específica
+ * @returns {Function} returns.toggleDateExpansion - Función para alternar expansión de sección de fecha
+ * @returns {Function} returns.filterReports - Función para aplicar filtros actuales
+ * @returns {Function} returns.clearFilters - Función para limpiar todos los filtros
+ *
+ * @example
+ * ```js
+ * const {
+ *   reports,
+ *   filtered,
+ *   paginated,
+ *   loadReports,
+ *   deleteExecution
+ * } = useReports('core');
+ * ```
+ */
 export function useReports(category = null) {
-  const [reports, setReports] = useState([]);
-  const [visibleCount, setVisibleCount] = useState(0);
-  const [totalReports, setTotalReports] = useState(0);
-  const [dateFilter, setDateFilter] = useState('');
-  const [dateFrom, setDateFrom] = useState('');
-  const [dateTo, setDateTo] = useState('');
-  const [expandedDates, setExpandedDates] = useState(new Set());
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5; // Mostrar 5 fechas por página
-
-  useEffect(() => {
-    loadReports();
-  }, []);
-
-  const loadReports = () => {
-    fetch('/Cypress-ReportingSystem/reports/report.json')
-      .then((res) => res.json())
-      .then((data) => {
-        if (Array.isArray(data) && data.length > 0) {
-          let formattedReports = data.map(dateGroup => ({
-            date: dateGroup.date,
-            dateFormatted: dateGroup.dateFormatted,
-            lastExecution: dateGroup.lastExecution,
-            files: dateGroup.files.map((file, index) => ({
-              path: file.path,
-              time: file.time,
-              date: file.date,
-              category: file.category || 'other', // Usar la categoría del JSON
-              stats: {
-                passes: 1,
-                failures: 0,
-                total: 1
-              },
-              executionNumber: index + 1
-            }))
-          }));
-
-          // Filtrar por categoría si se especifica
-          if (category) {
-            formattedReports = formattedReports.map(report => ({
-              ...report,
-              files: report.files.filter(file => {
-                if (category === 'core') {
-                  return file.category === 'core';
-                } else if (category === 'features') {
-                  return file.category === 'features';
-                } else if (category === 'mixed') {
-                  return file.category === 'mixed';
-                }
-                return file.category === category;
-              })
-            })).filter(report => report.files.length > 0);
-          }
-
-          setReports(formattedReports);
-          const totalExecutions = formattedReports.reduce((sum, report) => sum + report.files.length, 0);
-          setTotalReports(totalExecutions);
-          setVisibleCount(formattedReports.length);
-        } else {
-          setReports([]);
-          setTotalReports(0);
-          setVisibleCount(0);
-        }
-      })
-      .catch((error) => {
-        console.error('Error loading reports:', error);
-        setReports([]);
-        setTotalReports(0);
-        setVisibleCount(0);
-      });
-  };
-
-  const deleteExecution = async (date, filePath) => {
-    if (!confirm(`¿Estás seguro de que quieres eliminar esta ejecución?\n\nFecha: ${date}\nArchivo: ${filePath}`)) {
-      return;
-    }
-
-    try {
-      const response = await fetch('http://localhost:3001/api/delete-report', {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ date, filePath }),
-      });
-
-      const result = await response.json();
-
-      if (response.ok && result.success) {
-        // Recargar reportes después de eliminar
-        loadReports();
-        alert('✅ Ejecución eliminada correctamente');
-      } else {
-        alert(`❌ Error al eliminar la ejecución: ${result.error || 'Error desconocido'}`);
-      }
-    } catch (error) {
-      console.error('Error deleting execution:', error);
-      alert(`❌ Error de conexión. Asegúrate de que el servidor API esté corriendo:\n\nnpm run api-server\n\nError: ${error.message}`);
-    }
-  };
-
-  const toggleDateExpansion = (date) => {
-    const newExpanded = new Set(expandedDates);
-    if (newExpanded.has(date)) {
-      newExpanded.delete(date);
-    } else {
-      newExpanded.add(date);
-    }
-    setExpandedDates(newExpanded);
-  };
-
-  const filterReports = () => {
-    if (!reports) return;
-
-    const sections = document.querySelectorAll('.date-section');
-    let visible = 0;
-    let total = 0;
-
-    sections.forEach((section) => {
-      const sectionDate = section.getAttribute('data-date');
-      let isVisible = false;
-
-      if (dateFilter) {
-        isVisible = sectionDate === dateFilter;
-      } else if (dateFrom || dateTo) {
-        const dateStr = sectionDate;
-        const fromStr = dateFrom || '1900-01-01';
-        const toStr = dateTo || '2100-12-31';
-        isVisible = dateStr >= fromStr && dateStr <= toStr;
-      } else {
-        isVisible = true;
-      }
-
-      if (isVisible) {
-        section.classList.remove('hidden');
-        const reportsInSection = section.querySelectorAll('.report-item').length;
-        total += reportsInSection;
-        visible++;
-      } else {
-        section.classList.add('hidden');
-      }
-    });
-
-    setVisibleCount(visible);
-    setTotalReports(total);
-  };
-
-  const clearFilters = () => {
-    setDateFilter('');
-    setDateFrom('');
-    setDateTo('');
-    setCurrentPage(1);
-    filterReports();
-  };
-
-  // Calcular reportes filtrados y paginados
-  const getFilteredAndPaginatedReports = () => {
-    let filtered = reports;
-
-    // Aplicar filtro de fecha específica si existe
-    if (dateFilter) {
-      filtered = filtered.filter(report => report.date === dateFilter);
-    }
-
-    // Aplicar filtro de rango de fechas si existe
-    if (dateFrom || dateTo) {
-      filtered = filtered.filter(report => {
-        const dateStr = report.date;
-        const fromStr = dateFrom || '1900-01-01';
-        const toStr = dateTo || '2100-12-31';
-        return dateStr >= fromStr && dateStr <= toStr;
-      });
-    }
-
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    const paginated = filtered.slice(startIndex, endIndex);
-
-    return { filtered, paginated, totalPages: Math.ceil(filtered.length / itemsPerPage) };
-  };
-
-  const { filtered, paginated, totalPages } = getFilteredAndPaginatedReports();
-
-  return {
-    // Estado
-    reports,
-    visibleCount,
-    totalReports,
+  // Use specialized hooks for different concerns
+  const { reports, loading, error, loadReports } = useReportsData();
+  const {
     dateFilter,
     dateFrom,
     dateTo,
+    setDateFilter,
+    setDateFrom,
+    setDateTo,
+    clearFilters: clearFilterState,
+    applyDateFilter
+  } = useReportsFilters();
+  const {
+    currentPage,
+    setCurrentPage,
+    paginateReports,
+    getPaginationInfo,
+    resetPagination
+  } = useReportsPagination();
+  const {
+    expandedDates,
+    toggleDateExpansion
+  } = useReportsExpansion();
+  const { deleteExecution } = useReportsActions(loadReports);
+
+  // Filter reports by category if specified
+  const categoryFilteredReports = useMemo(() => {
+    if (!category || !reports) return reports || [];
+
+    return reports.map(report => ({
+      ...report,
+      files: report.files.filter(file => {
+        if (category === REPORT_CATEGORIES.CORE) {
+          return file.category === REPORT_CATEGORIES.CORE;
+        } else if (category === REPORT_CATEGORIES.FEATURES) {
+          return file.category === REPORT_CATEGORIES.FEATURES;
+        } else if (category === REPORT_CATEGORIES.MIXED) {
+          return file.category === REPORT_CATEGORIES.MIXED;
+        }
+        return file.category === category;
+      })
+    })).filter(report => report.files.length > 0);
+  }, [reports, category]);
+
+  // Apply date filters
+  const filtered = useMemo(() => {
+    return applyDateFilter(categoryFilteredReports);
+  }, [categoryFilteredReports, dateFilter, dateFrom, dateTo]);
+
+  // Apply pagination
+  const paginated = useMemo(() => {
+    return paginateReports(filtered);
+  }, [filtered, currentPage]);
+
+  // Calculate statistics
+  const visibleCount = filtered.length;
+  const totalReports = filtered.reduce((sum, report) => sum + report.files.length, 0);
+  const { totalPages } = getPaginationInfo(filtered);
+
+  // Legacy filterReports function for backward compatibility
+  const filterReports = () => {
+    // Filters are now applied automatically via useMemo
+    // This function is kept for backward compatibility
+  };
+
+  // Enhanced clearFilters that also resets pagination
+  const clearFilters = () => {
+    clearFilterState();
+    resetPagination();
+  };
+
+  return {
+    // Data state
+    reports: categoryFilteredReports,
+    loading,
+    error,
+
+    // Statistics
+    visibleCount,
+    totalReports,
+
+    // Filter state
+    dateFilter,
+    dateFrom,
+    dateTo,
+
+    // UI state
     expandedDates,
     currentPage,
+
+    // Computed data
     filtered,
     paginated,
     totalPages,
@@ -204,7 +156,7 @@ export function useReports(category = null) {
     setDateTo,
     setCurrentPage,
 
-    // Funciones
+    // Actions
     loadReports,
     deleteExecution,
     toggleDateExpansion,

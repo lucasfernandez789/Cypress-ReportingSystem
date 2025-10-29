@@ -1,5 +1,25 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
+/**
+ * Main section component for the home page header.
+ *
+ * Displays the primary branding and introduction section including:
+ * - Legislative logo image
+ * - Main system title
+ * - Descriptive subtitle about automated reporting
+ *
+ * This component serves as the hero section of the home page,
+ * providing visual identity and system description.
+ *
+ * @component
+ * @returns {JSX.Element} The main section with logo and title
+ *
+ * @example
+ * ```jsx
+ * <SeccionPrincipal />
+ * ```
+ */
 function SeccionPrincipal() {
   return (
     <div className="mb-8 text-center md:mb-12">

@@ -3,7 +3,7 @@
 
 > **Versión 4.2** - Testing automatizado con Cypress, reportes organizados por categorías Core/Features/Mixed, interfaz web React con Material Symbols, ESLint configurado, paginación inteligente y pipeline completamente automatizado.
 
-## Inicio Rápido
+## 🚀 Inicio Rápido
 
 ```bash
 # Instalar dependencias
@@ -17,13 +17,153 @@ npm start
 
 # INICIAR SERVIDOR API (para eliminación directa)
 npm run api-server
-
-# VERIFICAR CÓDIGO (ESLint + Tailwind)
-npm run lint
-
-# ABRIR CYPRESS EN MODO INTERACTIVO
-npm run cypress:open
 ```
+
+## ✨ Características Principales
+
+### 🔬 Testing Automatizado Inteligente
+- **Cypress 15.3.0** con configuración multi-reporter
+- **Categorización automática** Core vs Features basada en rutas
+- **Reportes Mochawesome** organizados por fecha y categoría
+- **Pipeline completamente automatizado**
+
+### 🌐 Interfaz Web Moderna
+- **React 18.3.1** con Vite 7.1.9 para desarrollo rápido
+- **Tailwind CSS 3.4.18** con ESLint configurado
+- **Material Symbols** para iconografía consistente
+- **Arquitectura modular** con componentes reutilizables
+- **Paginación inteligente** (5 fechas por página)
+- **Filtros avanzados** por fecha y categorías
+- **Eliminación directa** desde la web
+
+## 📁 Estructura del Proyecto
+
+```
+cypress-leyes/
+├── src/                    # Aplicación React moderna
+│   ├── components/         # Componentes modulares
+│   ├── hooks/             # Custom hooks reutilizables
+│   └── utils/             # Utilidades compartidas
+├── cypress/               # Tests automatizados
+│   ├── e2e/
+│   │   ├── core/          # Tests de funcionalidades base
+│   │   └── features/      # Tests de features específicas
+│   └── reports/           # Reportes técnicos generados
+├── docs/                  # Build de producción (GitHub Pages)
+├── scripts/               # Automatización avanzada
+└── public/                # Assets estáticos
+```
+
+## 📋 Comandos Disponibles
+
+### Desarrollo
+| Comando | Descripción |
+|---------|-------------|
+| `npm start` | Servidor de desarrollo (Vite) |
+| `npm run build` | Compilar para producción |
+| `npm run lint` | Verificar código con ESLint |
+
+### Testing
+| Comando | Descripción |
+|---------|-------------|
+| `npm run test` | **PRINCIPAL**: Tests completos + reportes automáticos |
+| `npm run test:core` | Ejecutar solo tests Core |
+| `npm run test:features` | Ejecutar solo tests Features |
+| `npm run cypress:open` | Cypress en modo interactivo |
+
+### Gestión de Reportes
+| Comando | Descripción |
+|---------|-------------|
+| `npm run api-server` | Servidor API para eliminación web |
+| `npm run clean-reports` | Limpiar archivos JSON acumulados |
+| `npm run delete-report` | Eliminar ejecución específica |
+
+> 📖 **Para explicaciones detalladas consulta [COMANDOS.md](COMANDOS.md)**
+
+## 🎯 Flujo de Trabajo
+
+### Trabajo Diario
+```bash
+# Desarrollar con hot reload
+npm start
+
+# Ejecutar tests cuando sea necesario
+npm run test
+
+# Ver reportes en http://localhost:5173
+```
+
+### Para Eliminación de Reportes
+```bash
+# Terminal 1: Aplicación web
+npm start
+
+# Terminal 2: Servidor API
+npm run api-server
+
+# Ahora puedes eliminar reportes desde la web
+```
+
+## ⚙️ Configuración Inicial
+
+### Variables de Entorno
+Crea un archivo `.env` en la raíz:
+
+```env
+# Credenciales para testing
+USER=tu_usuario_real
+PASS=tu_password_real
+
+# URL base de la aplicación
+CYPRESS_BASE_URL=https://testing.hlt.gob:3007
+```
+
+### GitHub Pages (Opcional)
+1. Ve a **Settings** → **Pages** en GitHub
+2. Selecciona **Deploy from branch**
+3. Elige rama **main** y carpeta **docs/**
+4. Los reportes estarán en: `https://tu-usuario.github.io/tu-repo/`
+
+## 🆕 Sistema de Categorización
+
+### Categorías Automáticas
+- **Core**: Funcionalidades básicas y críticas
+- **Features**: Funcionalidades específicas y avanzadas
+- **Mixed**: Combinación de ambas categorías
+
+### Navegación
+- **Home**: Tarjetas para acceder a Core/Features
+- **Páginas dedicadas**: `/core`, `/features`, `/mixed`
+- **Filtros inteligentes**: Incluyen reportes mixtos automáticamente
+
+## 🔧 Troubleshooting
+
+### Tests fallan por credenciales
+```bash
+# Verificar variables de entorno
+echo $env:USER $env:PASS
+```
+
+### Reportes no se generan
+```bash
+npm run clean-reports
+npm run test
+```
+
+### API Server no responde
+```bash
+npm run api-server
+# Verificar en http://localhost:3001/api/health
+```
+
+## 📚 Documentación Adicional
+
+- **Comandos detallados**: [COMANDOS.md](./COMANDOS.md)
+- **Estructura técnica**: [STRUCTURE.md](./STRUCTURE.md)
+
+---
+
+**Versión:** 4.2.0 | **Última actualización:** Octubre 2025
 
 ## Características Principales
 
@@ -61,6 +201,8 @@ npm run cypress:open
 ```
 cypress-leyes/
 ├── src/                           # Aplicación React moderna
+│   ├── assets/                    # 🆕 Assets importados (imágenes, etc.)
+│   │   └── images/               # Imágenes optimizadas para build
 │   ├── components/                # Componentes modulares organizados
 │   │   ├── common/               # Componentes compartidos
 │   │   │   └── Footer.jsx        # Footer reutilizable

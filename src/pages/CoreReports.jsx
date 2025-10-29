@@ -1,126 +1,50 @@
-import React, { useState } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import { useReports } from '../hooks/useReports'
-import FiltrosReportes from '../components/reports/FiltrosReportes'
-import PaginacionReportes from '../components/reports/PaginacionReportes'
-import EstadisticasReportes from '../components/reports/EstadisticasReportes'
-import ReporteFecha from '../components/reports/ReporteFecha'
+import ReportsPage from '../components/reports/base/ReportsPage'
+import { REPORT_CATEGORIES, UI_MESSAGES } from '../constants/constants'
 
+/**
+ * Core Reports page component for displaying core functionality test reports.
+ *
+ * This page shows Cypress test reports specifically for core system functionality,
+ * which includes critical business logic and essential features. The page provides:
+ * - Statistics overview of core test executions
+ * - Date-based filtering capabilities
+ * - Paginated list of test reports organized by date
+ * - Individual execution management (view/delete)
+ *
+ * Uses the base ReportsPage component for consistent layout and functionality.
+ *
+ * @component
+ * @param {Object} props - Component props
+ * @param {Function} props.onNavigate - Navigation function to return to home or other pages
+ * @returns {JSX.Element} The core reports page layout
+ *
+ * @example
+ * ```jsx
+ * <CoreReports onNavigate={(page) => setCurrentPage(page)} />
+ * ```
+ */
 function CoreReports({ onNavigate }) {
-  const {
-    reports,
-    visibleCount,
-    totalReports,
-    dateFilter,
-    setDateFilter,
-    dateFrom,
-    setDateFrom,
-    dateTo,
-    setDateTo,
-    expandedDates,
-    toggleDateExpansion,
-    currentPage,
-    setCurrentPage,
-    itemsPerPage,
-    clearFilters,
-    filterReports,
-    filtered,
-    paginated,
-    totalPages
-  } = useReports('core')
-
-  // El hook ya filtra por categoría 'core', así que usamos directamente filtered y paginated
-  const filteredReports = filtered
-  const paginatedReports = paginated
+  const reportsData = useReports(REPORT_CATEGORIES.CORE)
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="border-b bg-white shadow-sm">
-        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between">
-            <div>
-              <div className="flex items-center gap-4">
-                <button
-                  onClick={() => onNavigate('home')}
-                  className="flex items-center gap-2 text-sm font-medium text-red-500 hover:text-red-700"
-                >
-                  <img src="/Cypress-ReportingSystem/assets/images/arrow_left_alt_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="back" className="icon-red h-4 w-4" />
-                  Volver
-                </button>
-              </div>
-              <h1 className="mt-2 text-3xl font-bold text-gray-900">
-                Reportes de Testing Core
-              </h1>
-              <p className="mt-1 text-gray-600">
-                Funcionalidades básicas y críticas del sistema
-              </p>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-800">
-                Core
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Content */}
-      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-4">
-          {/* Sidebar Izquierdo - Estadísticas y Filtros */}
-          <div className="lg:col-span-1">
-            {/* Estadísticas */}
-            <EstadisticasReportes reports={filteredReports} />
-
-            {/* Filtros */}
-            <FiltrosReportes
-              dateFilter={dateFilter}
-              setDateFilter={setDateFilter}
-              dateFrom={dateFrom}
-              setDateFrom={setDateFrom}
-              dateTo={dateTo}
-              setDateTo={setDateTo}
-              onClearFilters={clearFilters}
-              onSearch={filterReports}
-            />
-          </div>
-
-          {/* Contenido Principal - Tests */}
-          <div className="lg:col-span-3">
-            {/* Lista de Reportes */}
-            <div className="space-y-6">
-              {paginatedReports.length === 0 ? (
-                <div className="py-12 text-center">
-                  <div className="text-lg text-gray-500">No hay reportes de Core disponibles</div>
-                  <p className="mt-2 text-gray-400">Los reportes aparecerán aquí después de ejecutar los tests</p>
-                </div>
-              ) : (
-                paginatedReports.map((report) => (
-                  <ReporteFecha
-                    key={report.date}
-                    report={report}
-                    isExpanded={expandedDates.has(report.date)}
-                    onToggleExpansion={toggleDateExpansion}
-                    onDeleteExecution={(date, fileIndex) => {
-                      // Lógica para eliminar ejecución
-                      console.log('Eliminar ejecución:', date, fileIndex);
-                    }}
-                  />
-                ))
-              )}
-            </div>
-
-            {/* Paginación */}
-            <PaginacionReportes
-              currentPage={currentPage}
-              totalPages={totalPages}
-              onPageChange={setCurrentPage}
-            />
-          </div>
-        </div>
-      </div>
-    </div>
+    <ReportsPage
+      title="Reportes de Testing Core"
+      description="Funcionalidades básicas y críticas del sistema"
+      category="Core"
+      emptyMessage={UI_MESSAGES.NO_CORE_REPORTS}
+      onNavigate={onNavigate}
+      reportsData={reportsData}
+      loading={reportsData.loading}
+      error={reportsData.error}
+    />
   )
 }
 
-export default CoreReports
+CoreReports.propTypes = {
+  onNavigate: PropTypes.func.isRequired,
+}
+
+export default CoreReports;

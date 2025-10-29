@@ -1,53 +1,97 @@
-# Estructura del Proyecto - Documentación Técnica Detallada
+# 📁 Estructura del Proyecto
 
-> Esta es la ```
-cypress/
-├── e2e/
-│   ├── core/                   # 🆕 Funcionalidades base (categoría Core)
-│   │   └── nuevaLey.cy.js      # Test## Beneficios de esta Organización v4.2
+## 🏗️ Arquitectura General
 
-### 1. **Categorización Automática Inteligente**
-- 🆕 Sistema de IA que analiza contenido HTML para categorizar reportes
-- 🆕 Detección automática de rutas Core/Features en reportes
-- 🆕 Material Symbols icons para navegación visual intuitiva
-- 🆕 Páginas dedicadas `/core`, `/features` y `/mixed` con filtros específicos
-- 🆕 Reportes mixtos incluidos automáticamente cuando corresponde
+```
+cypress-leyes/
+├── src/                    # Aplicación React
+│   ├── components/         # Componentes modulares
+│   │   ├── common/        # Compartidos (ErrorBoundary, LoadingSpinner)
+│   │   ├── reports/       # Específicos de reportes
+│   │   └── Layout.jsx     # Layout principal
+│   ├── hooks/             # Custom hooks reutilizables
+│   │   ├── useReports.js  # Hook principal
+│   │   └── reports/       # Hooks especializados
+│   ├── utils/             # Utilidades compartidas
+│   └── constants/         # Configuración centralizada
+├── cypress/               # Tests automatizados
+│   ├── e2e/
+│   │   ├── core/          # Tests de funcionalidades base
+│   │   └── features/      # Tests de features específicas
+│   └── reports/           # Reportes generados
+├── docs/                  # Build de producción (GitHub Pages)
+├── scripts/               # Automatización
+└── public/                # Assets estáticos
+```
 
-### 2. **Paginación Inteligente Mejorada**
-- 🆕 **Siempre visible**: Muestra "1" incluso con una sola página
-- 🆕 **5 fechas por página**: Optimizado para mejor performance
-- 🆕 **Flechas rojas consistentes**: Color igual que SVG del home
-- 🆕 **Navegación intuitiva**: Controles anteriores/siguientes
-- 🆕 Diseño responsive con Tailwind CSS
-- 🆕 Navegación SPA fluida con React Router
+## 🎯 Componentes Principales
 
-### 3. **Pipeline Completamente Automatizado**
-- 🆕 Scripts convertidos a ES modules para compatibilidad moderna
-- 🆕 Eliminación de carpetas redundantes (reports/ raíz eliminada)
-- 🆕 Sincronización automática perfecta entre cypress/ → docs/ → public/
-- 🆕 npm run test crea carpeta del día actual sin fallos
-- 🆕 Servidor Express.js con endpoints REST
-- 🆕 Eliminación de reportes vía API (DELETE /api/delete-report)idades principales
-│   └── features/               # 🆕 Features específicas (categoría Features)
-│       └── (tests futuros)     # Tests para casos específicos/features
-├── fixtures/                   # Datos de prueba
-├── reports/                    # Reportes técnicos (fuente única)
-├── screenshots/                # Capturas de errores
-└── support/                    # Comandos y configuraciones
-```n técnica detallada de la **Versión 4.2** del sistema Cypress Testing & Reporting con interfaz web React moderna, categorización automática Core/Features/Mixed, Material Symbols, ESLint configurado y arquitectura modular avanzada.
+### Frontend React
+- **Layout.jsx**: Navegación y estructura base
+- **ErrorBoundary.jsx**: Captura de errores
+- **LoadingSpinner.jsx**: Indicador de carga
+- **ReportsPage.jsx**: Layout base para páginas de reportes
 
-## 🆕 Arquitectura Actualizada v4.2
+### Custom Hooks
+- **useReports.js**: Gestión completa del estado de reportes
+- **useReportsActions.js**: Acciones (eliminar reportes)
+- **useReportsData.js**: Carga y procesamiento de datos
+- **useReportsFilters.js**: Sistema de filtros
+- **useReportsPagination.js**: Paginación inteligente
+- **useReportsExpansion.js**: Expansión/colapso de secciones
 
-### **Aplicación Web React + Sistema de Testing + API Backend + Categorización Inteligente**
+### Utilidades
+- **apiUtils.js**: Funciones para llamadas API
+- **dateUtils.js**: Formateo de fechas
+- **generalUtils.js**: Utilidades generales (debounce, range, etc.)
 
-- **Frontend**: React 18.3.1 con Vite 7.1.9
-- **Testing**: Cypress 15.3.0 con Mochawesome + categorización automática
-- **Backend**: Express.js API para operaciones avanzadas
-- **Styling**: Tailwind CSS 3.4.18 con ESLint configurado
-- **Icons**: Material Symbols de Google Fonts
-- **Categorización**: Core/Features/Mixed automática basada en contenido HTML
-- **Arquitectura**: Componentes modulares con custom hooks
-- **Build**: Automatización completa con scripts npm
+## 🔧 Scripts de Automatización
+
+### API y Backend
+- **api-server.js**: Servidor Express para eliminación de reportes
+- **delete-report.js**: Eliminación desde terminal
+
+### Procesamiento de Reportes
+- **generate-reports-json.js**: Procesamiento JSON con categorización
+- **sync-reports-to-docs.js**: Sincronización automática
+
+## 📊 Sistema de Categorización
+
+### Categorías Automáticas
+- **Core**: Funcionalidades críticas (`cypress/e2e/core/`)
+- **Features**: Funcionalidades específicas (`cypress/e2e/features/`)
+- **Mixed**: Combinación de ambas categorías
+
+### Navegación
+- **Home** (`/`): Tarjetas de acceso a Core/Features
+- **Páginas dedicadas**: `/core`, `/features`, `/mixed`
+- **Filtros inteligentes**: Incluyen reportes mixtos automáticamente
+
+## 🚀 Flujo de Trabajo
+
+### Desarrollo
+1. `npm start` - Servidor de desarrollo
+2. Modificar código en `src/`
+3. `npm run lint` - Verificar calidad
+
+### Testing
+1. `npm run test:core` - Tests de funcionalidades base
+2. `npm run test:features` - Tests de features específicas
+3. `npm run test` - Testing completo
+
+### Producción
+1. `npm run build` - Compilar aplicación
+2. Archivos generados en `docs/`
+3. Desplegar desde carpeta `docs/`
+
+## 📖 Referencias
+
+- **README.md**: Inicio rápido y características
+- **COMANDOS.md**: Guía completa de comandos npm
+
+---
+
+**Versión:** 4.2 | **Actualizado:** Octubre 2025
 
 ## Análisis Detallado de la Organización
 
