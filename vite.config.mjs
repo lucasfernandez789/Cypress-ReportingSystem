@@ -5,8 +5,8 @@ import { fileURLToPath } from 'url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
-export default defineConfig({
-  base: '/Cypress-ReportingSystem/',
+export default defineConfig(({ mode }) => ({
+  base: mode === 'production' ? '/Cypress-ReportingSystem/' : '/',
   plugins: [react()],
   server: {
     port: 5173,
@@ -30,4 +30,4 @@ export default defineConfig({
       '@reports': path.resolve(__dirname, './public/reports')
     }
   }
-})
+}))

@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import logoImage from '../../assets/images/logo-legis-act-D-yCoXSC.png'
+import logoImage from '@assets/images/logo-legis-act-D-yCoXSC.png'
 
 /**
  * Main section component for the home page header.

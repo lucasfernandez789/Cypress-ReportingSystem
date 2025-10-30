@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import logoImage from '../assets/images/logo-legis-act-D-yCoXSC.png'
+import logoImage from '@assets/images/logo-legis-act-D-yCoXSC.png'
 import { PAGES, ACCESSIBILITY, STYLES } from '../constants/constants'
 
 /**
