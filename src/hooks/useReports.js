@@ -162,5 +162,6 @@ export function useReports(category = null) {
     toggleDateExpansion,
     filterReports,
     clearFilters,
+    onSearch: filterReports,
   };
 }
