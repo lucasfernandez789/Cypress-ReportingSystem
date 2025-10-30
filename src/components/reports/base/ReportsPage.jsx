@@ -93,9 +93,7 @@ function ReportsPage({
               </p>
             </div>
             <div className="flex items-center gap-2">
-              <span className="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-800">
-                {category}
-              </span>
+              {/* Badge removido por ser redundante con el título */}
             </div>
           </div>
         </div>
