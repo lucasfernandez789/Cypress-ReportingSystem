@@ -28,7 +28,7 @@ function deleteReportExecution(targetDate, targetFilePath) {
     const fullPath = path.join(baseDir, file);
     if (fs.existsSync(fullPath)) {
       fs.unlinkSync(fullPath);
-      console.log(`✅ Eliminado: ${fullPath}`);
+      console.log(` Eliminado: ${fullPath}`);
       return true;
     }
     return false;
@@ -44,7 +44,7 @@ function deleteReportExecution(targetDate, targetFilePath) {
   const deletedFromDocs = deleteFileIfExists(docsReportsDir, targetFilePath);
 
   if (deletedFromCypress || deletedFromPublic || deletedFromDocs) {
-    console.log('🔄 Regenerando archivo report.json...');
+    console.log(' Regenerando archivo report.json...');
 
     // Regenerar el archivo JSON sin la ejecución eliminada
     const generateReportsJson = require('./generate-reports-json');
@@ -55,10 +55,10 @@ function deleteReportExecution(targetDate, targetFilePath) {
     const publicJsonPath = path.join(publicReportsDir, 'report.json');
     fs.copyFileSync(outputFile, publicJsonPath);
 
-    console.log('✅ Archivo report.json actualizado');
-    console.log('💡 Recarga la página web para ver los cambios');
+    console.log(' Archivo report.json actualizado');
+    console.log(' Recarga la página web para ver los cambios');
   } else {
-    console.log('⚠️  No se encontró el archivo especificado');
+    console.log('  No se encontró el archivo especificado');
   }
 }
 

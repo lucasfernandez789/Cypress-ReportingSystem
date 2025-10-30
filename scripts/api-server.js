@@ -39,7 +39,7 @@ app.delete('/api/delete-report', (req, res) => {
       const fullPath = path.join(baseDir, file);
       if (fs.existsSync(fullPath)) {
         fs.unlinkSync(fullPath);
-        console.log(`✅ Eliminado: ${fullPath}`);
+        console.log(` Eliminado: ${fullPath}`);
         return true;
       }
       return false;
@@ -55,7 +55,7 @@ app.delete('/api/delete-report', (req, res) => {
     const deletedFromDocs = deleteFileIfExists(docsReportsDir, filePath);
 
     if (deletedFromCypress || deletedFromPublic || deletedFromDocs) {
-      console.log('🔄 Regenerando archivo report.json...');
+      console.log(' Regenerando archivo report.json...');
 
       // Regenerar el archivo JSON sin la ejecución eliminada
       const outputFile = path.join(docsReportsDir, 'report.json');
@@ -65,7 +65,7 @@ app.delete('/api/delete-report', (req, res) => {
       const publicJsonPath = path.join(publicReportsDir, 'report.json');
       fs.copyFileSync(outputFile, publicJsonPath);
 
-      console.log('✅ Archivo report.json actualizado');
+      console.log(' Archivo report.json actualizado');
 
       res.json({
         success: true,
@@ -114,8 +114,8 @@ app.get('/api/health', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 API Server corriendo en http://localhost:${PORT}`);
-  console.log(`📊 Health check: http://localhost:${PORT}/api/health`);
-  console.log(`🗑️  Eliminar reporte: DELETE http://localhost:${PORT}/api/delete-report`);
-  console.log(`📋 Obtener reportes: GET http://localhost:${PORT}/api/reports`);
+  console.log(` API Server corriendo en http://localhost:${PORT}`);
+  console.log(` Health check: http://localhost:${PORT}/api/health`);
+  console.log(`  Eliminar reporte: DELETE http://localhost:${PORT}/api/delete-report`);
+  console.log(` Obtener reportes: GET http://localhost:${PORT}/api/reports`);
 });

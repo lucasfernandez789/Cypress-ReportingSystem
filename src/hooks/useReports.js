@@ -87,10 +87,15 @@ export function useReports(category = null) {
     return reports.map(report => ({
       ...report,
       files: report.files.filter(file => {
+        // Si el archivo es 'mixed', mostrarlo en todas las categorías
+        if (file.category === REPORT_CATEGORIES.MIXED) {
+          return true;
+        }
+
         if (category === REPORT_CATEGORIES.CORE) {
-          return file.category === REPORT_CATEGORIES.CORE;
+          return file.category === REPORT_CATEGORIES.CORE || file.category === REPORT_CATEGORIES.MIXED;
         } else if (category === REPORT_CATEGORIES.FEATURES) {
-          return file.category === REPORT_CATEGORIES.FEATURES;
+          return file.category === REPORT_CATEGORIES.FEATURES || file.category === REPORT_CATEGORIES.MIXED;
         } else if (category === REPORT_CATEGORIES.MIXED) {
           return file.category === REPORT_CATEGORIES.MIXED;
         }
@@ -116,8 +121,8 @@ export function useReports(category = null) {
 
   // Legacy filterReports function for backward compatibility
   const filterReports = () => {
-    // Filters are now applied automatically via useMemo
-    // This function is kept for backward compatibility
+    // Filters are applied automatically, but this provides user feedback
+    loadReports();
   };
 
   // Enhanced clearFilters that also resets pagination

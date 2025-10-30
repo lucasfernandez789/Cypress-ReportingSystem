@@ -1,67 +1,45 @@
 [
   {
-    "date": "2025-10-16",
+    "date": "2025-10-30",
     "files": [
       {
-        "date": "2025-10-16",
-        "time": "11:31:59",
-        "path": "2025-10-16/report-2025-10-16T11-31-59.html",
-        "url": "2025-10-16/report-2025-10-16T11-31-59.html",
+        "date": "2025-10-30",
+        "time": "11:15:58",
+        "path": "2025-10-30/report-2025-10-30T11-15-58.html",
+        "url": "2025-10-30/report-2025-10-30T11-15-58.html",
+        "category": "mixed"
+      },
+      {
+        "date": "2025-10-30",
+        "time": "11:15:28",
+        "path": "2025-10-30/report-2025-10-30T11-15-28.html",
+        "url": "2025-10-30/report-2025-10-30T11-15-28.html",
+        "category": "mixed"
+      },
+      {
+        "date": "2025-10-30",
+        "time": "11:08:37",
+        "path": "2025-10-30/report-2025-10-30T11-08-37.html",
+        "url": "2025-10-30/report-2025-10-30T11-08-37.html",
+        "category": "mixed"
+      },
+      {
+        "date": "2025-10-30",
+        "time": "10:58:45",
+        "path": "2025-10-30/report-2025-10-30T10-58-45.html",
+        "url": "2025-10-30/report-2025-10-30T10-58-45.html",
+        "category": "mixed"
+      },
+      {
+        "date": "2025-10-30",
+        "time": "10:52:35",
+        "path": "2025-10-30/report-2025-10-30T10-52-35.html",
+        "url": "2025-10-30/report-2025-10-30T10-52-35.html",
         "category": "mixed"
       }
     ],
-    "dateFormatted": "jueves, 16 de octubre de 2025",
-    "executions": 1,
-    "lastExecution": "11:31:59"
-  },
-  {
-    "date": "2025-10-14",
-    "files": [
-      {
-        "date": "2025-10-14",
-        "time": "11:57:14",
-        "path": "2025-10-14/report-2025-10-14T11-57-14.html",
-        "url": "2025-10-14/report-2025-10-14T11-57-14.html",
-        "category": "mixed"
-      },
-      {
-        "date": "2025-10-14",
-        "time": "12:04:22",
-        "path": "2025-10-14/report-2025-10-14T12-04-22.html",
-        "url": "2025-10-14/report-2025-10-14T12-04-22.html",
-        "category": "core"
-      },
-      {
-        "date": "2025-10-14",
-        "time": "12:04:52",
-        "path": "2025-10-14/report-2025-10-14T12-04-52.html",
-        "url": "2025-10-14/report-2025-10-14T12-04-52.html",
-        "category": "features"
-      },
-      {
-        "date": "2025-10-14",
-        "time": "12:12:23",
-        "path": "2025-10-14/report-2025-10-14T12-12-23.html",
-        "url": "2025-10-14/report-2025-10-14T12-12-23.html",
-        "category": "core"
-      },
-      {
-        "date": "2025-10-14",
-        "time": "12:12:39",
-        "path": "2025-10-14/report-2025-10-14T12-12-39.html",
-        "url": "2025-10-14/report-2025-10-14T12-12-39.html",
-        "category": "features"
-      },
-      {
-        "date": "2025-10-14",
-        "time": "12:12:58",
-        "path": "2025-10-14/report-2025-10-14T12-12-58.html",
-        "url": "2025-10-14/report-2025-10-14T12-12-58.html",
-        "category": "mixed"
-      }
-    ],
-    "dateFormatted": "martes, 14 de octubre de 2025",
-    "executions": 6,
-    "lastExecution": "12:12:58"
+    "dateFormatted": "miércoles, 29 de octubre de 2025",
+    "executions": 5,
+    "lastExecution": "11:15:58"
   }
 ]

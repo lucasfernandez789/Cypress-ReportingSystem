@@ -10,11 +10,11 @@ function TarjetasAcceso({ onNavigate }) {
             className="transition duration-200"
             title="Reportes de testing para funcionalidades básicas y críticas del sistema"
           >
-            <img src="/Cypress-ReportingSystem/assets/images/help.svg" alt="icon-help" className="h-5 w-5" />
+            <img src="/assets/images/help.svg" alt="icon-help" className="h-5 w-5" />
           </button>
         </div>
         <div className="mb-6 flex justify-center">
-          <img src="/Cypress-ReportingSystem/assets/images/science_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="science icon" className="icon-gray-dark h-16 w-16" />
+          <img src="/assets/images/science_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="science icon" className="icon-gray-dark h-16 w-16" />
         </div>
         <div className="mb-2 py-2 text-center text-xl font-bold text-gray-800">
           Tests Core
@@ -37,11 +37,11 @@ function TarjetasAcceso({ onNavigate }) {
             className="transition duration-200"
             title="Reportes de testing para funcionalidades específicas y avanzadas del sistema"
           >
-            <img src="/Cypress-ReportingSystem/assets/images/help.svg" alt="icon-help" className="h-5 w-5" />
+            <img src="/assets/images/help.svg" alt="icon-help" className="h-5 w-5" />
           </button>
         </div>
         <div className="mb-6 flex justify-center">
-          <img src="/Cypress-ReportingSystem/assets/images/extension_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="extension icon" className="icon-gray-dark h-16 w-16" />
+          <img src="/assets/images/extension_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="extension icon" className="icon-gray-dark h-16 w-16" />
         </div>
         <div className="mb-2 py-2 text-center text-xl font-bold text-gray-800">
           Tests Features
