@@ -43,6 +43,7 @@ function ReporteItem({ file, fileIndex, date, onDelete }) {
         filePath={file.path}
         date={date}
         onDelete={onDelete}
+        category={file.category}
       />
     </div>
   )

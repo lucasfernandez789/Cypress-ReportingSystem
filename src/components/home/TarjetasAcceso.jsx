@@ -1,63 +1,51 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import AccessCard from './AccessCard'
 
+/**
+ * Componente TarjetasAcceso para mostrar las tarjetas de navegación en home.
+ *
+ * Muestra tarjetas de acceso a las diferentes secciones de reportes
+ * usando el componente AccessCard reutilizable.
+ *
+ * @component
+ * @param {Object} props - Propiedades del componente
+ * @param {Function} props.onNavigate - Función de navegación
+ * @returns {JSX.Element} Contenedor con tarjetas de acceso
+ *
+ * @example
+ * ```jsx
+ * <TarjetasAcceso onNavigate={handleNavigate} />
+ * ```
+ */
 function TarjetasAcceso({ onNavigate }) {
   return (
     <div className="flex justify-center gap-8">
-      {/* Tarjeta Core */}
-      <div className="flex w-full max-w-sm flex-col rounded bg-[#DDEAF1] p-2 transition-shadow duration-300 hover:shadow-lg">
-        <div className="flex justify-end">
-          <button
-            className="transition duration-200"
-            title="Reportes de testing para funcionalidades básicas y críticas del sistema"
-          >
-            <img src={`${import.meta.env.BASE_URL}assets/images/help.svg`} alt="icon-help" className="h-5 w-5" />
-          </button>
-        </div>
-        <div className="mb-6 flex justify-center">
-          <img src={`${import.meta.env.BASE_URL}assets/images/science_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg`} alt="science icon" className="icon-gray-dark h-16 w-16" />
-        </div>
-        <div className="mb-2 py-2 text-center text-xl font-bold text-gray-800">
-          Tests Core
-        </div>
-        <p className="mb-4 text-center text-gray-600">
-          Funcionalidades básicas y críticas del sistema
-        </p>
-        <button
-          onClick={() => onNavigate('core')}
-          className="rounded bg-blue-500 px-4 py-2 text-center font-bold text-white transition duration-200 hover:bg-blue-600"
-        >
-          Ver Reportes Core
-        </button>
-      </div>
+      <AccessCard
+        iconName="science_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24"
+        title="Tests Core"
+        description="Funcionalidades básicas y críticas del sistema"
+        buttonText="Ver Reportes Core"
+        onNavigate={onNavigate}
+        navigateTo="core"
+        tooltip="Reportes de testing para funcionalidades básicas y críticas del sistema"
+      />
 
-      {/* Tarjeta Features */}
-      <div className="flex w-full max-w-sm flex-col rounded bg-[#DDEAF1] p-2 transition-shadow duration-300 hover:shadow-lg">
-        <div className="flex justify-end">
-          <button
-            className="transition duration-200"
-            title="Reportes de testing para funcionalidades específicas y avanzadas del sistema"
-          >
-            <img src={`${import.meta.env.BASE_URL}assets/images/help.svg`} alt="icon-help" className="h-5 w-5" />
-          </button>
-        </div>
-        <div className="mb-6 flex justify-center">
-          <img src={`${import.meta.env.BASE_URL}assets/images/extension_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg`} alt="extension icon" className="icon-gray-dark h-16 w-16" />
-        </div>
-        <div className="mb-2 py-2 text-center text-xl font-bold text-gray-800">
-          Tests Features
-        </div>
-        <p className="mb-4 text-center text-gray-600">
-          Funcionalidades específicas y avanzadas del sistema
-        </p>
-        <button
-          onClick={() => onNavigate('features')}
-          className="rounded bg-blue-500 px-4 py-2 text-center font-bold text-white transition duration-200 hover:bg-blue-600"
-        >
-          Ver Reportes Features
-        </button>
-      </div>
+      <AccessCard
+        iconName="extension_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24"
+        title="Tests Features"
+        description="Funcionalidades específicas y avanzadas del sistema"
+        buttonText="Ver Reportes Features"
+        onNavigate={onNavigate}
+        navigateTo="features"
+        tooltip="Reportes de testing para funcionalidades específicas y avanzadas del sistema"
+      />
     </div>
   )
+}
+
+TarjetasAcceso.propTypes = {
+  onNavigate: PropTypes.func.isRequired,
 }
 
 export default TarjetasAcceso

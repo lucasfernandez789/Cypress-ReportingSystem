@@ -4,6 +4,55 @@
     "files": [
       {
         "date": "2025-10-30",
+        "time": "12:51:30",
+        "path": "2025-10-30/report-2025-10-30T12-51-30.html",
+        "url": "2025-10-30/report-2025-10-30T12-51-30.html",
+        "category": "mixed"
+      },
+      {
+        "date": "2025-10-30",
+        "time": "12:49:10",
+        "path": "2025-10-30/report-2025-10-30T12-49-10.html",
+        "url": "2025-10-30/report-2025-10-30T12-49-10.html",
+        "category": "mixed"
+      },
+      {
+        "date": "2025-10-30",
+        "time": "12:46:44",
+        "path": "2025-10-30/report-2025-10-30T12-46-44.html",
+        "url": "2025-10-30/report-2025-10-30T12-46-44.html",
+        "category": "mixed"
+      },
+      {
+        "date": "2025-10-30",
+        "time": "12:44:06",
+        "path": "2025-10-30/report-2025-10-30T12-44-06.html",
+        "url": "2025-10-30/report-2025-10-30T12-44-06.html",
+        "category": "mixed"
+      },
+      {
+        "date": "2025-10-30",
+        "time": "12:39:11",
+        "path": "2025-10-30/report-2025-10-30T12-39-11.html",
+        "url": "2025-10-30/report-2025-10-30T12-39-11.html",
+        "category": "mixed"
+      },
+      {
+        "date": "2025-10-30",
+        "time": "12:35:46",
+        "path": "2025-10-30/report-2025-10-30T12-35-46.html",
+        "url": "2025-10-30/report-2025-10-30T12-35-46.html",
+        "category": "mixed"
+      },
+      {
+        "date": "2025-10-30",
+        "time": "12:17:03",
+        "path": "2025-10-30/report-2025-10-30T12-17-03.html",
+        "url": "2025-10-30/report-2025-10-30T12-17-03.html",
+        "category": "mixed"
+      },
+      {
+        "date": "2025-10-30",
         "time": "11:15:58",
         "path": "2025-10-30/report-2025-10-30T11-15-58.html",
         "url": "2025-10-30/report-2025-10-30T11-15-58.html",
@@ -39,7 +88,7 @@
       }
     ],
     "dateFormatted": "miércoles, 29 de octubre de 2025",
-    "executions": 5,
-    "lastExecution": "11:15:58"
+    "executions": 12,
+    "lastExecution": "12:51:30"
   }
 ]

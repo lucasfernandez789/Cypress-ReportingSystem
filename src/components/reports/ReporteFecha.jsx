@@ -1,7 +1,7 @@
 import React from 'react'
 import ReporteItem from './ReporteItem'
 
-function ReporteFecha({ report, isExpanded, onToggleExpansion, onDeleteExecution }) {
+function ReporteFecha({ report, isExpanded, onToggleExpansion, onDeleteExecution, category = 'mixed' }) {
   return (
     <div className="date-section overflow-hidden rounded-lg bg-white shadow-md" data-date={report.date}>
       {/* Header de fecha - Clickable para expandir/colapsar */}
@@ -42,6 +42,7 @@ function ReporteFecha({ report, isExpanded, onToggleExpansion, onDeleteExecution
                 fileIndex={fileIndex}
                 date={report.date}
                 onDelete={onDeleteExecution}
+                category={category}
               />
             ))}
           </div>

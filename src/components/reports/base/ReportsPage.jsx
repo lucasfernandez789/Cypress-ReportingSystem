@@ -157,6 +157,7 @@ function ReportsPage({
                       // Lógica para eliminar ejecución
                       console.log('Eliminar ejecución:', date, fileIndex);
                     }}
+                    category={category}
                   />
                 ))
               )}
