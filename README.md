@@ -38,7 +38,7 @@ Cada fork tendrá:
 - **Configuración propia**: Variables de entorno específicas
 - **Reportes independientes**: Historial separado por aplicación
 
-## 🚀 Inicio Rápido
+##  Inicio Rápido
 
 ```bash
 # Instalar dependencias
