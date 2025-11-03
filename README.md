@@ -1,7 +1,42 @@
 ﻿# Cypress Testing & Reporting System
-## Sistema Completo de Testing Automatizado con Interfaz Web Moderna
 
-> **Versión 4.2** - Testing automatizado con Cypress, reportes organizados por categorías Core/Features/Mixed, interfaz web React con Material Symbols, ESLint configurado, paginación inteligente y pipeline completamente automatizado.
+> Sistema completo de testing automatizado con interfaz web moderna para visualización y gestión de reportes
+
+[![React](https://img.shields.io/badge/React-18.3.1-blue.svg)](https://reactjs.org/)
+[![Cypress](https://img.shields.io/badge/Cypress-15.3.0-04C38E.svg)](https://www.cypress.io/)
+[![Vite](https://img.shields.io/badge/Vite-7.1.9-646CFF.svg)](https://vitejs.dev/)
+[![TailwindCSS](https://img.shields.io/badge/Tailwind-3.4.18-38B2AC.svg)](https://tailwindcss.com/)
+
+## Tabla de Contenidos
+
+- [Inicio Rápido](#inicio-rápido)
+- [Características](#características-principales)
+- [Instalación y Configuración](#configuración-inicial)
+- [Comandos Disponibles](#comandos-disponibles)
+- [Flujo de Trabajo](#flujo-de-trabajo)
+- [Estructura del Proyecto](#estructura-del-proyecto)
+- [Configuración Avanzada](#configuración-avanzada)
+- [Documentación Adicional](#documentación-adicional)
+- [Contribución](#contribución)
+
+## 🎯 Uso como Template
+
+Este proyecto está diseñado para ser usado como **template base** para sistemas de testing automatizados. Cada fork representa una aplicación diferente.
+
+### Para Nuevos Forks
+
+1. **Hacer Fork** del repositorio
+2. **Configurar** automáticamente con `npm run setup`
+3. **Personalizar** tests para tu aplicación
+4. **Desarrollar** y mantener tests específicos
+
+### Estructura por Aplicación
+
+Cada fork tendrá:
+- **Frontend común**: Interfaz React para reportes
+- **Tests específicos**: Cypress adaptado a cada app
+- **Configuración propia**: Variables de entorno específicas
+- **Reportes independientes**: Historial separado por aplicación
 
 ## 🚀 Inicio Rápido
 
@@ -19,15 +54,16 @@ npm start
 npm run api-server
 ```
 
-## ✨ Características Principales
+## Características Principales
 
-### 🔬 Testing Automatizado Inteligente
+### Testing Automatizado Inteligente
 - **Cypress 15.3.0** con configuración multi-reporter
-- **Categorización automática** Core vs Features basada en rutas
-- **Reportes Mochawesome** organizados por fecha y categoría
+- **Categorización por comandos** (`test:core` y `test:features`)
+- **Reportes Mochawesome** organizados por fecha
 - **Pipeline completamente automatizado**
+- **Estructura organizada** en carpetas core/ y features/
 
-### 🌐 Interfaz Web Moderna
+### Interfaz Web Moderna
 - **React 18.3.1** con Vite 7.1.9 para desarrollo rápido
 - **Tailwind CSS 3.4.18** con ESLint configurado
 - **Material Symbols** para iconografía consistente
@@ -36,25 +72,94 @@ npm run api-server
 - **Filtros avanzados** por fecha y categorías
 - **Eliminación directa** desde la web
 
-## 📁 Estructura del Proyecto
+## Estructura del Proyecto
 
 ```
 cypress-leyes/
-├── src/                    # Aplicación React moderna
-│   ├── components/         # Componentes modulares
-│   ├── hooks/             # Custom hooks reutilizables
-│   └── utils/             # Utilidades compartidas
-├── cypress/               # Tests automatizados
-│   ├── e2e/
-│   │   ├── core/          # Tests de funcionalidades base
-│   │   └── features/      # Tests de features específicas
-│   └── reports/           # Reportes técnicos generados
-├── docs/                  # Build de producción (GitHub Pages)
-├── scripts/               # Automatización avanzada
-└── public/                # Assets estáticos
+├── src/                          # Aplicación React
+│   ├── components/               # Componentes de la interfaz
+│   │   ├── common/               # Componentes comunes
+│   │   │   ├── Button.jsx        # Botón reutilizable
+│   │   │   ├── Card.jsx          # Tarjeta base
+│   │   │   ├── ErrorBoundary.jsx
+│   │   │   ├── Footer.jsx
+│   │   │   ├── Icon.jsx
+│   │   │   ├── Input.jsx
+│   │   │   └── LoadingCard.jsx
+│   │   ├── home/           # Componentes de la página principal
+│   │   │   ├── AccessCard.jsx
+│   │   │   ├── SeccionPrincipal.jsx
+│   │   │   └── TarjetasAcceso.jsx
+│   │   └── reports/       # Componentes de reportes
+│   │       ├── base/      # Componentes base de reportes
+│   │       │   └── ReportsPage.jsx
+│   │       ├── BotonesAccion.jsx
+│   │       ├── EstadisticasReportes.jsx
+│   │       ├── FiltrosReportes.jsx
+│   │       ├── PaginacionReportes.jsx
+│   │       ├── ReporteFecha.jsx
+│   │       └── ReporteItem.jsx
+│   ├── constants/          # Constantes globales
+│   │   └── constants.js
+│   ├── hooks/             # Hooks personalizados
+│   │   ├── reports/       # Hooks específicos de reportes
+│   │   │   ├── useReportsActions.js
+│   │   │   ├── useReportsData.js
+│   │   │   ├── useReportsExpansion.js
+│   │   │   ├── useReportsFilters.js
+│   │   │   └── useReportsPagination.js
+│   │   └── useReports.js
+│   ├── pages/             # Páginas principales
+│   │   ├── CoreReports.jsx    # Vista de reportes Core
+│   │   ├── FeatureReports.jsx # Vista de reportes Features
+│   │   ├── Home.jsx           # Página principal
+│   │   ├── MixedReports.jsx   # Vista de reportes mezclados
+│   │   └── Reports.jsx        # Página base de reportes
+│   ├── App.jsx            # Componente principal
+│   ├── index.css          # Estilos globales
+│   └── main.jsx           # Punto de entrada React
+├── cypress/                # Tests automatizados
+│   ├── e2e/             # Tests end-to-end
+│   │   ├── core/        # Tests de funcionalidades base
+│   │   └── features/    # Tests de características específicas
+│   ├── fixtures/        # Datos de prueba
+│   │   └── usuario.json
+│   ├── support/         # Configuración de tests
+│   │   ├── commands.js  # Comandos personalizados
+│   │   ├── e2e.js       # Configuración principal
+│   │   └── selectors.js # Selectores centralizados
+│   ├── reports/         # Reportes generados
+│   │   ├── mocha/       # JSONs de Mochawesome
+│   │   └── [fecha]/     # Reportes HTML por fecha
+│   └── screenshots/     # Capturas de fallos
+├── scripts/             # Scripts de automatización
+│   ├── utils/           # Utilidades compartidas
+│   │   └── categorize-tests.js # Categorización de tests
+│   ├── api-server.js     # Servidor para eliminación
+│   ├── delete-report.js  # Eliminación de reportes
+│   ├── generate-reports-json.js   # Generación de índice
+│   └── sync-reports-to-docs.js    # Sincronización de docs
+├── public/             # Assets públicos
+│   ├── assets/       # Recursos estáticos
+│   │   ├── images/  # Imágenes e iconos
+│   │   └── fonts/   # Fuentes
+│   └── reports/     # Reportes publicados
+├── docs/            # Documentación y reportes
+│   ├── reports/     # Reportes para GitHub Pages
+│   └── public/      # Assets estáticos
+├── .env             # Variables de entorno
+├── .gitignore       # Exclusiones de Git
+├── COMANDOS.md      # Documentación de comandos
+├── cypress.config.js  # Configuración de Cypress
+├── eslint.config.js   # Configuración de ESLint
+├── package.json      # Dependencias y scripts
+├── postcss.config.cjs     # Configuración de PostCSS
+├── reporter-config.json   # Configuración de reportes
+├── tailwind.config.js     # Configuración de Tailwind
+└── vite.config.mjs        # Configuración de Vite
 ```
 
-## 📋 Comandos Disponibles
+## Comandos Disponibles
 
 ### Desarrollo
 | Comando | Descripción |
@@ -66,10 +171,12 @@ cypress-leyes/
 ### Testing
 | Comando | Descripción |
 |---------|-------------|
-| `npm run test` | **PRINCIPAL**: Tests completos + reportes automáticos |
-| `npm run test:core` | Ejecutar solo tests Core |
-| `npm run test:features` | Ejecutar solo tests Features |
+| `npm run test` | **PRINCIPAL**: Ejecuta todos los tests y genera reportes |
+| `npm run test:core` | Ejecuta y reporta solo tests Core |
+| `npm run test:features` | Ejecuta y reporta solo tests Features |
 | `npm run cypress:open` | Cypress en modo interactivo |
+
+> **Nota**: Los comandos `test:core` y `test:features` ejecutan y reportan automáticamente solo los tests de su categoría respectiva.
 
 ### Gestión de Reportes
 | Comando | Descripción |
@@ -78,9 +185,19 @@ cypress-leyes/
 | `npm run clean-reports` | Limpiar archivos JSON acumulados |
 | `npm run delete-report` | Eliminar ejecución específica |
 
-> 📖 **Para explicaciones detalladas consulta [COMANDOS.md](COMANDOS.md)**
+### Setup y Configuración
+| Comando | Descripción |
+|---------|-------------|
+| `npm run setup` | **CONFIGURACIÓN COMPLETA** automática |
+| `npm run setup:app` | Configurar nombre y URLs de la aplicación |
+| `npm run setup:env` | Configurar variables de entorno avanzadas |
+| `npm run setup:tests` | Crear estructura básica de tests |
+| `npm run cleanup` | Limpiar archivos del template |
+| `npm run verify` | Verificar configuración completa |
 
-## 🎯 Flujo de Trabajo
+> **Para explicaciones detalladas consulta [COMANDOS.md](COMANDOS.md)**
+
+## Flujo de Trabajo
 
 ### Trabajo Diario
 ```bash
@@ -93,9 +210,18 @@ npm run test
 # Ver reportes en http://localhost:5173
 ```
 
-### Para Eliminación de Reportes
+### Ejecutando Tests por Categoría
 ```bash
-# Terminal 1: Aplicación web
+# Ejecutar solo tests Core
+npm run test:core
+
+# Ejecutar solo tests Features
+npm run test:features
+
+# Ejecutar todos los tests
+npm run test
+
+# Ver reportes generados
 npm start
 
 # Terminal 2: Servidor API
@@ -104,19 +230,105 @@ npm run api-server
 # Ahora puedes eliminar reportes desde la web
 ```
 
-## ⚙️ Configuración Inicial
+## Configuración Inicial
 
-### Variables de Entorno
-Crea un archivo `.env` en la raíz:
+### Requisitos Previos
+- Node.js 16.x o superior
+- npm 8.x o superior
+- Git (opcional, para control de versiones)
 
-```env
-# Credenciales para testing
-USER=tu_usuario_real
-PASS=tu_password_real
+### Setup Automatizado (Recomendado)
 
-# URL base de la aplicación
-CYPRESS_BASE_URL=https://testing.hlt.gob:3007
+Para configurar rápidamente un nuevo fork para una aplicación específica:
+
+```bash
+# Configuración completa automática
+npm run setup
+
+# O configuración paso a paso:
+npm run setup:app    # Configurar nombre y URLs
+npm run setup:env    # Variables de entorno avanzadas
+npm run setup:tests  # Estructura de tests básica
+npm run cleanup      # Limpiar archivos del template
+npm run verify       # Verificar configuración
 ```
+
+### Configuración Manual
+
+Si prefieres configurar manualmente:
+
+1. **Instalación**:
+```bash
+git clone https://github.com/lucasfernandez789/Cypress-ReportingSystem.git
+cd Cypress-ReportingSystem
+```
+
+2. **Instalar dependencias**:
+```bash
+npm install
+```
+
+3. **Configurar variables de entorno**:
+```bash
+# Crear archivo .env
+cp .env.example .env
+
+# Editar con tus configuraciones
+APP_NAME="Mi Aplicación"
+APP_PREFIX="miapp"
+CYPRESS_BASE_URL="https://mi-app.com"
+USER="tester"
+PASS="password"
+```
+
+## Configuración Avanzada
+
+### Personalización de Reportes
+El sistema permite personalizar la generación de reportes a través de `reporter-config.json`:
+
+```json
+{
+  "reporterEnabled": "mochawesome",
+  "mochawesomeReporterOptions": {
+    "reportDir": "cypress/reports/mocha",
+    "quite": true,
+    "overwrite": false,
+    "html": false,
+    "json": true
+  }
+}
+```
+
+### Configuración de ESLint
+El proyecto utiliza una configuración estricta de ESLint para mantener la calidad del código:
+- Reglas de React
+- Integración con Tailwind
+- Formateo automático
+
+## 📚 Documentación Adicional
+
+- [Comandos Detallados](COMANDOS.md)
+- [Guía de Setup para Forks](FORK-SETUP.md)
+- [Guía de Contribución](CONTRIBUTING.md)
+- [Changelog](CHANGELOG.md)
+
+## Contribución
+
+1. Fork el proyecto
+2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
+3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
+4. Push a la rama (`git push origin feature/AmazingFeature`)
+5. Abre un Pull Request
+
+## Licencia
+
+Distribuido bajo la Licencia MIT. Ver `LICENSE` para más información.
+
+## Agradecimientos
+
+- [Cypress](https://www.cypress.io/) por su excelente framework de testing
+- [Mochawesome](https://github.com/adamgruber/mochawesome) por el sistema de reportes
+- La comunidad de React por sus contribuciones
 
 ### GitHub Pages (Opcional)
 1. Ve a **Settings** → **Pages** en GitHub
@@ -124,7 +336,7 @@ CYPRESS_BASE_URL=https://testing.hlt.gob:3007
 3. Elige rama **main** y carpeta **docs/**
 4. Los reportes estarán en: `https://tu-usuario.github.io/tu-repo/`
 
-## 🆕 Sistema de Categorización
+## Sistema de Categorización
 
 ### Categorías Automáticas
 - **Core**: Funcionalidades básicas y críticas
@@ -136,7 +348,7 @@ CYPRESS_BASE_URL=https://testing.hlt.gob:3007
 - **Páginas dedicadas**: `/core`, `/features`, `/mixed`
 - **Filtros inteligentes**: Incluyen reportes mixtos automáticamente
 
-## 🔧 Troubleshooting
+## Troubleshooting
 
 ### Tests fallan por credenciales
 ```bash
@@ -156,7 +368,7 @@ npm run api-server
 # Verificar en http://localhost:3001/api/health
 ```
 
-## 📚 Documentación Adicional
+## Documentación Adicional
 
 - **Comandos detallados**: [COMANDOS.md](./COMANDOS.md)
 - **Estructura técnica**: [STRUCTURE.md](./STRUCTURE.md)
@@ -201,7 +413,7 @@ npm run api-server
 ```
 cypress-leyes/
 ├── src/                           # Aplicación React moderna
-│   ├── assets/                    # 🆕 Assets importados (imágenes, etc.)
+│   ├── assets/                    # Assets importados (imágenes, etc.)
 │   │   └── images/               # Imágenes optimizadas para build
 │   ├── components/                # Componentes modulares organizados
 │   │   ├── common/               # Componentes compartidos
@@ -220,18 +432,18 @@ cypress-leyes/
 │   │   └── useReports.js        # Hook principal para gestión de reportes
 │   ├── pages/                   # Páginas principales (vistas)
 │   │   ├── Home.jsx             # Página de inicio con tarjetas Core/Features
-│   │   ├── CoreReports.jsx      # 🆕 Reportes de funcionalidades Core
-│   │   ├── FeatureReports.jsx   # 🆕 Reportes de funcionalidades Features
-│   │   ├── MixedReports.jsx     # 🆕 Reportes combinados (Core + Features)
+│   │   ├── CoreReports.jsx      #  Reportes de funcionalidades Core
+│   │   ├── FeatureReports.jsx   #  Reportes de funcionalidades Features
+│   │   ├── MixedReports.jsx     #  Reportes combinados (Core + Features)
 │   │   └── Reports.jsx          # Interfaz avanzada de reportes (legacy)
 │   ├── App.jsx                  # Enrutamiento React Router
 │   ├── main.jsx                 # Punto de entrada
 │   └── index.css                # Estilos Tailwind
 ├── cypress/                      # Tests automatizados
 │   ├── e2e/
-│   │   ├── core/                # 🆕 Funcionalidades base (categoría Core)
+│   │   ├── core/                # Funcionalidades base (categoría Core)
 │   │   │   └── nuevaLey.cy.js   # Tests de funcionalidades principales
-│   │   └── features/            # 🆕 Features específicas (categoría Features)
+│   │   └── features/            # Features específicas (categoría Features)
 │   ├── fixtures/                # Datos de prueba
 │   ├── reports/                 # Reportes técnicos (fuente única)
 │   ├── screenshots/             # Capturas de errores
@@ -243,7 +455,7 @@ cypress-leyes/
 ├── scripts/                     # Automatización avanzada
 │   ├── api-server.js            # Servidor API para eliminación
 │   ├── delete-report.js         # Eliminación desde terminal
-│   ├── generate-reports-json.js # 🆕 Procesamiento JSON con categorización automática
+│   ├── generate-reports-json.js # Procesamiento JSON con categorización automática
 │   └── sync-reports-to-docs.js  # Sincronización automática
 ├── public/                      # Assets estáticos desarrollo
 │   └── reports/                 # Copia automática para dev
@@ -251,29 +463,29 @@ cypress-leyes/
 ├── vite.config.js               # Configuración Vite
 ├── cypress.config.js            # Configuración Cypress
 ├── README.md                    # Esta documentación
-├── COMANDOS.md                  # 🆕 Guía completa de comandos npm
+├── COMANDOS.md                  # Guía completa de comandos npm
 └── STRUCTURE.md                 # Documentación técnica
 ```
 
 ## Comandos Disponibles
 
-> 📖 **Para explicaciones detalladas de cuándo y cómo usar cada comando, consulta [COMANDOS.md](COMANDOS.md)**
+>  **Para explicaciones detalladas de cuándo y cómo usar cada comando, consulta [COMANDOS.md](COMANDOS.md)**
 
 ### Desarrollo y Build
 | Comando | Descripción |
 |---------|-------------|
 | `npm start` | Inicia servidor de desarrollo (Vite) |
 | `npm run build` | Compila aplicación para producción |
-| `npm run lint` | 🆕 Verifica código con ESLint + Tailwind |
-| `npm run lint:fix` | 🆕 Corrige automáticamente problemas de código |
+| `npm run lint` | Verifica código con ESLint + Tailwind |
+| `npm run lint:fix` | Corrige automáticamente problemas de código |
 | `npm run preview` | Vista previa del build |
 
 ### Testing con Cypress
 | Comando | Descripción |
 |---------|-------------|
 | `npm run test` | **PRINCIPAL**: Tests completos + reportes automáticos + limpieza |
-| `npm run test:core` | 🆕 Ejecuta solo tests Core (`cypress/e2e/core/**/*`) |
-| `npm run test:features` | 🆕 Ejecuta solo tests Features (`cypress/e2e/features/**/*`) |
+| `npm run test:core` | Ejecuta solo tests Core (`cypress/e2e/core/**/*`) |
+| `npm run test:features` | Ejecuta solo tests Features (`cypress/e2e/features/**/*`) |
 | `npm run cypress:open` | Abre Cypress en modo interactivo |
 | `npm run cypress:run` | Ejecuta tests en modo headless |
 | `npm run cypress:run-reports` | Tests con configuración multi-reporter |
@@ -285,7 +497,7 @@ cypress-leyes/
 | `npm run report:generate` | Genera reporte HTML con timestamp |
 | `npm run report:sync-docs` | Sincroniza reportes a docs/ y public/ |
 | `npm run clean-reports` | Limpia archivos JSON acumulados |
-| `npm run clean-generated` | 🆕 Limpia TODOS archivos generados automáticamente |
+| `npm run clean-generated` | Limpia TODOS archivos generados automáticamente |
 | `npm run delete-report` | Elimina ejecución específica desde terminal |
 
 ### Servidores y API
@@ -501,18 +713,18 @@ curl http://localhost:3001/api/health
 npm run delete-report "fecha" "archivo"
 ```
 
-## 🆕 Sistema de Categorización Automática
+##  Sistema de Categorización Automática
 
 ### Cómo Funciona la Categorización
 El sistema analiza automáticamente el contenido HTML de cada reporte generado para determinar su categoría:
 
 - **Core**: Tests de funcionalidades básicas y críticas del sistema
   - Detecta rutas: `cypress/e2e/core/`
-  - Icono: 🔬 (science) - Material Symbol
+  - Icono:  (science) - Material Symbol
   
 - **Features**: Tests de funcionalidades específicas y avanzadas
   - Detecta rutas: `cypress/e2e/features/`
-  - Icono: 🧩 (extension) - Material Symbol
+  - Icono:  (extension) - Material Symbol
   
 - **Mixed**: Tests que combinan ambas categorías
   - Contiene ambas rutas en el mismo reporte

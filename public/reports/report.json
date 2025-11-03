@@ -1,5 +1,20 @@
 [
   {
+    "date": "2025-11-03",
+    "files": [
+      {
+        "date": "2025-11-03",
+        "time": "11:32:24",
+        "path": "2025-11-03/report-2025-11-03T11-32-24.html",
+        "url": "2025-11-03/report-2025-11-03T11-32-24.html",
+        "category": "mixed"
+      }
+    ],
+    "dateFormatted": "domingo, 2 de noviembre de 2025",
+    "executions": 1,
+    "lastExecution": "11:32:24"
+  },
+  {
     "date": "2025-10-30",
     "files": [
       {
