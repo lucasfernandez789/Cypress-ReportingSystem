@@ -78,6 +78,37 @@ npm run verify
 - Archivos necesarios creados
 - Estructura de proyecto correcta
 
+## ⚙️ Configuración de URL Base
+
+### Importante: Servidor de Aplicación
+
+Los tests necesitan que tu aplicación esté ejecutándose para poder probarla. Después del setup:
+
+1. **Configura CYPRESS_BASE_URL** en tu archivo `.env`:
+   ```env
+   CYPRESS_BASE_URL=http://localhost:3000
+   # o la URL de tu aplicación: https://mi-app.com
+   ```
+
+2. **Asegúrate de que tu aplicación esté corriendo** en la URL configurada
+
+3. **Si usas un servidor local**, ejecuta tu aplicación antes de los tests:
+   ```bash
+   # En otra terminal, ejecuta tu aplicación
+   npm run dev  # o el comando que uses para desarrollo
+   ```
+
+### Solución de Problemas Comunes
+
+**Error: "cy.visit() failed trying to load [URL]"**
+- ✅ Verifica que tu aplicación esté ejecutándose
+- ✅ Confirma que `CYPRESS_BASE_URL` en `.env` sea correcta
+- ✅ Si usas HTTPS, asegúrate de que Cypress pueda acceder
+
+**Error: "Connection refused"**
+- ✅ Verifica que el puerto configurado esté disponible
+- ✅ Confirma que no haya firewall bloqueando la conexión
+
 ## 🏗️ Estructura Resultante
 
 Después del setup, tu proyecto tendrá:
@@ -95,7 +126,27 @@ cypress-nueva-app/
 
 ## Personalización
 
-### 1. Actualizar Selectores
+### 1. Configurar URL de la Aplicación
+Los tests usan `Cypress.env('CYPRESS_BASE_URL')` para acceder a tu aplicación. Si necesitas cambiar la URL:
+
+**Opción A: Durante el setup inicial**
+- Ejecuta `npm run setup:app` y proporciona la URL correcta
+
+**Opción B: Cambiar después del setup**
+- Edita el archivo `.env`:
+  ```env
+  CYPRESS_BASE_URL=https://tu-app-produccion.com
+  # o para desarrollo local:
+  CYPRESS_BASE_URL=http://localhost:3000
+  ```
+
+**Opción C: Variables de entorno específicas**
+- Para diferentes entornos, usa variables específicas:
+  ```bash
+  CYPRESS_BASE_URL=https://qa.tu-app.com npm test
+  ```
+
+### 2. Actualizar Selectores
 Edita `cypress/support/selectors.js` para agregar selectores específicos de tu aplicación:
 
 ```javascript

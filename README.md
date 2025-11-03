@@ -44,6 +44,9 @@ Cada fork tendrá:
 # Instalar dependencias
 npm install
 
+# ⚠️ IMPORTANTE: Asegúrate de que tu aplicación esté corriendo
+# Los tests necesitan acceder a CYPRESS_BASE_URL (configurado en .env)
+
 # EJECUTAR TESTS (con reportes automáticos categorizados)
 npm run test
 
@@ -305,7 +308,7 @@ El proyecto utiliza una configuración estricta de ESLint para mantener la calid
 - Integración con Tailwind
 - Formateo automático
 
-## 📚 Documentación Adicional
+##  Documentación Adicional
 
 - [Comandos Detallados](COMANDOS.md)
 - [Guía de Setup para Forks](FORK-SETUP.md)
@@ -349,6 +352,21 @@ Distribuido bajo la Licencia MIT. Ver `LICENSE` para más información.
 - **Filtros inteligentes**: Incluyen reportes mixtos automáticamente
 
 ## Troubleshooting
+
+### Tests fallan por URL no accesible
+```bash
+# Error: "cy.visit() failed trying to load [URL]"
+# SOLUCIÓN: Asegúrate de que tu aplicación esté corriendo
+
+# 1. Verificar configuración de URL
+cat .env | grep CYPRESS_BASE_URL
+
+# 2. Ejecutar tu aplicación en otra terminal
+npm run dev  # o el comando que uses para tu app
+
+# 3. Si necesitas cambiar la URL, edita .env
+# CYPRESS_BASE_URL=http://localhost:3000
+```
 
 ### Tests fallan por credenciales
 ```bash

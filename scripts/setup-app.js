@@ -58,8 +58,6 @@ APP_PREFIX="${appPrefix}"
 
 # URLs de la aplicación
 CYPRESS_BASE_URL="${baseUrl}"
-DEV_URL="${baseUrl.replace('://', '://dev-').replace(':3007', ':3008')}"
-QA_URL="${baseUrl.replace('://', '://qa-').replace(':3007', ':3009')}"
 
 # Credenciales de testing (configurar después)
 USER=tester_${appPrefix}

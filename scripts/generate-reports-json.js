@@ -22,9 +22,34 @@ function generateReportsJson(sourceDir, outputPath) {
   // Mapa para agrupar reportes por fecha
   const reportsByDate = new Map();
 
+  // Función para determinar la categoría del reporte
+  function determineCategory(reportPath) {
+    try {
+      const fullReportPath = path.join(reportsDir, reportPath);
+      if (fs.existsSync(fullReportPath)) {
+        const content = fs.readFileSync(fullReportPath, 'utf8');
+
+        // Buscar en el contenido si contiene referencias a core y features
+        const hasCore = content.includes('cypress\\\\e2e\\\\core\\\\') || content.includes('cypress/e2e/core/');
+        const hasFeatures = content.includes('cypress\\\\e2e\\\\features\\\\') || content.includes('cypress/e2e/features/');
+
+        if (hasCore && hasFeatures) {
+          return 'mixed';
+        } else if (hasCore) {
+          return 'core';
+        } else if (hasFeatures) {
+          return 'features';
+        }
+      }
+    } catch (error) {
+      console.warn(`Error al determinar categoría para ${reportPath}:`, error.message);
+    }
+    return 'unknown';
+  }
+
   // Función para formatear fecha
   function formatDate(dateString) {
-    const date = new Date(dateString);
+    const date = new Date(dateString + 'T00:00:00');
     const options = {
       weekday: 'long',
       year: 'numeric',
@@ -60,7 +85,7 @@ function generateReportsJson(sourceDir, outputPath) {
                 time: time,
                 path: `${date}/${file}`,
                 url: `${date}/${file}`,
-                category: 'mixed' // Todos los reportes contienen tanto core como features
+                category: determineCategory(`${date}/${file}`)
               };
 
               if (!reportsByDate.has(date)) {
