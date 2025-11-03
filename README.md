@@ -19,7 +19,7 @@
 - [Documentación Adicional](#documentación-adicional)
 - [Contribución](#contribución)
 
-## 🎯 Uso como Template
+##  Uso como Template
 
 Este proyecto está diseñado para ser usado como **template base** para sistemas de testing automatizados. Cada fork representa una aplicación diferente.
 
