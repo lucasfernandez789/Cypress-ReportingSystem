@@ -1,6 +1,6 @@
-# 📋 Comandos npm - Guía Rápida
+# Comandos npm - Guía Rápida
 
-## 🚀 Inicio Rápido
+## Inicio Rápido
 
 ```bash
 # Desarrollo
@@ -18,7 +18,7 @@ npm run cypress:open   # Cypress interactivo
 npm run api-server     # Servidor para eliminación web
 ```
 
-## 📋 Comandos por Categoría
+## Comandos por Categoría
 
 ### Desarrollo
 | Comando | Descripción | Cuándo usar |
@@ -44,7 +44,7 @@ npm run api-server     # Servidor para eliminación web
 | `npm run clean-reports` | Limpiar archivos JSON | Mantenimiento |
 | `npm run delete-report` | Eliminar reporte específico | Terminal |
 
-## 🎯 Flujo de Trabajo Recomendado
+## Flujo de Trabajo Recomendado
 
 ### Desarrollo Diario
 ```bash
@@ -71,7 +71,7 @@ npm run api-server
 # Ahora eliminar desde web
 ```
 
-## 🔧 Solución de Problemas
+## Solución de Problemas
 
 ### Tests fallan
 ```bash
@@ -90,7 +90,7 @@ npm run api-server
 npm run lint:fix
 ```
 
-## 📖 Referencias
+## Referencias
 
 - **README.md**: Información general del proyecto
 - **STRUCTURE.md**: Arquitectura técnica

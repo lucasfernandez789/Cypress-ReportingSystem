@@ -1,6 +1,6 @@
-# 📁 Estructura del Proyecto
+#  Estructura del Proyecto
 
-## 🏗️ Arquitectura General
+##  Arquitectura General
 
 ```
 cypress-leyes/
@@ -24,7 +24,7 @@ cypress-leyes/
 └── public/                # Assets estáticos
 ```
 
-## 🎯 Componentes Principales
+##  Componentes Principales
 
 ### Frontend React
 - **Layout.jsx**: Navegación y estructura base
@@ -45,7 +45,7 @@ cypress-leyes/
 - **dateUtils.js**: Formateo de fechas
 - **generalUtils.js**: Utilidades generales (debounce, range, etc.)
 
-## 🔧 Scripts de Automatización
+##  Scripts de Automatización
 
 ### API y Backend
 - **api-server.js**: Servidor Express para eliminación de reportes
@@ -55,7 +55,7 @@ cypress-leyes/
 - **generate-reports-json.js**: Procesamiento JSON con categorización
 - **sync-reports-to-docs.js**: Sincronización automática
 
-## 📊 Sistema de Categorización
+##  Sistema de Categorización
 
 ### Categorías Automáticas
 - **Core**: Funcionalidades críticas (`cypress/e2e/core/`)
@@ -84,7 +84,7 @@ cypress-leyes/
 2. Archivos generados en `docs/`
 3. Desplegar desde carpeta `docs/`
 
-## 📖 Referencias
+##  Referencias
 
 - **README.md**: Inicio rápido y características
 - **COMANDOS.md**: Guía completa de comandos npm
@@ -101,12 +101,12 @@ Contiene el código fuente de la aplicación React para visualización de report
 
 ```
 src/
-├── components/                 # 🆕 Arquitectura modular de componentes
+├── components/                 #  Arquitectura modular de componentes
 │   ├── common/                # Componentes compartidos y reutilizables
 │   │   └── Footer.jsx         # Footer común a toda la aplicación
 │   ├── home/                  # Componentes específicos de la página Home
 │   │   ├── SeccionPrincipal.jsx   # Sección principal con logo y título
-│   │   └── TarjetasAcceso.jsx     # 🆕 Tarjetas Core/Features con Material Symbols
+│   │   └── TarjetasAcceso.jsx     #  Tarjetas Core/Features con Material Symbols
 │   ├── reports/               # Componentes específicos de reportes
 │   │   ├── EstadisticasReportes.jsx  # Dashboard de estadísticas
 │   │   ├── FiltrosReportes.jsx       # Sistema de filtros avanzado
@@ -115,12 +115,12 @@ src/
 │   │   ├── ReporteItem.jsx           # Item individual de ejecución
 │   │   └── BotonesAccion.jsx         # Botones de acción (ver/eliminar)
 │   └── Layout.jsx             # Layout principal con navegación
-├── hooks/                     # 🆕 Custom hooks para lógica reutilizable
+├── hooks/                     # Custom hooks para lógica reutilizable
 │   └── useReports.js          # Hook principal para gestión de reportes
 ├── pages/                     # Páginas principales (vistas limpias)
 │   ├── Home.jsx               # Página de inicio con tarjetas Core/Features
-│   ├── CoreReports.jsx        # 🆕 Reportes dedicados para funcionalidades Core
-│   ├── FeatureReports.jsx     # 🆕 Reportes dedicados para funcionalidades Features
+│   ├── CoreReports.jsx        # Reportes dedicados para funcionalidades Core
+│   ├── FeatureReports.jsx     # Reportes dedicados para funcionalidades Features
 │   └── Reports.jsx            # Interfaz avanzada de reportes (legacy)
 ├── App.jsx                    # Configuración de rutas (React Router)
 ├── main.jsx                   # Punto de entrada de la aplicación
@@ -181,7 +181,7 @@ docs/
 │   │   ├── report-2025-09-29T10-30-15.html
 │   │   └── assets/             # CSS, JS, fonts del reporte
 │   └── 2025-09-30/             # Más fechas...
-└── index.html                  # 🆕 Aplicación React compilada
+└── index.html                  # Aplicación React compilada
 ```
 
 **Funciones:**
@@ -196,7 +196,7 @@ Scripts personalizados para gestión automatizada del proyecto:
 
 ```
 scripts/
-├── generate-reports-json.js     # 🆕 Procesa y consolida datos JSON con categorización automática
+├── generate-reports-json.js     # Procesa y consolida datos JSON con categorización automática
 └── sync-reports-to-docs.js      # Sincronización automática cypress/ → docs/
 ```
 
@@ -225,7 +225,7 @@ public/
 - **Rutas directas**: `/assets/images/logo.png`
 - **Vite integration**: Copiados automáticamente al build
 
-## 🆕 Flujo de Reportes Actualizado
+## Flujo de Reportes Actualizado
 
 ### Principio: Automatización Completa
 - **`cypress/reports/`** = Fuente única donde Cypress genera reportes
@@ -280,17 +280,17 @@ El sistema utiliza análisis de contenido HTML para categorizar automáticamente
 ## Beneficios de esta Organización v4.0
 
 ### 1. **Aplicación Web Moderna**
-- 🆕 Interfaz React con desplegables animados por fecha
-- 🆕 Paginación automática (5 fechas por página)
-- 🆕 Eliminación directa desde la web (sin terminal)
+- Interfaz React con desplegables animados por fecha
+- Paginación automática (5 fechas por página)
+- Eliminación directa desde la web (sin terminal)
 - Diseño responsive con Tailwind CSS
 - Navegación SPA fluida con React Router
 
 ### 2. **API Backend Avanzada**
-- 🆕 Servidor Express.js con endpoints REST
-- 🆕 Eliminación de reportes vía API (DELETE /api/delete-report)
-- 🆕 CORS configurado para desarrollo local
-- 🆕 Regeneración automática de índices JSON
+- Servidor Express.js con endpoints REST
+- Eliminación de reportes vía API (DELETE /api/delete-report)
+- CORS configurado para desarrollo local
+- Regeneración automática de índices JSON
 
 ### 3. **Automatización Completa**
 - `npm run test` genera todo automáticamente + limpieza
@@ -299,8 +299,8 @@ El sistema utiliza análisis de contenido HTML para categorizar automáticamente
 - Scripts npm corregidos para Windows PowerShell
 
 ### 4. **Gestión Inteligente de Reportes**
-- 🆕 Limpieza automática de JSONs acumulados
-- 🆕 Eliminación selectiva por ejecución específica
+- Limpieza automática de JSONs acumulados
+- Eliminación selectiva por ejecución específica
 - Historial organizado por fechas con navegación intuitiva
 - Sincronización automática entre carpetas
 
@@ -364,38 +364,38 @@ El script `scripts/sync-reports-to-docs.js`:
 ### 🆕 Estructura Actual Completa v4.0
 ```
 cypress-leyes/
-├── src/                    # 🆕 Aplicación React moderna
-│   ├── components/         # Componentes reutilizables
+├── src/                   #  Aplicación React moderna
+│   ├── components/        # Componentes reutilizables
 │   ├── pages/             # Páginas de la aplicación
 │   │   ├── Home.jsx       # Página de inicio con tarjetas Core/Features
-│   │   ├── CoreReports.jsx    # 🆕 Reportes dedicados Core
-│   │   ├── FeatureReports.jsx # 🆕 Reportes dedicados Features
+│   │   ├── CoreReports.jsx    #  Reportes dedicados Core
+│   │   ├── FeatureReports.jsx #  Reportes dedicados Features
 │   │   └── Reports.jsx    # Interfaz avanzada (legacy)
 │   ├── App.jsx            # Enrutamiento React Router
 │   └── main.jsx           # Punto de entrada Vite
 ├── cypress/               # Tests automatizados
 │   ├── e2e/               # Casos de test
-│   │   ├── core/          # 🆕 Categoría Core (funcionalidades base)
-│   │   └── features/      # 🆕 Categoría Features (funcionalidades específicas)
+│   │   ├── core/          # Categoría Core (funcionalidades base)
+│   │   └── features/      # Categoría Features (funcionalidades específicas)
 │   ├── reports/           # Reportes técnicos (fuente única)
 │   └── support/           # Configuración y comandos
 ├── docs/                  # Build + GitHub Pages
 │   ├── assets/            # Assets compilados
 │   └── reports/           # Reportes para visualización web
-├── scripts/               # 🆕 Utilitarios automatizados v4.0
-│   ├── api-server.js      # 🆕 Servidor Express API
-│   ├── delete-report.js   # 🆕 Eliminación desde terminal
-│   ├── generate-reports-json.js # 🆕 Categorización automática inteligente
+├── scripts/               # Utilitarios automatizados v4.0
+│   ├── api-server.js      # Servidor Express API
+│   ├── delete-report.js   # Eliminación desde terminal
+│   ├── generate-reports-json.js # Categorización automática inteligente
 │   └── sync-reports-to-docs.js  # Sincronización automática
-├── .vscode/               # 🆕 Configuración VS Code
+├── .vscode/               # Configuración VS Code
 │   └── settings.json      # Configuración Tailwind CSS
-├── eslint.config.js       # 🆕 ESLint v9 con plugin Tailwind
+├── eslint.config.js       # ESLint v9 con plugin Tailwind
 ├── public/                # Assets estáticos
 └── package.json           # Dependencias actualizadas
 
 # Documentación consolidada v4.1
-├── README.md              # ✅ Guía principal completa
-└── STRUCTURE.md           # ✅ Detalles técnicos actualizados
+├── README.md              # Guía principal completa
+└── STRUCTURE.md           # Detalles técnicos actualizados
 ```
 
 ## 🆕 Características Técnicas v4.1

@@ -78,7 +78,7 @@ npm run verify
 - Archivos necesarios creados
 - Estructura de proyecto correcta
 
-## ⚙️ Configuración de URL Base
+## Configuración de URL Base
 
 ### Importante: Servidor de Aplicación
 
@@ -109,7 +109,7 @@ Los tests necesitan que tu aplicación esté ejecutándose para poder probarla. 
 - ✅ Verifica que el puerto configurado esté disponible
 - ✅ Confirma que no haya firewall bloqueando la conexión
 
-## 🏗️ Estructura Resultante
+## Estructura Resultante
 
 Después del setup, tu proyecto tendrá:
 
@@ -201,7 +201,7 @@ npm run test:core
 npm start
 ```
 
-## 🆘 Solución de Problemas
+## Solución de Problemas
 
 ### Error: "Archivo .env no encontrado"
 ```bash
@@ -219,7 +219,7 @@ npm run setup  # Configuración completa automática
 npm run verify  # Verificar estado
 ```
 
-## 📞 Soporte
+## Soporte
 
 Si encuentras problemas:
 1. Ejecuta `npm run verify` para diagnosticar
