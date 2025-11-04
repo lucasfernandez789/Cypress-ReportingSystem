@@ -79,87 +79,108 @@ npm run api-server
 
 ```
 cypress-leyes/
-├── src/                          # Aplicación React
-│   ├── components/               # Componentes de la interfaz
-│   │   ├── common/               # Componentes comunes
-│   │   │   ├── Button.jsx        # Botón reutilizable
-│   │   │   ├── Card.jsx          # Tarjeta base
-│   │   │   ├── ErrorBoundary.jsx
-│   │   │   ├── Footer.jsx
-│   │   │   ├── Icon.jsx
-│   │   │   ├── Input.jsx
-│   │   │   └── LoadingCard.jsx
-│   │   ├── home/           # Componentes de la página principal
-│   │   │   ├── AccessCard.jsx
-│   │   │   ├── SeccionPrincipal.jsx
-│   │   │   └── TarjetasAcceso.jsx
-│   │   └── reports/       # Componentes de reportes
-│   │       ├── base/      # Componentes base de reportes
-│   │       │   └── ReportsPage.jsx
-│   │       ├── BotonesAccion.jsx
-│   │       ├── EstadisticasReportes.jsx
-│   │       ├── FiltrosReportes.jsx
-│   │       ├── PaginacionReportes.jsx
-│   │       ├── ReporteFecha.jsx
-│   │       └── ReporteItem.jsx
-│   ├── constants/          # Constantes globales
-│   │   └── constants.js
-│   ├── hooks/             # Hooks personalizados
-│   │   ├── reports/       # Hooks específicos de reportes
-│   │   │   ├── useReportsActions.js
-│   │   │   ├── useReportsData.js
-│   │   │   ├── useReportsExpansion.js
-│   │   │   ├── useReportsFilters.js
-│   │   │   └── useReportsPagination.js
-│   │   └── useReports.js
-│   ├── pages/             # Páginas principales
-│   │   ├── CoreReports.jsx    # Vista de reportes Core
-│   │   ├── FeatureReports.jsx # Vista de reportes Features
-│   │   ├── Home.jsx           # Página principal
-│   │   ├── MixedReports.jsx   # Vista de reportes mezclados
-│   │   └── Reports.jsx        # Página base de reportes
-│   ├── App.jsx            # Componente principal
-│   ├── index.css          # Estilos globales
-│   └── main.jsx           # Punto de entrada React
-├── cypress/                # Tests automatizados
-│   ├── e2e/             # Tests end-to-end
-│   │   ├── core/        # Tests de funcionalidades base
-│   │   └── features/    # Tests de características específicas
-│   ├── fixtures/        # Datos de prueba
+├── .github/                      # Configuración de GitHub Actions
+│   └── workflows/                # Workflows de CI/CD
+│       └── deploy.yml            # Despliegue automático a GitHub Pages
+├── .vscode/                      # Configuración de VS Code
+├── assets/                       # Recursos estáticos adicionales
+├── cypress/                      # Tests automatizados
+│   ├── e2e/                      # Tests end-to-end
+│   │   ├── core/                 # Tests de funcionalidades base
+│   │   └── features/             # Tests de características específicas
+│   ├── fixtures/                 # Datos de prueba
 │   │   └── usuario.json
-│   ├── support/         # Configuración de tests
-│   │   ├── commands.js  # Comandos personalizados
-│   │   ├── e2e.js       # Configuración principal
-│   │   └── selectors.js # Selectores centralizados
-│   ├── reports/         # Reportes generados
-│   │   ├── mocha/       # JSONs de Mochawesome
-│   │   └── [fecha]/     # Reportes HTML por fecha
-│   └── screenshots/     # Capturas de fallos
-├── scripts/             # Scripts de automatización
-│   ├── utils/           # Utilidades compartidas
-│   │   └── categorize-tests.js # Categorización de tests
-│   ├── api-server.js     # Servidor para eliminación
-│   ├── delete-report.js  # Eliminación de reportes
-│   ├── generate-reports-json.js   # Generación de índice
-│   └── sync-reports-to-docs.js    # Sincronización de docs
-├── public/             # Assets públicos
-│   ├── assets/       # Recursos estáticos
-│   │   ├── images/  # Imágenes e iconos
-│   │   └── fonts/   # Fuentes
-│   └── reports/     # Reportes publicados
-├── docs/            # Documentación y reportes
-│   ├── reports/     # Reportes para GitHub Pages
-│   └── public/      # Assets estáticos
-├── .env             # Variables de entorno
-├── .gitignore       # Exclusiones de Git
-├── COMANDOS.md      # Documentación de comandos
-├── cypress.config.js  # Configuración de Cypress
-├── eslint.config.js   # Configuración de ESLint
-├── package.json      # Dependencias y scripts
-├── postcss.config.cjs     # Configuración de PostCSS
-├── reporter-config.json   # Configuración de reportes
-├── tailwind.config.js     # Configuración de Tailwind
-└── vite.config.mjs        # Configuración de Vite
+│   ├── support/                  # Configuración de tests
+│   │   ├── commands.js           # Comandos personalizados
+│   │   ├── e2e.js                # Configuración principal
+│   │   └── selectors.js          # Selectores centralizados
+│   ├── reports/                  # Reportes generados
+│   │   ├── mocha/                # JSONs de Mochawesome
+│   │   └── [fecha]/              # Reportes HTML por fecha
+│   └── screenshots/              # Capturas de fallos
+├── docs/                         # Build de producción (GitHub Pages)
+│   ├── index.html                # Aplicación compilada
+│   ├── assets/                   # Recursos compilados
+│   └── reports/                  # Reportes sincronizados
+├── node_modules/                 # Dependencias instaladas
+├── public/                       # Assets públicos
+│   ├── assets/                   # Recursos estáticos
+│   │   ├── images/               # Imágenes e iconos
+│   │   └── fonts/                # Fuentes
+│   └── reports/                  # Reportes publicados
+├── reports/                      # Reportes de desarrollo
+├── scripts/                      # Scripts de automatización
+│   ├── utils/                    # Utilidades compartidas
+│   │   └── categorize-tests.js   # Categorización de tests
+│   ├── api-server.js             # Servidor API para eliminación web
+│   ├── clean-reports.js          # Limpieza de archivos JSON acumulados
+│   ├── cleanup-template.js       # Limpieza de archivos del template original
+│   ├── delete-report.js          # Eliminación de ejecuciones específicas
+│   ├── generate-reports-json.js  # Generación de índice de reportes
+│   ├── generate-timestamped-report.js # Generación de reportes con timestamp
+│   ├── setup-app.js              # Configuración inicial de la aplicación
+│   ├── setup-env.js              # Configuración de variables de entorno
+│   ├── setup-tests.js            # Creación de estructura básica de tests
+│   ├── sync-reports-to-docs.js   # Sincronización de reportes a docs/
+│   └── verify-setup.js           # Verificación completa de configuración
+├── src/                       # Aplicación React
+│   ├── components/              # Componentes de la interfaz
+│   │   ├── common/               # Componentes comunes
+│   │   │   ├── Button.jsx         # Botón reutilizable
+│   │   │   ├── Card.jsx           # Tarjeta base
+│   │   │   ├── ErrorBoundary.jsx  # Manejo de errores
+│   │   │   ├── Footer.jsx         # Pie de página
+│   │   │   ├── Icon.jsx           # Iconos Material Symbols
+│   │   │   ├── Input.jsx          # Input reutilizable
+│   │   │   └── LoadingCard.jsx    # Estados de carga
+│   │   ├── home/                # Componentes de la página principal
+│   │   │   ├── AccessCard.jsx     # Tarjetas de acceso
+│   │   │   ├── SeccionPrincipal.jsx # Sección principal
+│   │   │   └── TarjetasAcceso.jsx # Navegación principal
+│   │   └── reports/             # Componentes de reportes
+│   │       ├── base/              # Componentes base de reportes
+│   │       │   └── ReportsPage.jsx      # Layout base de reportes
+│   │       ├── BotonesAccion.jsx       # Botones de acción
+│   │       ├── EstadisticasReportes.jsx # Estadísticas
+│   │       ├── FiltrosReportes.jsx     # Filtros de búsqueda
+│   │       ├── PaginacionReportes.jsx  # Paginación
+│   │       ├── ReporteFecha.jsx        # Sección de fecha
+│   │       ├── ReporteItem.jsx         # Item individual
+│   │       └── ReporteItemSkeleton.jsx # Loading skeleton
+│   ├── constants/              # Constantes centralizadas
+│   │   └── constants.js          # Configuración y mensajes
+│   ├── hooks/                  # Custom hooks
+│   │   ├── reports/              # Hooks específicos de reportes
+│   │   │   ├── useReportsActions.js     # Gestión de acciones (eliminar ejecuciones)
+│   │   │   ├── useReportsData.js        # Carga y procesamiento de datos de reportes
+│   │   │   ├── useReportsExpansion.js   # Expansión/colapso de secciones de fechas
+│   │   │   ├── useReportsFilters.js     # Filtros de fechas y rangos
+│   │   │   └── useReportsPagination.js  # Paginación de reportes
+│   │   └── useReports.js                # Hook principal que combina todos los hooks de reportes
+│   ├── pages/                   # Páginas principales
+│   │   ├── CoreReports.jsx       # Vista de reportes Core
+│   │   ├── FeatureReports.jsx    # Vista de reportes Features
+│   │   ├── Home.jsx              # Página principal
+│   │   ├── MixedReports.jsx      # Vista de reportes Mixtos
+│   │   └── Reports.jsx           # Página base de reportes
+│   ├── App.jsx                  # Componente principal
+│   ├── index.css                # Estilos globales
+│   └── main.jsx                 # Punto de entrada React
+├── .env                          # Variables de entorno
+├── .gitignore                    # Exclusiones de Git
+├── COMANDOS.md                   # Documentación completa de comandos
+├── cypress.config.js             # Configuración de Cypress
+├── eslint.config.js              # Configuración de ESLint
+├── FORK-SETUP.md                 # Guía completa para configurar forks
+├── index.html                    # HTML de desarrollo
+├── logo-legis-act-D-yCoXSC.png   # Logo de la aplicación
+├── package.json                  # Dependencias y scripts
+├── postcss.config.cjs            # Configuración de PostCSS
+├── README.md                     # Este archivo
+├── reporter-config.json          # Configuración de reportes
+├── STRUCTURE.md                  # Documentación técnica de arquitectura
+├── tailwind.config.js            # Configuración de Tailwind CSS
+└── vite.config.mjs               # Configuración de Vite
 ```
 
 ## Comandos Disponibles
