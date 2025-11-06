@@ -19,7 +19,8 @@ export default defineConfig({
     // Variables de entorno desde .env
     env: {
       USER: process.env.USER,
-      PASS: process.env.PASS
+      PASS: process.env.PASS,
+      APP_NAME: process.env.APP_NAME
     }
   },
 });
