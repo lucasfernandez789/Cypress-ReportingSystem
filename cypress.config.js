@@ -6,6 +6,8 @@ export default defineConfig({
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
+    // Base URL desde variable de entorno
+    baseUrl: process.env.CYPRESS_BASE_URL,
     // Configuración de reportes
     reporter: 'cypress-multi-reporters',
     reporterOptions: {
