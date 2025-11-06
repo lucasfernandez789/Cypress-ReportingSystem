@@ -60,3 +60,9 @@ jobs:
     - name: Deploy to GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v4
+
+    - name: Publish Reports to Central Hub
+      if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+      run: |
+        echo "Para publicar reportes a un hub central, configura un repositorio central"
+        echo "y modifica este paso para clonar y actualizar el repo central con reportes"
