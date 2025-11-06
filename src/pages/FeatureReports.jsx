@@ -28,6 +28,9 @@ function FeatureReports({ onNavigate }) {
       reportsData={reportsData}
       loading={reportsData.loading}
       error={reportsData.error}
+      selectedSystem={reportsData.selectedSystem}
+      onSystemChange={reportsData.onSystemChange}
+      availableSystems={reportsData.availableSystems}
     />
   )
 }

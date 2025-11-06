@@ -5,6 +5,7 @@ import PaginacionReportes from '../PaginacionReportes';
 import EstadisticasReportes from '../EstadisticasReportes';
 import ReporteFecha from '../ReporteFecha';
 import LoadingCard from '../../common/LoadingCard';
+import SystemSelector from '../SystemSelector';
 
 /**
  * Componente base para páginas de reportes (Core, Features, Mixed).
@@ -23,6 +24,9 @@ import LoadingCard from '../../common/LoadingCard';
  * @param {Object} props.reportsData - Datos de reportes del hook useReports
  * @param {boolean} props.loading - Estado de carga
  * @param {Error} props.error - Objeto de error si la carga falló
+ * @param {string} props.selectedSystem - Sistema seleccionado actualmente
+ * @param {Function} props.onSystemChange - Función para cambiar el sistema seleccionado
+ * @param {Array} props.availableSystems - Lista de sistemas disponibles
  * @returns {JSX.Element} Layout de página de reportes
  *
  * @example
@@ -47,7 +51,10 @@ function ReportsPage({
   onNavigate,
   reportsData,
   loading,
-  error
+  error,
+  selectedSystem,
+  onSystemChange,
+  availableSystems
 }) {
   const {
     visibleCount,
@@ -84,6 +91,11 @@ function ReportsPage({
                   <img src={`${import.meta.env.BASE_URL}assets/images/arrow_left_alt_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg`} alt="back" className="icon-red h-4 w-4" />
                   Volver
                 </button>
+                <SystemSelector
+                  selectedSystem={selectedSystem}
+                  onSystemChange={onSystemChange}
+                  availableSystems={availableSystems}
+                />
               </div>
               <h1 className="mt-2 text-3xl font-bold text-gray-900">
                 {title}
@@ -205,6 +217,14 @@ ReportsPage.propTypes = {
   }).isRequired,
   loading: PropTypes.bool,
   error: PropTypes.instanceOf(Error),
+  selectedSystem: PropTypes.string.isRequired,
+  onSystemChange: PropTypes.func.isRequired,
+  availableSystems: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };
 
 export default ReportsPage;

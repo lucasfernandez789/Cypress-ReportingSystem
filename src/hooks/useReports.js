@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useReportsData } from './reports/useReportsData';
 import { useReportsFilters } from './reports/useReportsFilters';
 import { useReportsPagination } from './reports/useReportsPagination';
@@ -55,6 +55,9 @@ import { REPORT_CATEGORIES } from '../constants/constants';
  * ```
  */
 export function useReports(category = null) {
+  // System filter state
+  const [selectedSystem, setSelectedSystem] = useState('all');
+
   // Use specialized hooks for different concerns
   const { reports, loading, error, loadReports } = useReportsData();
   const {
@@ -104,10 +107,37 @@ export function useReports(category = null) {
     })).filter(report => report.files.length > 0);
   }, [reports, category]);
 
+  // Get available systems from reports
+  const availableSystems = useMemo(() => {
+    if (!reports) return [{ id: 'all', name: 'Todos los sistemas' }];
+
+    const systems = new Set();
+    reports.forEach(report => {
+      report.files.forEach(file => {
+        if (file.systemId && file.systemName) {
+          systems.add(JSON.stringify({ id: file.systemId, name: file.systemName }));
+        }
+      });
+    });
+
+    const systemList = Array.from(systems).map(item => JSON.parse(item));
+    return [{ id: 'all', name: 'Todos los sistemas' }, ...systemList];
+  }, [reports]);
+
+  // Filter reports by system
+  const systemFilteredReports = useMemo(() => {
+    if (selectedSystem === 'all' || !categoryFilteredReports) return categoryFilteredReports;
+
+    return categoryFilteredReports.map(report => ({
+      ...report,
+      files: report.files.filter(file => file.systemId === selectedSystem)
+    })).filter(report => report.files.length > 0);
+  }, [categoryFilteredReports, selectedSystem]);
+
   // Apply date filters
   const filtered = useMemo(() => {
-    return applyDateFilter(categoryFilteredReports);
-  }, [categoryFilteredReports, dateFilter, dateFrom, dateTo]);
+    return applyDateFilter(systemFilteredReports);
+  }, [systemFilteredReports, dateFilter, dateFrom, dateTo]);
 
   // Apply pagination
   const paginated = useMemo(() => {
@@ -125,10 +155,11 @@ export function useReports(category = null) {
     loadReports();
   };
 
-  // Enhanced clearFilters that also resets pagination
+  // Enhanced clearFilters that also resets pagination and system filter
   const clearFilters = () => {
     clearFilterState();
     resetPagination();
+    setSelectedSystem('all');
   };
 
   return {
@@ -145,6 +176,8 @@ export function useReports(category = null) {
     dateFilter,
     dateFrom,
     dateTo,
+    selectedSystem,
+    availableSystems,
 
     // UI state
     expandedDates,
@@ -160,6 +193,8 @@ export function useReports(category = null) {
     setDateFrom,
     setDateTo,
     setCurrentPage,
+    setSelectedSystem,
+    onSystemChange: setSelectedSystem,
 
     // Actions
     loadReports,
