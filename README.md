@@ -428,6 +428,17 @@ USER="tester"
 PASS="password"
 ```
 
+**Configuración del Sistema**
+
+El nombre del sistema se configura mediante la variable `APP_NAME` en el archivo `.env`. Cada fork debe tener su propio `APP_NAME` único:
+
+```bash
+# .env
+APP_NAME="Mi Sistema Único"
+```
+
+Esto permite que múltiples forks del mismo repositorio tengan reportes separados configurando diferentes `APP_NAME` en sus respectivos archivos `.env`.
+
 ## Configuración Avanzada
 
 ### Personalización de Reportes
