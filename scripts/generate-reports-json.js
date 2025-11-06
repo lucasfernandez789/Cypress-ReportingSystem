@@ -22,8 +22,8 @@ function generateReportsJson(sourceDir, outputPath) {
   // Mapa para agrupar reportes por fecha
   const reportsByDate = new Map();
 
-  // Función para determinar la categoría del reporte
-  function determineCategory(reportPath) {
+  // Función para determinar la categoría y metadata del sistema
+  function determineCategoryAndSystem(reportPath) {
     try {
       const fullReportPath = path.join(reportsDir, reportPath);
       if (fs.existsSync(fullReportPath)) {
@@ -33,18 +33,49 @@ function generateReportsJson(sourceDir, outputPath) {
         const hasCore = content.includes('cypress\\\\e2e\\\\core\\\\') || content.includes('cypress/e2e/core/');
         const hasFeatures = content.includes('cypress\\\\e2e\\\\features\\\\') || content.includes('cypress/e2e/features/');
 
+        let category = 'unknown';
         if (hasCore && hasFeatures) {
-          return 'mixed';
+          category = 'mixed';
         } else if (hasCore) {
-          return 'core';
+          category = 'core';
         } else if (hasFeatures) {
-          return 'features';
+          category = 'features';
         }
+
+        // Extraer información del sistema
+        let systemName = 'Sistema Desconocido';
+        let systemId = 'unknown';
+
+        // Leer APP_NAME directamente del archivo .env
+        try {
+          const envPath = path.join(process.cwd(), '.env');
+          if (fs.existsSync(envPath)) {
+            const envContent = fs.readFileSync(envPath, 'utf8');
+            const appNameMatch = envContent.match(/^APP_NAME=(.+)$/m);
+            if (appNameMatch) {
+              systemName = appNameMatch[1].replace(/["']/g, ''); // Remover comillas si las hay
+              systemId = systemName.toLowerCase().replace(/\s+/g, '-');
+            }
+          }
+        } catch (error) {
+          console.warn('Error al leer .env:', error.message);
+        }
+
+        // Fallback: buscar APP_NAME en el contenido del reporte HTML (por si acaso)
+        if (systemName === 'Sistema Desconocido') {
+          const envMatch = content.match(/"env":\s*\{[^}]*"APP_NAME":\s*"([^"]+)"/);
+          if (envMatch) {
+            systemName = envMatch[1];
+            systemId = systemName.toLowerCase().replace(/\s+/g, '-');
+          }
+        }
+
+        return { category, systemName, systemId };
       }
     } catch (error) {
       console.warn(`Error al determinar categoría para ${reportPath}:`, error.message);
     }
-    return 'unknown';
+    return { category: 'unknown', systemName: 'Sistema Desconocido', systemId: 'unknown' };
   }
 
   // Función para formatear fecha
@@ -80,12 +111,16 @@ function generateReportsJson(sourceDir, outputPath) {
               const fileDate = match[1];
               const time = match[2].replace(/-/g, ':');
 
+              const { category, systemName, systemId } = determineCategoryAndSystem(`${date}/${file}`);
+
               const reportInfo = {
                 date: fileDate,
                 time: time,
                 path: `${date}/${file}`,
                 url: `${date}/${file}`,
-                category: determineCategory(`${date}/${file}`)
+                category: category,
+                systemName: systemName,
+                systemId: systemId
               };
 
               if (!reportsByDate.has(date)) {
