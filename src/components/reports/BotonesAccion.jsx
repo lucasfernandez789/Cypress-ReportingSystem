@@ -1,12 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Button from '../common/Button'
+import { API_ENDPOINTS } from '../../constants/constants'
 
 function BotonesAccion({ filePath, date, onDelete, category = 'mixed' }) {
   return (
     <div className="flex items-center justify-between">
       <a
-        href={`${import.meta.env.BASE_URL}reports/${filePath}?category=${category}`}
+        href={`${API_ENDPOINTS.REPORTS_BASE_URL}/${filePath}?category=${category}`}
         target="_blank"
         rel="noopener noreferrer"
         className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-3 py-1 text-sm text-blue-600 transition-colors duration-200 hover:bg-blue-100"

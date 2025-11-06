@@ -51,7 +51,6 @@ async function setupEnvironment() {
 
     // URLs adicionales
     const devUrl = await askQuestion('URL de desarrollo', existingEnv.DEV_URL || existingEnv.CYPRESS_BASE_URL?.replace('://', '://dev-'));
-    const qaUrl = await askQuestion('URL de QA', existingEnv.QA_URL || existingEnv.CYPRESS_BASE_URL?.replace('://', '://qa-'));
     const prodUrl = await askQuestion('URL de producción', existingEnv.PROD_URL || existingEnv.CYPRESS_BASE_URL);
 
     // Configuración de timeouts
@@ -76,7 +75,6 @@ APP_PREFIX="${existingEnv.APP_PREFIX || 'app'}"
 # URLs de la aplicación
 CYPRESS_BASE_URL="${existingEnv.CYPRESS_BASE_URL || 'http://localhost:3000'}"
 DEV_URL="${devUrl}"
-QA_URL="${qaUrl}"
 PROD_URL="${prodUrl}"
 
 # Credenciales de testing
@@ -125,7 +123,6 @@ APP_PREFIX="prefijo_para_archivos"
 # URLs de la aplicación
 CYPRESS_BASE_URL="https://tu-app.com"
 DEV_URL="https://dev-tu-app.com"
-QA_URL="https://qa-tu-app.com"
 PROD_URL="https://tu-app.com"
 
 # Credenciales de testing

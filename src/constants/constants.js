@@ -10,8 +10,24 @@
  * Endpoints de API y URLs
  */
 export const API_ENDPOINTS = {
-  REPORTS_DATA: '/Cypress-ReportingSystem/reports/report.json',
+  // URL base para reportes (configurable por fork)
+  REPORTS_BASE_URL: import.meta.env.VITE_REPORTS_BASE_URL || `${import.meta.env.BASE_URL}reports`,
+  // URL completa para el archivo JSON de reportes
+  REPORTS_DATA: import.meta.env.DEV
+    ? `${import.meta.env.BASE_URL}reports/report.json`
+    : `${import.meta.env.VITE_REPORTS_BASE_URL || import.meta.env.BASE_URL}reports/report.json`,
   DELETE_REPORT: 'http://localhost:3001/api/delete-report',
+};
+
+/**
+ * Configuración del repositorio (para forks)
+ */
+export const REPO_CONFIG = {
+  OWNER: import.meta.env.VITE_REPORTS_REPO_OWNER || 'lucasfernandez789',
+  NAME: import.meta.env.VITE_REPORTS_REPO_NAME || 'Cypress-ReportingSystem',
+  BASE_URL: import.meta.env.DEV
+    ? `${import.meta.env.BASE_URL}reports`
+    : import.meta.env.VITE_REPORTS_BASE_URL || `${import.meta.env.BASE_URL}reports`,
 };
 
 /**
@@ -55,9 +71,9 @@ export const DATE_FILTERS = {
  */
 export const UI_MESSAGES = {
   CONFIRM_DELETE_EXECUTION: '¿Estás seguro de que quieres eliminar esta ejecución?\n\nFecha: {date}\nArchivo: {filePath}',
-  DELETE_SUCCESS: '✅ Ejecución eliminada correctamente',
-  DELETE_ERROR: '❌ Error al eliminar la ejecución: {error}',
-  CONNECTION_ERROR: '❌ Error de conexión. Asegúrate de que el servidor API esté corriendo:\n\nnpm run api-server\n\nError: {error}',
+  DELETE_SUCCESS: ' Ejecución eliminada correctamente',
+  DELETE_ERROR: ' Error al eliminar la ejecución: {error}',
+  CONNECTION_ERROR: ' Error de conexión. Asegúrate de que el servidor API esté corriendo:\n\nnpm run api-server\n\nError: {error}',
   NO_REPORTS_AVAILABLE: 'No hay reportes disponibles',
   REPORTS_WILL_APPEAR: 'Los reportes aparecerán aquí después de ejecutar los tests',
   NO_CORE_REPORTS: 'No hay reportes de Core disponibles',
@@ -99,8 +115,8 @@ export const REPORT_STATS = {
  * Rutas de archivos y ubicaciones de assets
  */
 export const ASSETS = {
-  LOGO_IMAGE: '../assets/images/logo-legis-act-D-yCoXSC.png',
-  ARROW_LEFT_ICON: '/Cypress-ReportingSystem/assets/images/arrow_left_alt_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg',
+  LOGO_IMAGE: `${import.meta.env.BASE_URL}assets/images/logo-legis-act-D-yCoXSC.png`,
+  ARROW_LEFT_ICON: `${import.meta.env.BASE_URL}assets/images/arrow_left_alt_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg`,
 };
 
 /**

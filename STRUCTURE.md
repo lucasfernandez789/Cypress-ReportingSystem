@@ -67,7 +67,7 @@ cypress-leyes/
 - **Páginas dedicadas**: `/core`, `/features`, `/mixed`
 - **Filtros inteligentes**: Incluyen reportes mixtos automáticamente
 
-## 🚀 Flujo de Trabajo
+##  Flujo de Trabajo
 
 ### Desarrollo
 1. `npm start` - Servidor de desarrollo
@@ -196,13 +196,19 @@ Scripts personalizados para gestión automatizada del proyecto:
 
 ```
 scripts/
-├── generate-reports-json.js     # Procesa y consolida datos JSON con categorización automática
-└── sync-reports-to-docs.js      # Sincronización automática cypress/ → docs/
+├── setup.js                 # CLI unificado para configuración del entorno
+├── utils.js                 # Utilidades comunes para archivos y sistema
+├── api-server.js            # Servidor Express para eliminación de reportes
+├── delete-report.js         # Eliminación desde terminal
+├── generate-reports-json.js # Procesamiento JSON con categorización
+└── sync-reports-to-docs.js  # Sincronización automática con carpetas temporales
 ```
 
 **Funciones de cada script:**
+- **setup.js**: Configuración unificada del entorno y componentes
+- **utils.js**: Funciones comunes para manejo de archivos, paths y comandos del sistema
 - **generate-reports-json.js**: Procesa datos JSON de múltiples fuentes
-- **sync-reports-to-docs.js**: Copia reportes para publicación web
+- **sync-reports-to-docs.js**: Copia reportes con procesamiento de carpetas temporales
 
 ### `public/` - Assets Estáticos
 
@@ -232,13 +238,14 @@ public/
 - **`docs/reports/`** = Copia automática para aplicación web
 - **`src/pages/Reports.jsx`** = Interfaz React para visualización
 
-### Scripts Disponibles v3.0
+### Scripts Disponibles v4.0
 
 | Script | Propósito | Cuándo Usarlo |
 |--------|-----------|---------------|
+| `npm run setup` | **CLI UNIFICADO**: Configuración completa del entorno | **Primera vez** |
 | `npm run test` | **FLUJO COMPLETO**: Tests + reportes + limpieza + sincronización | **Diariamente** |
-| `npm run api-server` |  Servidor API para eliminación web | **Desarrollo con eliminación** |
-| `npm run delete-report` |  Eliminar ejecución desde terminal | **Alternativa manual** |
+| `npm run api-server` | Servidor API para eliminación web | **Desarrollo con eliminación** |
+| `npm run delete-report` | Eliminar ejecución desde terminal | **Alternativa manual** |
 | `npm run report:merge` | Combinar JSONs individuales | Post-test automático |
 | `npm run report:generate` | Generar HTML con timestamp | Post-test automático |
 | `npm run report:sync-docs` | Sincronizar a docs/ y public/ | Post-test automático |
@@ -361,7 +368,7 @@ El script `scripts/sync-reports-to-docs.js`:
 
 
 
-### 🆕 Estructura Actual Completa v4.0
+###  Estructura Actual Completa v4.0
 ```
 cypress-leyes/
 ├── src/                   #  Aplicación React moderna
@@ -398,7 +405,7 @@ cypress-leyes/
 └── STRUCTURE.md           # Detalles técnicos actualizados
 ```
 
-## 🆕 Características Técnicas v4.1
+##  Características Técnicas v4.1
 
 ### **Arquitectura Modular React**
 - **Componentes Modulares**: Separación por funcionalidad (home/, common/, reports/)

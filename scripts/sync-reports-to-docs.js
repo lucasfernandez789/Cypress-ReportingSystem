@@ -2,102 +2,64 @@
 /**
  * Script para sincronizar reportes desde cypress/reports hacia docs/reports
  * Mantiene cypress/reports como fuente única de verdad
- * Copia reportes necesarios a docs/reports para GitHub Pages
+ * Usa carpeta temporal durante build para evitar archivos parciales
  */
 
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import generateReportsJson from './generate-reports-json.js';
+import {
+  PATHS,
+  copyFileSync,
+  copyDirSync,
+  cleanDirSync,
+  removeDirSync,
+  printBanner,
+  printResult
+} from './utils.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-function copyFileSync(source, target) {
-  // Crear directorio de destino si no existe
-  const targetDir = path.dirname(target);
-  if (!fs.existsSync(targetDir)) {
-    fs.mkdirSync(targetDir, { recursive: true });
-  }
-  fs.writeFileSync(target, fs.readFileSync(source));
-}
-
-function copyDirSync(source, target) {
-  if (!fs.existsSync(target)) {
-    fs.mkdirSync(target, { recursive: true });
-  }
-
-  const files = fs.readdirSync(source);
-  for (const file of files) {
-    const sourcePath = path.join(source, file);
-    const targetPath = path.join(target, file);
-
-    if (fs.lstatSync(sourcePath).isDirectory()) {
-      copyDirSync(sourcePath, targetPath);
-    } else {
-      copyFileSync(sourcePath, targetPath);
-    }
-  }
-}
-
 function syncReportsToDocsFolder() {
-  const sourceDir = path.join(__dirname, '..', 'cypress', 'reports');
-  const docsReportsDir = path.join(__dirname, '..', 'docs', 'reports');
-  const publicDir = path.join(__dirname, '..', 'public');
+  printBanner('Sincronización de Reportes', 'Copiando reportes a docs/ y public/');
 
-  // Limpiar directorio de destino (excepto index.html que se regenerará)
-  if (fs.existsSync(docsReportsDir)) {
-    const items = fs.readdirSync(docsReportsDir);
-    for (const item of items) {
-      if (item !== 'index.html') {
-        const itemPath = path.join(docsReportsDir, item);
-        if (fs.lstatSync(itemPath).isDirectory()) {
-          fs.rmSync(itemPath, { recursive: true, force: true });
-        } else {
-          fs.unlinkSync(itemPath);
-        }
-      }
-    }
-  }
+  // Usar carpeta temporal para evitar archivos parciales durante build
+  const tempDir = PATHS.REPORTS_TMP;
 
-  // Crear directorio de destino si no existe
-  if (!fs.existsSync(docsReportsDir)) {
-    fs.mkdirSync(docsReportsDir, { recursive: true });
-  }
+  // Limpiar y crear directorio temporal
+  removeDirSync(tempDir);
+  fs.mkdirSync(tempDir, { recursive: true });
 
   const reportFiles = [];
 
-  // Copiar reportes y escanear
+  // Copiar reportes a temporal y escanear
   function copyAndScanReports(dir, relativePath = '') {
     if (!fs.existsSync(dir)) return;
-    
+
     const items = fs.readdirSync(dir);
 
     for (const item of items) {
       const fullPath = path.join(dir, item);
       const stat = fs.statSync(fullPath);
 
-      if (stat.isDirectory() && !item.includes('mocha')) {
-        // Copiar directorio completo a docs/reports
-        const targetDir = path.join(docsReportsDir, relativePath, item);
-        copyDirSync(fullPath, targetDir);
-        
+      if (stat.isDirectory() && !item.includes('mocha') && !item.includes('tmp')) {
+        // Copiar directorio completo a temporal
+        const tempTargetDir = path.join(tempDir, relativePath, item);
+        copyDirSync(fullPath, tempTargetDir);
+
         // Continuar escaneando
         copyAndScanReports(fullPath, path.join(relativePath, item));
       } else if (item.endsWith('.html') && item.startsWith('report-')) {
-        // Si el reporte está en la raíz, copiarlo también
-        if (relativePath === '') {
-          const targetFile = path.join(docsReportsDir, item);
-          copyFileSync(fullPath, targetFile);
-        }
-        
+        // Copiar archivo HTML a temporal
+        const tempTargetFile = path.join(tempDir, relativePath, item);
+        copyFileSync(fullPath, tempTargetFile);
+
         // Registrar para el índice
-        // Si está en una carpeta con fecha, usar la fecha de la carpeta, si no, extraer del archivo
         let date;
         if (relativePath && relativePath.match(/\d{4}-\d{2}-\d{2}/)) {
-          // Extraer fecha de la ruta de la carpeta (ej: "2025-09-25/report-...")
           date = relativePath.match(/(\d{4}-\d{2}-\d{2})/)?.[1] || 'unknown';
         } else {
-          // Extraer fecha del nombre del archivo (ej: "report-2025-09-25T...")
           date = item.match(/report-(\d{4}-\d{2}-\d{2})/)?.[1] || 'unknown';
         }
         const time = item.match(/T(\d{2}-\d{2}-\d{2})/)?.[1]?.replace(/-/g, ':') || 'unknown';
@@ -112,7 +74,7 @@ function syncReportsToDocsFolder() {
     }
   }
 
-  copyAndScanReports(sourceDir);
+  copyAndScanReports(PATHS.REPORTS);
 
   // Ordenar por fecha descendente
   reportFiles.sort((a, b) => b.fullDate - a.fullDate);
@@ -390,40 +352,36 @@ function syncReportsToDocsFolder() {
 </body>
 </html>`;
 
-  const docsIndexPath = path.join(docsReportsDir, 'index.html');
-  fs.writeFileSync(docsIndexPath, docsIndexHtml);
+  // Una vez completado el procesamiento en temporal, copiar a destinos finales
+  cleanDirSync(PATHS.DOCS_REPORTS, ['index.html']); // Limpiar docs/reports (mantener index.html)
+  cleanDirSync(PATHS.PUBLIC_REPORTS); // Limpiar public/reports
+
+  // Copiar desde temporal a docs/reports
+  copyDirSync(tempDir, PATHS.DOCS_REPORTS);
 
   // Generar el archivo JSON para la aplicación React
-  const docsReportsJsonPath = path.join(docsReportsDir, 'report.json');
-  generateReportsJson(sourceDir, docsReportsJsonPath);
+  generateReportsJson(PATHS.REPORTS, path.join(PATHS.DOCS_REPORTS, 'report.json'));
 
-  // Copiar también a public/reports para modo desarrollo
-  const publicReportsDir = path.join(__dirname, '..', 'public', 'reports');
-  if (!fs.existsSync(publicReportsDir)) {
-    fs.mkdirSync(publicReportsDir, { recursive: true });
-  }
-  const publicReportsJsonPath = path.join(publicReportsDir, 'report.json');
-  fs.copyFileSync(docsReportsJsonPath, publicReportsJsonPath);
+  // Copiar JSON a public/reports para modo desarrollo
+  copyFileSync(path.join(PATHS.DOCS_REPORTS, 'report.json'), path.join(PATHS.PUBLIC_REPORTS, 'report.json'));
 
   // Copiar también los directorios de reportes individuales a public/reports
-  const sourceItems = fs.readdirSync(sourceDir);
-  for (const item of sourceItems) {
-    if (item === 'assets' || item === 'mocha' || item === 'report.json' || item === 'index.html') continue;
+  const tempItems = fs.readdirSync(tempDir);
+  for (const item of tempItems) {
+    const tempPath = path.join(tempDir, item);
+    const publicPath = path.join(PATHS.PUBLIC_REPORTS, item);
 
-    const sourcePath = path.join(sourceDir, item);
-    const publicPath = path.join(publicReportsDir, item);
-
-    if (fs.lstatSync(sourcePath).isDirectory()) {
-      copyDirSync(sourcePath, publicPath);
+    if (fs.lstatSync(tempPath).isDirectory()) {
+      copyDirSync(tempPath, publicPath);
     }
   }
 
-  console.log(` Reportes sincronizados en docs: ${docsIndexPath}`);
-  console.log(` Total de reportes encontrados: ${reportFiles.length}`);
-  console.log(` Archivos copiados desde cypress/reports/ a docs/reports/`);
-  console.log(` JSON generado para aplicación React: ${docsReportsJsonPath}`);
-  console.log(` JSON copiado a public/reports para modo desarrollo: ${publicReportsJsonPath}`);
-  console.log(` Directorios de reportes copiados a public/reports para modo desarrollo`);
+  // Limpiar carpeta temporal
+  removeDirSync(tempDir);
+
+  printResult(true, `Reportes sincronizados: ${reportFiles.length} encontrados`);
+  console.log(` Desde: ${PATHS.REPORTS}`);
+  console.log(` Hacia: ${PATHS.DOCS_REPORTS} y ${PATHS.PUBLIC_REPORTS}`);
 }
 
 syncReportsToDocsFolder();

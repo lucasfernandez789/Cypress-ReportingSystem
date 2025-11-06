@@ -1,5 +1,63 @@
 [
   {
+    "date": "2025-11-06",
+    "files": [
+      {
+        "date": "2025-11-06",
+        "time": "10:49:29",
+        "path": "2025-11-06/report-2025-11-06T10-49-29.html",
+        "url": "2025-11-06/report-2025-11-06T10-49-29.html",
+        "category": "core"
+      },
+      {
+        "date": "2025-11-06",
+        "time": "10:46:03",
+        "path": "2025-11-06/report-2025-11-06T10-46-03.html",
+        "url": "2025-11-06/report-2025-11-06T10-46-03.html",
+        "category": "features"
+      },
+      {
+        "date": "2025-11-06",
+        "time": "10:45:34",
+        "path": "2025-11-06/report-2025-11-06T10-45-34.html",
+        "url": "2025-11-06/report-2025-11-06T10-45-34.html",
+        "category": "core"
+      },
+      {
+        "date": "2025-11-06",
+        "time": "10:41:14",
+        "path": "2025-11-06/report-2025-11-06T10-41-14.html",
+        "url": "2025-11-06/report-2025-11-06T10-41-14.html",
+        "category": "mixed"
+      },
+      {
+        "date": "2025-11-06",
+        "time": "10:38:44",
+        "path": "2025-11-06/report-2025-11-06T10-38-44.html",
+        "url": "2025-11-06/report-2025-11-06T10-38-44.html",
+        "category": "mixed"
+      }
+    ],
+    "dateFormatted": "jueves, 6 de noviembre de 2025",
+    "executions": 5,
+    "lastExecution": "10:49:29"
+  },
+  {
+    "date": "2025-11-05",
+    "files": [
+      {
+        "date": "2025-11-05",
+        "time": "12:59:33",
+        "path": "2025-11-05/report-2025-11-05T12-59-33.html",
+        "url": "2025-11-05/report-2025-11-05T12-59-33.html",
+        "category": "core"
+      }
+    ],
+    "dateFormatted": "miércoles, 5 de noviembre de 2025",
+    "executions": 1,
+    "lastExecution": "12:59:33"
+  },
+  {
     "date": "2025-11-03",
     "files": [
       {

@@ -21,7 +21,7 @@ import PropTypes from 'prop-types'
  * ```
  */
 function Icon({ name, alt = '', className = '', size = 'h-5 w-5' }) {
-  const src = `/assets/images/${name}.svg`
+  const src = `${import.meta.env.BASE_URL}assets/images/${name}.svg`
 
   return (
     <img

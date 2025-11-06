@@ -1,232 +1,366 @@
-# Guía de Setup para Forks
+# Guía de Setup para Forks - Cypress Testing System
 
-Esta guía explica cómo configurar un nuevo fork del template Cypress-ReportingSystem para una aplicación específica.
+Esta guía explica cómo configurar un nuevo fork del template **Cypress-ReportingSystem** para testing automatizado. Ahora tienes **dos opciones** según tus necesidades:
 
-## Configuración Rápida
+##  Elige tu enfoque
 
+### Opción A: Proyecto Completo (Frontend + Testing)
+**Para:** Equipos que necesitan interfaz web + sistema de testing completo
+- Frontend React moderno con Vite
+- Sistema de testing Cypress completo
+- Interfaz para visualizar reportes
+- Gestion completa de reportes
+
+### Opción B: Template Cypress Ligero (Solo Testing)
+**Para:** Equipos que ya tienen frontend y solo necesitan testing automatizado
+- Solo Cypress + scripts de reportes
+- Sin frontend React (consume de URL externa)
+- Configurable para apuntar a cualquier frontend
+- Enfoque exclusivo en testing
+
+##  Proceso de Fork - Opción A: Proyecto Completo
+
+### Paso 1: Crear y clonar el fork
 ```bash
-# 1. Hacer fork del repositorio original
+# 1. Hacer fork en GitHub del repositorio original
 # 2. Clonar tu fork
 git clone https://github.com/TU-USUARIO/Cypress-NuevaApp.git
 cd Cypress-NuevaApp
 
 # 3. Instalar dependencias
 npm install
+```
 
-# 4. Configuración automática completa
+### Paso 2: Configuración automática completa
+```bash
+# Configuración completa automática con CLI unificado
 npm run setup
 
-# 5. Verificar configuración
-npm run verify
+# Opciones avanzadas del CLI
+npm run setup -- --env prod --components reports,frontend
 
-# 6. ¡Listo para desarrollar!
-npm start
+# Verificar que todo esté correcto
+npm run verify
 ```
 
-## Configuración Paso a Paso
+### Paso 3: Configurar variables de entorno
+Edita el archivo `.env` generado:
+```env
+# URL de tu aplicación a testear
+CYPRESS_BASE_URL=http://localhost:3000
 
-### Paso 1: Configuración Básica
+# Credenciales de testing
+CYPRESS_USER=usuario_test
+CYPRESS_PASS=password_test
+
+# Configuración de reportes (opcional, usa defaults)
+VITE_REPORTS_BASE_URL=https://tu-usuario.github.io/Cypress-NuevaApp
+VITE_REPORTS_REPO_OWNER=tu-usuario
+VITE_REPORTS_REPO_NAME=Cypress-NuevaApp
+```
+
+### Paso 4: Personalizar para tu aplicación
 ```bash
+# Crear estructura de tests específica
+npm run setup:tests
+
+# Configurar constantes de tu aplicación
 npm run setup:app
 ```
-**Pregunta por:**
-- Nombre de la aplicación
-- Prefijo para archivos (ej: "compras", "ventas")
-- URL base de la aplicación
 
-**Crea:**
-- `package.json` personalizado
-- Archivo `.env` básico
-- Estructura de carpetas
-- Archivo de configuración específico
-
-### Paso 2: Variables de Entorno
+### Paso 5: Ejecutar tests y verificar
 ```bash
-npm run setup:env
-```
-**Configura:**
-- Credenciales de testing
-- URLs de diferentes entornos (dev, qa, prod)
-- Timeouts y configuraciones de Cypress
-- Directorios de reportes y assets
-
-### Paso 3: Estructura de Tests
-```bash
-npm run setup:tests
-```
-**Crea:**
-- Tests básicos de login y navegación
-- Estructura de carpetas `core/` y `features/`
-- Fixtures de datos de prueba
-- Constantes específicas de la aplicación
-
-### Paso 4: Limpieza
-```bash
-npm run cleanup
-```
-**Elimina:**
-- Archivos de ejemplo del template
-- Reportes antiguos
-- Configuraciones temporales
-
-### Paso 5: Verificación
-```bash
-npm run verify
-```
-**Verifica:**
-- Configuración completa
-- Archivos necesarios creados
-- Estructura de proyecto correcta
-
-## Configuración de URL Base
-
-### Importante: Servidor de Aplicación
-
-Los tests necesitan que tu aplicación esté ejecutándose para poder probarla. Después del setup:
-
-1. **Configura CYPRESS_BASE_URL** en tu archivo `.env`:
-   ```env
-   CYPRESS_BASE_URL=http://localhost:3000
-   # o la URL de tu aplicación: https://mi-app.com
-   ```
-
-2. **Asegúrate de que tu aplicación esté corriendo** en la URL configurada
-
-3. **Si usas un servidor local**, ejecuta tu aplicación antes de los tests:
-   ```bash
-   # En otra terminal, ejecuta tu aplicación
-   npm run dev  # o el comando que uses para desarrollo
-   ```
-
-### Solución de Problemas Comunes
-
-**Error: "cy.visit() failed trying to load [URL]"**
-- ✅ Verifica que tu aplicación esté ejecutándose
-- ✅ Confirma que `CYPRESS_BASE_URL` en `.env` sea correcta
-- ✅ Si usas HTTPS, asegúrate de que Cypress pueda acceder
-
-**Error: "Connection refused"**
-- ✅ Verifica que el puerto configurado esté disponible
-- ✅ Confirma que no haya firewall bloqueando la conexión
-
-## Estructura Resultante
-
-Después del setup, tu proyecto tendrá:
-
-```
-cypress-nueva-app/
-├── cypress/e2e/
-│   ├── nueva-app-core/     # Tests de funcionalidades base
-│   └── nueva-app-features/ # Tests de características específicas
-├── cypress/fixtures/nueva-app/
-├── src/constants/nueva-app-constants.js
-├── .env                    # Configuración específica
-└── cypress-nueva-app.config.js
-```
-
-## Personalización
-
-### 1. Configurar URL de la Aplicación
-Los tests usan `Cypress.env('CYPRESS_BASE_URL')` para acceder a tu aplicación. Si necesitas cambiar la URL:
-
-**Opción A: Durante el setup inicial**
-- Ejecuta `npm run setup:app` y proporciona la URL correcta
-
-**Opción B: Cambiar después del setup**
-- Edita el archivo `.env`:
-  ```env
-  CYPRESS_BASE_URL=https://tu-app-produccion.com
-  # o para desarrollo local:
-  CYPRESS_BASE_URL=http://localhost:3000
-  ```
-
-**Opción C: Variables de entorno específicas**
-- Para diferentes entornos, usa variables específicas:
-  ```bash
-  CYPRESS_BASE_URL=https://qa.tu-app.com npm test
-  ```
-
-### 2. Actualizar Selectores
-Edita `cypress/support/selectors.js` para agregar selectores específicos de tu aplicación:
-
-```javascript
-// Selectores para Nueva App
-export const nuevaAppMenu = '[data-cy="menu-principal"]';
-export const nuevaAppForm = '#formulario-principal';
-```
-
-### 2. Configurar Comandos Personalizados
-Edita `cypress/support/commands.js` para agregar comandos específicos:
-
-```javascript
-Cypress.Commands.add('loginNuevaApp', () => {
-  cy.visit('/login');
-  cy.get('#usuario').type(Cypress.env('USER'));
-  cy.get('#password').type(Cypress.env('PASS'));
-  cy.get('[type="submit"]').click();
-});
-```
-
-### 3. Crear Tests Específicos
-Reemplaza los tests de ejemplo en:
-- `cypress/e2e/[prefijo]-core/` - Tests de funcionalidades críticas
-- `cypress/e2e/[prefijo]-features/` - Tests de características específicas
-
-### 4. Actualizar Constantes
-Modifica `src/constants/[prefijo]-constants.js` con:
-- URLs de API específicas
-- Datos de prueba
-- Configuraciones de la aplicación
-
-## Próximos Pasos
-
-1. **Configurar credenciales reales** en `.env`
-2. **Actualizar URLs** según entornos reales
-3. **Personalizar tests** según funcionalidades de tu app
-4. **Configurar CI/CD** si es necesario
-5. **Documentar** procesos específicos de tu aplicación
-
-## 🔍 Verificación Final
-
-Antes de empezar a desarrollar:
-
-```bash
-# Verificar configuración
-npm run verify
+# Asegúrate de que tu aplicación esté corriendo en CYPRESS_BASE_URL
 
 # Ejecutar tests básicos
 npm run test:core
 
-# Ver reportes
+# Ver reportes en la interfaz web
 npm start
 ```
 
-## Solución de Problemas
+
+
+
+
+
+##  Proceso de Fork - Opción B: Template Cypress Ligero
+
+### Paso 1: Crear el template
+```bash
+# 1. Hacer fork del repositorio original
+# 2. Clonar tu fork
+git clone https://github.com/TU-USUARIO/Cypress-NuevaApp.git
+cd Cypress-NuevaApp
+
+# 3. Instalar dependencias del proyecto completo
+npm install
+
+# 4. Generar versión template ligera
+npm run create:template
+```
+
+### Paso 2: Configurar el template generado
+```bash
+# Moverse al template generado
+cd ../cypress-template  # o el directorio que elegiste
+
+# Instalar dependencias del template
+npm install
+
+# Configuración automática del template con CLI unificado
+npm run setup
+```
+
+### Paso 3: Configurar fuente de reportes
+Edita el archivo `.env` en el template:
+```env
+# URL de tu aplicación a testear
+CYPRESS_BASE_URL=http://localhost:3000
+
+# URL del frontend que consumirá los reportes
+VITE_REPORTS_BASE_URL=https://tu-frontend.vercel.app
+
+# Información de tu repo para reportes
+VITE_REPORTS_REPO_OWNER=tu-usuario
+VITE_REPORTS_REPO_NAME=Cypress-NuevaApp
+
+# Credenciales de testing
+CYPRESS_USER=usuario_test
+CYPRESS_PASS=password_test
+```
+
+### Paso 4: Personalizar tests
+```bash
+# Crear estructura de tests específica
+npm run setup:tests
+
+# Configurar constantes de tu aplicación
+npm run setup:app
+```
+
+### Paso 5: Ejecutar tests y publicar reportes
+```bash
+# Asegúrate de que tu aplicación esté corriendo
+
+# Ejecutar tests
+npm run test
+
+# Publicar reportes al destino configurado
+npm run report:publish
+```
+
+##  Configuración Detallada - Ambos Enfoques
+
+### Variables de Entorno Esenciales
+
+#### Para Testing (Ambos enfoques)
+```env
+# URL de la aplicación a testear
+CYPRESS_BASE_URL=http://localhost:3000
+
+# Credenciales para tests
+CYPRESS_USER=test_user
+CYPRESS_PASS=test_pass
+
+# Configuración de Cypress
+CYPRESS_VIEWPORT_WIDTH=1280
+CYPRESS_VIEWPORT_HEIGHT=720
+```
+
+#### Para Reportes (Opción A - Proyecto Completo)
+```env
+# URL donde se publicarán los reportes (GitHub Pages por defecto)
+VITE_REPORTS_BASE_URL=https://tu-usuario.github.io/tu-repo
+
+# Información del repositorio
+VITE_REPORTS_REPO_OWNER=tu-usuario
+VITE_REPORTS_REPO_NAME=tu-repo
+```
+
+#### Para Reportes (Opción B - Template Ligero)
+```env
+# URL del frontend existente que consumirá los reportes
+VITE_REPORTS_BASE_URL=https://tu-frontend.vercel.app
+
+# Información del repositorio donde se publicarán los reportes
+VITE_REPORTS_REPO_OWNER=tu-usuario
+VITE_REPORTS_REPO_NAME=tu-repo-reportes
+```
+
+### Configuración de URLs Base
+
+**Importante:** Los tests necesitan que tu aplicación esté ejecutándose.
+
+#### Desarrollo Local
+```env
+CYPRESS_BASE_URL=http://localhost:3000
+```
+
+#### Producción (¡Cuidado!)
+```env
+CYPRESS_BASE_URL=https://tu-app.com
+```
+
+### Publicación de Reportes
+
+#### Opción A: GitHub Pages (Incluido)
+```bash
+# Publicar reportes automáticamente
+npm run report:publish
+```
+
+#### Opción B: Destinos Personalizados
+```bash
+# Publicar a diferentes destinos
+REPORTS_PUBLISH_TARGET=s3 npm run report:publish
+REPORTS_PUBLISH_TARGET=vercel npm run report:publish
+```
+
+##  Personalización Avanzada
+
+### 1. Selectores Específicos
+Edita `cypress/support/selectors.js`:
+```javascript
+// Selectores para tu aplicación
+export const miAppLogin = '[data-cy="login-form"]';
+export const miAppMenu = '#menu-principal';
+export const miAppBotonCrear = '[aria-label="Crear nuevo"]';
+```
+
+### 2. Comandos Personalizados
+Edita `cypress/support/commands.js`:
+```javascript
+Cypress.Commands.add('loginMiApp', () => {
+  cy.visit('/login');
+  cy.get(miAppLogin).should('be.visible');
+  cy.get('#usuario').type(Cypress.env('CYPRESS_USER'));
+  cy.get('#password').type(Cypress.env('CYPRESS_PASS'));
+  cy.get('[type="submit"]').click();
+  cy.url().should('not.include', '/login');
+});
+```
+
+### 3. Tests Específicos
+Crea tests en:
+- `cypress/e2e/core/` - Funcionalidades críticas
+- `cypress/e2e/features/` - Características específicas
+
+### 4. Constantes de Aplicación
+Modifica constantes según tu app:
+```javascript
+// URLs de API
+export const API_BASE_URL = 'https://api.tu-app.com';
+
+// Datos de prueba
+export const TEST_USERS = {
+  admin: { user: 'admin@test.com', pass: 'admin123' },
+  user: { user: 'user@test.com', pass: 'user123' }
+};
+```
+
+##  Verificación y Testing
+
+### Verificar Configuración
+```bash
+npm run verify
+```
+
+### Ejecutar Tests por Categorías
+```bash
+# Tests críticos
+npm run test:core
+
+# Tests de características
+npm run test:features
+
+# Todos los tests
+npm run test
+```
+
+### Ver Reportes
+```bash
+# Opción A: Interfaz web incluida
+npm start
+
+# Opción B: Ver en tu frontend externo
+# Los reportes estarán disponibles en VITE_REPORTS_BASE_URL
+```
+
+##  Solución de Problemas
+
+### Error: "cy.visit() failed trying to load [URL]"
+- Verifica que tu aplicacion este ejecutandose en `CYPRESS_BASE_URL`
+- Confirma que no haya firewall bloqueando
+- Para HTTPS, verifica certificados
+
+### Error: "Cannot find module" o dependencias faltantes
+```bash
+rm -rf node_modules package-lock.json
+npm install
+```
 
 ### Error: "Archivo .env no encontrado"
 ```bash
 npm run setup:app  # Crear configuración básica
 ```
 
-### Error: "Directorio de tests no encontrado"
+### Error: Reportes no se publican
+- ✅ Verifica `VITE_REPORTS_BASE_URL` correcta
+- ✅ Confirma credenciales de GitHub (para GitHub Pages)
+- ✅ Revisa configuración de destino personalizado
+
+### Error: Template no se crea
 ```bash
-npm run setup:tests  # Crear estructura de tests
+# Asegúrate de estar en el directorio raíz
+pwd  # Debe ser el directorio del proyecto completo
+npm run create:template
 ```
 
-### Error: "Configuración incompleta"
-```bash
-npm run setup  # Configuración completa automática
-npm run verify  # Verificar estado
+##  Estructura Resultante
+
+### Opción A: Proyecto Completo
+```
+cypress-nueva-app/
+├── cypress/e2e/
+│   ├── core/          # Tests críticos
+│   └── features/      # Tests específicos
+├── src/               # Frontend React
+├── public/            # Assets estáticos
+├── reports/           # Reportes generados
+├── .env              # Configuración
+└── package.json      # Dependencias completas
 ```
 
-## Soporte
+### Opción B: Template Ligero
+```
+cypress-template/
+├── cypress/e2e/
+│   ├── core/          # Tests críticos
+│   └── features/      # Tests específicos
+├── scripts/           # Scripts de reportes
+├── .env              # Configuración
+├── package.json      # Solo dependencias de testing
+└── README.md         # Documentación específica
+```
+
+##  Próximos Pasos Recomendados
+
+1. **Configurar CI/CD** para ejecución automática de tests
+2. **Documentar** procesos específicos de tu aplicación
+3. **Crear** tests para funcionalidades críticas primero
+4. **Configurar** notificaciones de fallos de tests
+5. **Integrar** con herramientas de monitoreo
+
+##  Soporte
 
 Si encuentras problemas:
-1. Ejecuta `npm run verify` para diagnosticar
-2. Revisa los logs de error
-3. Verifica que todas las variables de entorno estén configuradas
-4. Consulta la documentación del template original
+1. Ejecuta `npm run verify` para diagnóstico automático
+2. Revisa logs de error detallados
+3. Verifica todas las variables de entorno
+4. Consulta [ARCHITECTURE.md](ARCHITECTURE.md) para detalles técnicos
+5. Revisa la documentación del template original
 
 ---
 
-**Recuerda**: Este es un fork independiente. Los cambios que hagas aquí no afectan otros proyectos basados en el mismo template.
+**Recuerda**: Cada fork es independiente. Los cambios que hagas aquí no afectan otros proyectos basados en el mismo template.

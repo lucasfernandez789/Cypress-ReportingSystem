@@ -2,13 +2,16 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
 import { fileURLToPath } from 'url'
+const repoName = process.env.VITE_REPO_NAME || '';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 export default defineConfig(({ mode }) => ({
-  base: mode === 'production' ? '/Cypress-ReportingSystem/' : '/',
+
+  base: mode === 'production' ? `/${repoName}/` : '/',
   plugins: [react()],
   server: {
+    host: '0.0.0.0',
     port: 5173,
     open: true,
     fs: {
@@ -18,7 +21,7 @@ export default defineConfig(({ mode }) => ({
   },
   build: {
     outDir: 'docs',
-    emptyOutDir: false,
+    emptyOutDir: true, //limpia antes de build
     assetsDir: 'assets'
   },
   publicDir: 'public',

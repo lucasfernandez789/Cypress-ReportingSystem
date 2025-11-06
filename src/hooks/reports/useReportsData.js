@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { API_ENDPOINTS } from '../../constants/constants.js';
 
 /**
  * Hook para cargar datos de reportes desde archivos JSON.
@@ -19,8 +20,8 @@ export function useReportsData() {
       setLoading(true);
       setError(null);
 
-      // Cargar datos de reportes desde public/reports/report.json
-      const response = await fetch('/reports/report.json');
+      // Cargar datos de reportes desde URL configurable
+      const response = await fetch(API_ENDPOINTS.REPORTS_DATA);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
