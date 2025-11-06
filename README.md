@@ -23,12 +23,30 @@
 
 Este proyecto está diseñado para ser usado como **template base** para sistemas de testing automatizados. Cada fork representa una aplicación diferente.
 
-### Para Nuevos Forks
+### Arquitectura Desacoplada 
+
+**Nueva en v2.0**: Implementamos una **arquitectura desacoplada** que separa el frontend del sistema de reportes, permitiendo:
+
+- **Frontend reutilizable**: Interfaz común para múltiples proyectos
+- **Configuración dinámica**: Cada fork apunta a sus propios reportes
+- **Mantenimiento simplificado**: Actualizaciones del UI sin afectar tests
+- **Flexibilidad de deployment**: Reportes pueden alojarse en diferentes servicios
+
+#### Para Nuevos Forks
 
 1. **Hacer Fork** del repositorio
 2. **Configurar** automáticamente con `npm run setup`
 3. **Personalizar** tests para tu aplicación
-4. **Desarrollar** y mantener tests específicos
+4. **Configurar fuente de reportes** (ver [Arquitectura Desacoplada](ARCHITECTURE.md))
+
+#### Variables de Entorno para Forks
+
+```bash
+# .env
+VITE_REPORTS_BASE_URL=https://tu-usuario.github.io/tu-repo
+VITE_REPORTS_REPO_OWNER=tu-usuario
+VITE_REPORTS_REPO_NAME=tu-repo
+```
 
 ### Estructura por Aplicación
 
@@ -57,6 +75,41 @@ npm start
 npm run api-server
 ```
 
+## Template Cypress Ligero
+
+Para proyectos que solo necesitan **testing automatizado sin frontend**, hemos creado un template optimizado:
+
+```bash
+# Crear versión template (solo Cypress + reportes)
+npm run create:template
+
+# Usar el template generado
+cd cypress-template
+npm install
+npm run setup
+```
+
+### ¿Qué incluye el template?
+
+- ✅ **Cypress 15.3.0** completamente configurado
+- ✅ **Scripts de reportes** automatizados
+- ✅ **Configuración multi-reporter** (Mochawesome + JSON)
+- ✅ **Variables de entorno** para apuntar a frontend externo
+- ✅ **Scripts de publicación** de reportes
+- ❌ **Sin frontend React** (consume reportes de URL externa)
+
+### Caso de uso ideal
+
+Perfecto para **equipos que ya tienen un frontend** y solo necesitan:
+- Sistema de testing automatizado
+- Generación y publicación de reportes
+- Integración con frontend existente
+
+```bash
+# Configurar para usar tu frontend existente
+echo "VITE_REPORTS_BASE_URL=https://tu-frontend.vercel.app" > .env
+```
+
 ## Características Principales
 
 ### Testing Automatizado Inteligente
@@ -74,6 +127,40 @@ npm run api-server
 - **Paginación inteligente** (5 fechas por página)
 - **Filtros avanzados** por fecha y categorías
 - **Eliminación directa** desde la web
+
+## Template Cypress Ligero
+
+Para proyectos que solo necesitan **testing automatizado sin frontend**, hemos creado un template optimizado:
+
+```bash
+# Crear versión template (solo Cypress + reportes)
+npm run create:template
+
+# Usar el template generado
+cd cypress-template
+npm install
+npm run setup
+```
+
+### ¿Qué incluye el template?
+
+- Cypress 15.3.0 completamente configurado
+- Scripts de reportes automatizados
+- Configuración multi-reporter (Mochawesome + JSON)
+- Variables de entorno para apuntar a frontend externo
+- Scripts de publicación de reportes
+
+### Caso de uso ideal
+
+Perfecto para **equipos que ya tienen un frontend** y solo necesitan:
+- Sistema de testing automatizado
+- Generación y publicación de reportes
+- Integración con frontend existente
+
+```bash
+# Configurar para usar tu frontend existente
+echo "VITE_REPORTS_BASE_URL=https://tu-frontend.vercel.app" > .env
+```
 
 ## Estructura del Proyecto
 
@@ -208,16 +295,39 @@ cypress-leyes/
 | `npm run api-server` | Servidor API para eliminación web |
 | `npm run clean-reports` | Limpiar archivos JSON acumulados |
 | `npm run delete-report` | Eliminar ejecución específica |
+| `npm run report:merge` | Unir reportes JSON de Mochawesome |
+| `npm run report:generate` | Generar reportes HTML con timestamp |
+| `npm run report:sync-docs` | Sincronizar reportes a docs/ |
+| `npm run report:publish` | Publicar reportes a destino externo |
 
 ### Setup y Configuración
 | Comando | Descripción |
 |---------|-------------|
 | `npm run setup` | **CONFIGURACIÓN COMPLETA** automática |
-| `npm run setup:app` | Configurar nombre y URLs de la aplicación |
-| `npm run setup:env` | Configurar variables de entorno avanzadas |
+| `npm run setup:env local` | Configurar entorno local |
+| `npm run setup:env prod` | Configurar entorno producción |
 | `npm run setup:tests` | Crear estructura básica de tests |
+| `npm run setup:app` | Configurar aplicación y constantes |
 | `npm run cleanup` | Limpiar archivos del template |
 | `npm run verify` | Verificar configuración completa |
+| `npm run create:template` | Crear template Cypress ligero |
+
+### CLI Avanzado
+```bash
+# Configuración completa
+npm run setup -- --all
+
+# Configurar entorno específico
+npm run setup -- --env local
+npm run setup -- --env prod
+
+# Configuración específica
+npm run setup -- --tests
+npm run setup -- --app
+
+# Ver ayuda
+npm run setup -- --help
+```
 
 > **Para explicaciones detalladas consulta [COMANDOS.md](COMANDOS.md)**
 
@@ -269,12 +379,25 @@ Para configurar rápidamente un nuevo fork para una aplicación específica:
 # Configuración completa automática
 npm run setup
 
+# O usando el CLI avanzado:
+node scripts/setup.js --all
+
 # O configuración paso a paso:
-npm run setup:app    # Configurar nombre y URLs
-npm run setup:env    # Variables de entorno avanzadas
-npm run setup:tests  # Estructura de tests básica
-npm run cleanup      # Limpiar archivos del template
-npm run verify       # Verificar configuración
+npm run setup:env local    # Configurar entorno local
+npm run setup:tests        # Crear estructura de tests
+npm run setup:app          # Configurar aplicación
+npm run cleanup            # Limpiar archivos del template
+npm run verify             # Verificar configuración
+```
+
+### Configuración por Entorno
+
+```bash
+# Desarrollo local
+node scripts/setup.js --env local
+
+# Producción
+node scripts/setup.js --env prod
 ```
 
 ### Configuración Manual
@@ -523,8 +646,8 @@ cypress-leyes/
 | Comando | Descripción |
 |---------|-------------|
 | `npm run test` | **PRINCIPAL**: Tests completos + reportes automáticos + limpieza |
-| `npm run test:core` | Ejecuta solo tests Core (`cypress/e2e/core/**/*`) |
-| `npm run test:features` | Ejecuta solo tests Features (`cypress/e2e/features/**/*`) |
+| `npm run test:core` | Ejecuta solo tests Core (`cypress/e2e/core/*.cy.js`) |
+| `npm run test:features` | Ejecuta solo tests Features (`cypress/e2e/features/*.cy.js`) |
 | `npm run cypress:open` | Abre Cypress en modo interactivo |
 | `npm run cypress:run` | Ejecuta tests en modo headless |
 | `npm run cypress:run-reports` | Tests con configuración multi-reporter |
