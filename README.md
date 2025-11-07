@@ -96,59 +96,8 @@ npm run setup
 - ✅ **Configuración multi-reporter** (Mochawesome + JSON)
 - ✅ **Variables de entorno** para apuntar a frontend externo
 - ✅ **Scripts de publicación** de reportes
+- ✅ **Filtrado por sistema** (APP_NAME en .env)
 - ❌ **Sin frontend React** (consume reportes de URL externa)
-
-### Caso de uso ideal
-
-Perfecto para **equipos que ya tienen un frontend** y solo necesitan:
-- Sistema de testing automatizado
-- Generación y publicación de reportes
-- Integración con frontend existente
-
-```bash
-# Configurar para usar tu frontend existente
-echo "VITE_REPORTS_BASE_URL=https://tu-frontend.vercel.app" > .env
-```
-
-## Características Principales
-
-### Testing Automatizado Inteligente
-- **Cypress 15.3.0** con configuración multi-reporter
-- **Categorización por comandos** (`test:core` y `test:features`)
-- **Reportes Mochawesome** organizados por fecha
-- **Pipeline completamente automatizado**
-- **Estructura organizada** en carpetas core/ y features/
-
-### Interfaz Web Moderna
-- **React 18.3.1** con Vite 7.1.9 para desarrollo rápido
-- **Tailwind CSS 3.4.18** con ESLint configurado
-- **Material Symbols** para iconografía consistente
-- **Arquitectura modular** con componentes reutilizables
-- **Paginación inteligente** (5 fechas por página)
-- **Filtros avanzados** por fecha y categorías
-- **Eliminación directa** desde la web
-
-## Template Cypress Ligero
-
-Para proyectos que solo necesitan **testing automatizado sin frontend**, hemos creado un template optimizado:
-
-```bash
-# Crear versión template (solo Cypress + reportes)
-npm run create:template
-
-# Usar el template generado
-cd cypress-template
-npm install
-npm run setup
-```
-
-### ¿Qué incluye el template?
-
-- Cypress 15.3.0 completamente configurado
-- Scripts de reportes automatizados
-- Configuración multi-reporter (Mochawesome + JSON)
-- Variables de entorno para apuntar a frontend externo
-- Scripts de publicación de reportes
 
 ### Caso de uso ideal
 
@@ -233,7 +182,7 @@ cypress-leyes/
 │   │       ├── PaginacionReportes.jsx  # Paginación
 │   │       ├── ReporteFecha.jsx        # Sección de fecha
 │   │       ├── ReporteItem.jsx         # Item individual
-│   │       └── ReporteItemSkeleton.jsx # Loading skeleton
+│   │       ├── SystemSelector.jsx      # Selector de sistema/fork
 │   ├── constants/              # Constantes centralizadas
 │   │   └── constants.js          # Configuración y mensajes
 │   ├── hooks/                  # Custom hooks
@@ -570,7 +519,7 @@ npm run api-server
 - **Eliminación directa** desde la web (sin terminal)
 - **Desplegables por fecha** con animaciones
 - **Paginación inteligente** (5 fechas por página, siempre visible)
-- **Filtros avanzados** por fecha específica, rangos y categorías
+- **Filtros avanzados** por fecha específica, rangos, categorías y sistema
 
 ### Sistema de Reportes Inteligente
 - **Categorización automática** basada en rutas de archivos (`cypress/e2e/core/` vs `cypress/e2e/features/`)
