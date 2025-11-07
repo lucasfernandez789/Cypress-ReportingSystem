@@ -156,6 +156,10 @@ El sistema incluye procesamiento avanzado de reportes:
 - **Sincronización**: Sincronización automática entre `cypress/reports/` y `docs/reports/`
 - **Generación de Índices**: Creación automática de índices HTML para navegación
 - **Limpieza**: Eliminación automática de archivos temporales y obsoletos
+- **Filtrado Multi-Sistema**: Sistema inteligente que discrimina reportes por APP_NAME
+  - Carpetas `YYYY-MM-DD_APP_NAME` para sistemas específicos
+  - Carpetas `YYYY-MM-DD` para "Sistema por Defecto"
+  - Interfaz con selector visual para filtrar por sistema/fork
 
 ### Frontend Independiente
 

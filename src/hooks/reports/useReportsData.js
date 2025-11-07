@@ -32,12 +32,11 @@ export function useReportsData() {
         data.map(async (dateGroup) => {
           const enrichedFiles = await Promise.all(
             dateGroup.files.map(async (file) => {
-              // Intentar cargar estadísticas del reporte HTML
-              const stats = await loadReportStats(file.path);
+              // Las estadísticas ya están incluidas en el JSON generado por el script
               return {
                 ...file,
                 name: `Reporte ${file.category.charAt(0).toUpperCase() + file.category.slice(1)}`,
-                stats: stats || {
+                stats: file.stats || {
                   suites: 1,
                   tests: 1,
                   passes: 1,
@@ -72,64 +71,6 @@ export function useReportsData() {
   }, []);
 
   return { reports, loading, error, loadReports };
-}
-
-/**
- * Carga estadísticas de un reporte HTML específico.
- * Intenta extraer información del archivo HTML del reporte.
- *
- * @param {string} reportPath - Ruta relativa del reporte
- * @returns {Promise<Object|null>} Estadísticas del reporte o null si falla
- */
-async function loadReportStats(reportPath) {
-  try {
-    const response = await fetch(`/${reportPath}`);
-    if (!response.ok) return null;
-
-    const html = await response.text();
-
-    // Extraer estadísticas del HTML usando expresiones regulares
-    const stats = {
-      suites: extractNumber(html, /Suites:\s*(\d+)/) || 1,
-      tests: extractNumber(html, /Tests:\s*(\d+)/) || 1,
-      passes: extractNumber(html, /Passes:\s*(\d+)/) || 1,
-      failures: extractNumber(html, /Failures:\s*(\d+)/) || 0,
-      total: extractNumber(html, /Total:\s*(\d+)/) || 1,
-      duration: extractDuration(html) || 1000
-    };
-
-    return stats;
-  } catch (err) {
-    console.warn(`Could not load stats for ${reportPath}:`, err);
-    return null;
-  }
-}
-
-/**
- * Extrae un número de una cadena usando expresión regular.
- *
- * @param {string} text - Texto a buscar
- * @param {RegExp} regex - Expresión regular con grupo de captura
- * @returns {number|null} Número extraído o null
- */
-function extractNumber(text, regex) {
-  const match = text.match(regex);
-  return match ? parseInt(match[1], 10) : null;
-}
-
-/**
- * Extrae duración del reporte en milisegundos.
- *
- * @param {string} html - Contenido HTML del reporte
- * @returns {number|null} Duración en ms o null
- */
-function extractDuration(html) {
-  // Buscar patrón como "Duration: 5 seconds" o "Duration: 2.5 seconds"
-  const match = html.match(/Duration:\s*([\d.]+)\s*seconds?/i);
-  if (match) {
-    return Math.round(parseFloat(match[1]) * 1000);
-  }
-  return null;
 }
 
 /**

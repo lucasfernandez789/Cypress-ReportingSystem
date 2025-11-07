@@ -58,6 +58,8 @@ export function useReports(category = null) {
   // System filter state
   const [selectedSystem, setSelectedSystem] = useState('all');
 
+  console.log('useReports selectedSystem:', selectedSystem);
+
   // Use specialized hooks for different concerns
   const { reports, loading, error, loadReports } = useReportsData();
   const {

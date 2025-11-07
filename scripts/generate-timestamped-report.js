@@ -8,6 +8,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { execSync } from 'child_process';
+import { CONFIG, SYSTEM_INFO } from './config.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -23,8 +24,13 @@ function generateTimestampedReport() {
   const date = `${year}-${month}-${day}`;
   const time = `${hours}-${minutes}-${seconds}`;
 
-  // Crear directorio si no existe
-  const reportsDir = path.join(__dirname, '..', 'cypress', 'reports', date);
+  // Crear directorio con APP_NAME si está configurado
+  const baseReportsDir = CONFIG.REPORTS_DIR.startsWith('/') || CONFIG.REPORTS_DIR.includes(':')
+    ? CONFIG.REPORTS_DIR  // Ruta absoluta
+    : path.join(__dirname, '..', CONFIG.REPORTS_DIR); // Ruta relativa
+
+  const folderName = CONFIG.APP_NAME ? `${date}_${CONFIG.APP_NAME}` : date;
+  const reportsDir = path.join(baseReportsDir, folderName);
   fs.mkdirSync(reportsDir, { recursive: true });
 
   // Generar reporte HTML

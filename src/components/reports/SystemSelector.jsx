@@ -28,23 +28,32 @@ import PropTypes from 'prop-types';
  * ```
  */
 function SystemSelector({ selectedSystem, onSystemChange, availableSystems }) {
+  const selectedSystemName = availableSystems.find(system => system.id === selectedSystem)?.name || 'Todos los sistemas';
+  
   return (
     <div className="flex items-center gap-2">
       <label htmlFor="system-selector" className="text-sm font-medium text-gray-700">
         Sistema:
       </label>
-      <select
-        id="system-selector"
-        value={selectedSystem}
-        onChange={(e) => onSystemChange(e.target.value)}
-        className="rounded-md border border-gray-300 px-3 py-1 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-      >
-        {availableSystems.map((system) => (
-          <option key={system.id} value={system.id}>
-            {system.name}
-          </option>
-        ))}
-      </select>
+      <div className="flex items-center gap-2">
+        <select
+          id="system-selector"
+          value={selectedSystem}
+          onChange={(e) => onSystemChange(e.target.value)}
+          className="rounded-md border border-gray-300 px-3 py-1 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+        >
+          {availableSystems.map((system) => (
+            <option key={system.id} value={system.id}>
+              {system.name}
+            </option>
+          ))}
+        </select>
+        {selectedSystem !== 'all' && (
+          <span className="inline-flex items-center rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800">
+            Filtrando: {selectedSystemName}
+          </span>
+        )}
+      </div>
     </div>
   );
 }

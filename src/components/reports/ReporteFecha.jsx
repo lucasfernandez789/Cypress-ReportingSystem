@@ -40,6 +40,7 @@ function ReporteFecha({ report, isExpanded, onToggleExpansion, onDeleteExecution
                 key={fileIndex}
                 file={file}
                 fileIndex={fileIndex}
+                executionNumber={report.files.length - fileIndex}
                 date={report.date}
                 onDelete={onDeleteExecution}
                 category={category}

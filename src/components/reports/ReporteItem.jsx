@@ -1,14 +1,14 @@
 import React from 'react'
 import BotonesAccion from './BotonesAccion'
 
-function ReporteItem({ file, fileIndex, date, onDelete }) {
+function ReporteItem({ file, fileIndex, executionNumber, date, onDelete }) {
   return (
     <div className="report-item rounded-lg border border-gray-200 p-4 transition-shadow duration-200 hover:border-blue-300 hover:shadow-md">
       <div className="mb-3 flex items-start justify-between">
         <div className="flex items-center gap-2">
           <span className={`h-2 w-2 rounded-full ${file.stats.failures > 0 ? 'bg-red-500' : 'bg-green-500'}`}></span>
           <span className="font-semibold text-gray-700">
-            Ejecución {fileIndex + 1}
+            Ejecución {executionNumber}
             <span className="ml-2 text-sm">
               ({file.stats.passes}/{file.stats.total} tests exitosos)
             </span>

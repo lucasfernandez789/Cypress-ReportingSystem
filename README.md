@@ -520,6 +520,8 @@ npm run api-server
 - **Desplegables por fecha** con animaciones
 - **Paginación inteligente** (5 fechas por página, siempre visible)
 - **Filtros avanzados** por fecha específica, rangos, categorías y sistema
+- **Sistema multi-fork** con filtrado por APP_NAME (Sistema por Defecto, Cypress-ReportingSystem, etc.)
+- **Indicador visual** cuando filtro específico está aplicado
 
 ### Sistema de Reportes Inteligente
 - **Categorización automática** basada en rutas de archivos (`cypress/e2e/core/` vs `cypress/e2e/features/`)

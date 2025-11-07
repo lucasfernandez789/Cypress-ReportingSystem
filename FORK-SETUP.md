@@ -53,6 +53,9 @@ CYPRESS_BASE_URL=http://localhost:3000
 CYPRESS_USER=usuario_test
 CYPRESS_PASS=password_test
 
+# Nombre de tu aplicación (para filtrado por sistema)
+APP_NAME=MiAplicacion
+
 # Configuración de reportes (opcional, usa defaults)
 VITE_REPORTS_BASE_URL=https://tu-usuario.github.io/Cypress-NuevaApp
 VITE_REPORTS_REPO_OWNER=tu-usuario
@@ -77,6 +80,24 @@ npm run test:core
 
 # Ver reportes en la interfaz web
 npm start
+```
+
+### Sistema de Filtrado por Sistema
+
+El sistema incluye **filtrado inteligente por aplicación/fork**:
+
+- **APP_NAME** en `.env` determina cómo se nombran las carpetas de reportes
+- **Carpetas generadas**: `YYYY-MM-DD_APP_NAME` (ej: `2025-11-07_MiAplicacion`)
+- **Filtrado visual**: Selector en la interfaz para filtrar por sistema
+- **Sistema por Defecto**: Reportes sin APP_NAME aparecen como "Sistema por Defecto"
+- **Todos los sistemas**: Opción para ver reportes de todas las aplicaciones
+
+**Ejemplo de uso multi-fork:**
+```
+cypress/reports/
+├── 2025-11-07/                    # Sistema por Defecto
+├── 2025-11-07_MiAplicacion/       # MiAplicacion
+└── 2025-11-07_OtraApp/           # OtraApp
 ```
 
 

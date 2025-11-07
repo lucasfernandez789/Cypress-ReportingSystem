@@ -6,6 +6,10 @@
 
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
+import { CONFIG, SYSTEM_INFO } from './config.js';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 function generateReportsJson(sourceDir, outputPath) {
   const reportsDir = path.join(sourceDir);
@@ -23,7 +27,7 @@ function generateReportsJson(sourceDir, outputPath) {
   const reportsByDate = new Map();
 
   // Función para determinar la categoría y metadata del sistema
-  function determineCategoryAndSystem(reportPath) {
+  function determineCategoryAndSystem(reportPath, folderName) {
     try {
       const fullReportPath = path.join(reportsDir, reportPath);
       if (fs.existsSync(fullReportPath)) {
@@ -42,32 +46,19 @@ function generateReportsJson(sourceDir, outputPath) {
           category = 'features';
         }
 
-        // Extraer información del sistema
-        let systemName = 'Sistema Desconocido';
-        let systemId = 'unknown';
-
-        // Leer APP_NAME directamente del archivo .env
-        try {
-          const envPath = path.join(process.cwd(), '.env');
-          if (fs.existsSync(envPath)) {
-            const envContent = fs.readFileSync(envPath, 'utf8');
-            const appNameMatch = envContent.match(/^APP_NAME=(.+)$/m);
-            if (appNameMatch) {
-              systemName = appNameMatch[1].replace(/["']/g, ''); // Remover comillas si las hay
-              systemId = systemName.toLowerCase().replace(/\s+/g, '-');
-            }
-          }
-        } catch (error) {
-          console.warn('Error al leer .env:', error.message);
-        }
-
-        // Fallback: buscar APP_NAME en el contenido del reporte HTML (por si acaso)
-        if (systemName === 'Sistema Desconocido') {
-          const envMatch = content.match(/"env":\s*\{[^}]*"APP_NAME":\s*"([^"]+)"/);
-          if (envMatch) {
-            systemName = envMatch[1];
-            systemId = systemName.toLowerCase().replace(/\s+/g, '-');
-          }
+        // Determinar systemId basado en el nombre de la carpeta
+        let systemName, systemId;
+        
+        if (folderName.includes('_')) {
+          // Carpeta con APP_NAME: YYYY-MM-DD_APP_NAME
+          const parts = folderName.split('_');
+          const appName = parts.slice(1).join('_'); // En caso de que APP_NAME tenga underscores
+          systemName = appName;
+          systemId = appName.toLowerCase().replace(/[^a-z0-9]/g, '');
+        } else {
+          // Carpeta sin APP_NAME: usar configuración por defecto
+          systemName = 'Sistema por Defecto';
+          systemId = 'default';
         }
 
         return { category, systemName, systemId };
@@ -90,6 +81,58 @@ function generateReportsJson(sourceDir, outputPath) {
     return date.toLocaleDateString('es-ES', options);
   }
 
+  // Función para extraer estadísticas del HTML
+  function extractStatsFromHtml(htmlPath) {
+    try {
+      if (fs.existsSync(htmlPath)) {
+        const content = fs.readFileSync(htmlPath, 'utf8');
+
+        // Extraer datos JSON del atributo data-raw del body
+        const dataRawMatch = content.match(/data-raw="([^"]*)"/);
+        if (dataRawMatch) {
+          try {
+            const dataRaw = dataRawMatch[1].replace(/&quot;/g, '"').replace(/&amp;/g, '&');
+            const data = JSON.parse(dataRaw);
+
+            if (data.stats) {
+              return {
+                suites: data.stats.suites || 1,
+                tests: data.stats.tests || 1,
+                passes: data.stats.passes || 0,
+                failures: data.stats.failures || 0,
+                total: data.stats.tests || 1,
+                duration: data.stats.duration || 1000
+              };
+            }
+          } catch (parseError) {
+            console.warn(`Error parsing JSON from ${htmlPath}:`, parseError);
+          }
+        }
+
+        // Fallback: valores por defecto
+        return {
+          suites: 1,
+          tests: 1,
+          passes: 1,
+          failures: 0,
+          total: 1,
+          duration: 1000
+        };
+      }
+    } catch (error) {
+      console.warn(`Error reading HTML file ${htmlPath}:`, error);
+    }
+
+    return {
+      suites: 1,
+      tests: 1,
+      passes: 1,
+      failures: 0,
+      total: 1,
+      duration: 1000
+    };
+  }
+
   // Escanear directorios de reportes
   if (fs.existsSync(reportsDir)) {
     const items = fs.readdirSync(reportsDir);
@@ -98,9 +141,11 @@ function generateReportsJson(sourceDir, outputPath) {
       const itemPath = path.join(reportsDir, item);
       const stat = fs.statSync(itemPath);
 
-      if (stat.isDirectory() && /^\d{4}-\d{2}-\d{2}$/.test(item)) {
-        // Es un directorio con fecha (ej: 2025-10-30)
-        const date = item;
+      if (stat.isDirectory() && (/^\d{4}-\d{2}-\d{2}$/.test(item) || /^\d{4}-\d{2}-\d{2}_/.test(item))) {
+        // Es un directorio con fecha (ej: 2025-10-30) o fecha con APP_NAME (ej: 2025-10-30_MiApp)
+        const dateMatch = item.match(/^(\d{4}-\d{2}-\d{2})/);
+        const date = dateMatch ? dateMatch[1] : item;
+        const folderName = item; // Usar el nombre completo de la carpeta
         const dateFiles = fs.readdirSync(itemPath);
 
         for (const file of dateFiles) {
@@ -111,16 +156,20 @@ function generateReportsJson(sourceDir, outputPath) {
               const fileDate = match[1];
               const time = match[2].replace(/-/g, ':');
 
-              const { category, systemName, systemId } = determineCategoryAndSystem(`${date}/${file}`);
+              const { category, systemName, systemId } = determineCategoryAndSystem(`${folderName}/${file}`, folderName);
+
+              // Extraer estadísticas del HTML
+              const stats = extractStatsFromHtml(path.join(reportsDir, folderName, file));
 
               const reportInfo = {
                 date: fileDate,
                 time: time,
-                path: `${date}/${file}`,
-                url: `${date}/${file}`,
+                path: `${folderName}/${file}`,
+                url: `${folderName}/${file}`,
                 category: category,
                 systemName: systemName,
-                systemId: systemId
+                systemId: systemId,
+                stats: stats
               };
 
               if (!reportsByDate.has(date)) {
@@ -146,7 +195,7 @@ function generateReportsJson(sourceDir, outputPath) {
   const reportsArray = Array.from(reportsByDate.values())
     .sort((a, b) => new Date(b.date) - new Date(a.date));
 
-  // Ordenar archivos dentro de cada fecha por hora descendente
+  // Ordenar archivos dentro de cada fecha por hora descendente (más reciente primero)
   reportsArray.forEach(dateGroup => {
     dateGroup.files.sort((a, b) => b.time.localeCompare(a.time));
     dateGroup.lastExecution = dateGroup.files[0]?.time || '';
