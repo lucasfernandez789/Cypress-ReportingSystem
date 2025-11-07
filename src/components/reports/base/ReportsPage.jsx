@@ -166,8 +166,8 @@ function ReportsPage({
                     isExpanded={expandedDates.has(report.date)}
                     onToggleExpansion={toggleDateExpansion}
                     onDeleteExecution={(date, fileIndex) => {
-                      // Lógica para eliminar ejecución
-                      console.log('Eliminar ejecución:', date, fileIndex);
+                      // TODO: Implementar lógica para eliminar ejecución
+                      // console.log('Eliminar ejecución:', date, fileIndex);
                     }}
                     category={category}
                   />
