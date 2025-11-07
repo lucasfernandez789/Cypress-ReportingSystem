@@ -91,13 +91,13 @@ npm run setup
 
 ### ¿Qué incluye el template?
 
-- ✅ **Cypress 15.3.0** completamente configurado
-- ✅ **Scripts de reportes** automatizados
-- ✅ **Configuración multi-reporter** (Mochawesome + JSON)
-- ✅ **Variables de entorno** para apuntar a frontend externo
-- ✅ **Scripts de publicación** de reportes
-- ✅ **Filtrado por sistema** (APP_NAME en .env)
-- ❌ **Sin frontend React** (consume reportes de URL externa)
+- ✓ **Cypress 15.3.0** completamente configurado
+- ✓ **Scripts de reportes** automatizados
+- ✓ **Configuración multi-reporter** (Mochawesome + JSON)
+- ✓ **Variables de entorno** para apuntar a frontend externo
+- ✓ **Scripts de publicación** de reportes
+- ✓ **Filtrado por sistema** (APP_NAME en .env)
+- ✗ **Sin frontend React** (consume reportes de URL externa)
 
 ### Caso de uso ideal
 
@@ -714,16 +714,16 @@ fetch('http://localhost:3001/api/delete-report', {
 
 ### Estructura de Componentes
 ```
-📁 components/
-├── 📁 common/     # Componentes compartidos (Footer)
-├── 📁 home/       # Componentes específicos de Home
-├── 📁 reports/    # Componentes específicos de reportes
+components/
+├── common/     # Componentes compartidos (Footer)
+├── home/       # Componentes específicos de Home
+├── reports/    # Componentes específicos de reportes
 └── Layout.jsx     # Layout principal
 ```
 
 ### Custom Hooks
 ```
-📁 hooks/
+hooks/
 └── useReports.js  # Gestión completa del estado de reportes
 ```
 

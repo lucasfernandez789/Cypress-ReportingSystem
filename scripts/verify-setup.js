@@ -11,7 +11,7 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 async function verifySetup() {
-  console.log('🔍 Verificando configuración del proyecto...\n');
+  console.log('Verificando configuración del proyecto...\n');
 
   const checks = {
     env: false,

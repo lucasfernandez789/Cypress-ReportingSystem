@@ -248,7 +248,7 @@ export function printBanner(title, description = '') {
  * Imprime resultado de operación
  */
 export function printResult(success, message) {
-  const icon = success ? '✅' : '❌';
+  const icon = success ? '✓' : '✗';
   console.log(`${icon} ${message}`);
 }
 

@@ -4,6 +4,91 @@
     "files": [
       {
         "date": "2025-11-07",
+        "time": "12:48:15",
+        "path": "2025-11-07_Cypress-ReportingSystem/report-2025-11-07T12-48-15.html",
+        "url": "2025-11-07_Cypress-ReportingSystem/report-2025-11-07T12-48-15.html",
+        "category": "features",
+        "systemName": "Cypress-ReportingSystem",
+        "systemId": "cypressreportingsystem",
+        "stats": {
+          "suites": 1,
+          "tests": 1,
+          "passes": 1,
+          "failures": 0,
+          "total": 1,
+          "duration": 1160
+        }
+      },
+      {
+        "date": "2025-11-07",
+        "time": "12:47:12",
+        "path": "2025-11-07_Cypress-ReportingSystem/report-2025-11-07T12-47-12.html",
+        "url": "2025-11-07_Cypress-ReportingSystem/report-2025-11-07T12-47-12.html",
+        "category": "mixed",
+        "systemName": "Cypress-ReportingSystem",
+        "systemId": "cypressreportingsystem",
+        "stats": {
+          "suites": 2,
+          "tests": 2,
+          "passes": 2,
+          "failures": 0,
+          "total": 2,
+          "duration": 4231
+        }
+      },
+      {
+        "date": "2025-11-07",
+        "time": "12:46:13",
+        "path": "2025-11-07_Cypress-ReportingSystem/report-2025-11-07T12-46-13.html",
+        "url": "2025-11-07_Cypress-ReportingSystem/report-2025-11-07T12-46-13.html",
+        "category": "mixed",
+        "systemName": "Cypress-ReportingSystem",
+        "systemId": "cypressreportingsystem",
+        "stats": {
+          "suites": 2,
+          "tests": 2,
+          "passes": 2,
+          "failures": 0,
+          "total": 2,
+          "duration": 4247
+        }
+      },
+      {
+        "date": "2025-11-07",
+        "time": "12:45:42",
+        "path": "2025-11-07_Cypress-ReportingSystem/report-2025-11-07T12-45-42.html",
+        "url": "2025-11-07_Cypress-ReportingSystem/report-2025-11-07T12-45-42.html",
+        "category": "features",
+        "systemName": "Cypress-ReportingSystem",
+        "systemId": "cypressreportingsystem",
+        "stats": {
+          "suites": 1,
+          "tests": 1,
+          "passes": 1,
+          "failures": 0,
+          "total": 1,
+          "duration": 1172
+        }
+      },
+      {
+        "date": "2025-11-07",
+        "time": "12:29:37",
+        "path": "2025-11-07_Cypress-ReportingSystem/report-2025-11-07T12-29-37.html",
+        "url": "2025-11-07_Cypress-ReportingSystem/report-2025-11-07T12-29-37.html",
+        "category": "mixed",
+        "systemName": "Cypress-ReportingSystem",
+        "systemId": "cypressreportingsystem",
+        "stats": {
+          "suites": 2,
+          "tests": 2,
+          "passes": 2,
+          "failures": 0,
+          "total": 2,
+          "duration": 4262
+        }
+      },
+      {
+        "date": "2025-11-07",
         "time": "11:55:45",
         "path": "2025-11-07_Cypress-ReportingSystem/report-2025-11-07T11-55-45.html",
         "url": "2025-11-07_Cypress-ReportingSystem/report-2025-11-07T11-55-45.html",
@@ -106,8 +191,8 @@
       }
     ],
     "dateFormatted": "viernes, 7 de noviembre de 2025",
-    "executions": 6,
-    "lastExecution": "11:55:45"
+    "executions": 11,
+    "lastExecution": "12:48:15"
   },
   {
     "date": "2025-11-06",

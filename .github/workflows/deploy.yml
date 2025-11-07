@@ -43,7 +43,7 @@ jobs:
           echo "ERROR: Layout.jsx still has incorrect import path"
           exit 1
         else
-          echo "✅ Layout.jsx import path is correct"
+          echo "✓ Layout.jsx import path is correct"
         fi
 
     - name: Build

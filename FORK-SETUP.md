@@ -327,9 +327,9 @@ npm run setup:app  # Crear configuración básica
 ```
 
 ### Error: Reportes no se publican
-- ✅ Verifica `VITE_REPORTS_BASE_URL` correcta
-- ✅ Confirma credenciales de GitHub (para GitHub Pages)
-- ✅ Revisa configuración de destino personalizado
+- ✓ Verifica `VITE_REPORTS_BASE_URL` correcta
+- ✓ Confirma credenciales de GitHub (para GitHub Pages)
+- ✓ Revisa configuración de destino personalizado
 
 ### Error: Template no se crea
 ```bash

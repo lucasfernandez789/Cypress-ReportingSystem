@@ -142,7 +142,7 @@ async function cleanupTemplate() {
     console.log('   - Configuración específica de la aplicación');
     console.log('   - Ejecución de tests personalizados');
 
-    console.log('\n💡 Recomendaciones:');
+    console.log('\nRecomendaciones:');
     console.log('   - Configura tus credenciales en .env');
     console.log('   - Personaliza los selectores según tu aplicación');
     console.log('   - Actualiza las constantes en src/constants/');
