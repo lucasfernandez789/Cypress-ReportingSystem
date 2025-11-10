@@ -62,7 +62,7 @@ Cada fork tendrá:
 # Instalar dependencias
 npm install
 
-# IMPORTANTE: Asegúrate de que tu aplicación esté corriendo
+# ⚠️ IMPORTANTE: Asegúrate de que tu aplicación esté corriendo
 # Los tests necesitan acceder a CYPRESS_BASE_URL (configurado en .env)
 
 # EJECUTAR TESTS (con reportes automáticos categorizados)
@@ -225,6 +225,7 @@ cypress-leyes/
 | Comando | Descripción |
 |---------|-------------|
 | `npm start` | Servidor de desarrollo (Vite) |
+| `npm run dev` | **RECOMENDADO**: Desarrollo con sincronización inicial |
 | `npm run build` | Compilar para producción |
 | `npm run lint` | Verificar código con ESLint |
 
@@ -280,20 +281,69 @@ npm run setup -- --help
 
 > **Para explicaciones detalladas consulta [COMANDOS.md](COMANDOS.md)**
 
-## Flujo de Trabajo
+## Sistema de Watchers Automáticos
 
-### Trabajo Diario
+### ¿Qué es y por qué existe?
+
+**El problema:** Cuando ejecutas tests de Cypress, los reportes se generan en un directorio externo (fuera del proyecto web). Para ver estos reportes en la aplicación web, normalmente tendrías que:
+
+1. Ejecutar tests → reportes se generan
+2. Copiar manualmente los reportes al proyecto web
+3. Recargar la página para verlos
+
+**La solución:** El watcher automático monitorea el directorio de reportes y copia los archivos automáticamente cada vez que detecta cambios.
+
+### Mejoras que brinda
+
+- **Ahorra tiempo:** No necesitas copiar reportes manualmente
+- **Actualización manual:** Botón "Actualizar" en la interfaz para refrescar cuando necesites
+- **Sin sobrecarga:** No hay polling automático que consuma recursos
+- **Comodidad:** Especialmente útil cuando desarrollas la interfaz de reportes mientras pruebas
+
+### ¿Cuándo usarlo?
+
+- ✅ Cuando desarrollas la interfaz de reportes y necesitas ver cambios inmediatamente
+- ✅ Cuando ejecutas muchos tests y quieres ver resultados en tiempo real
+- ❌ Para desarrollo normal de la aplicación (no es necesario)
+- ❌ Para producción (no se usa en producción)
+
+### Comandos
+
 ```bash
-# Desarrollar con hot reload
-npm start
+# Desarrollo normal (recomendado - SIN watcher)
+npm run dev
 
-# Ejecutar tests cuando sea necesario
-npm run test
-
-# Ver reportes en http://localhost:5173
+# Watcher independiente (solo cuando lo necesites)
+npm run watch-reports
 ```
 
-### Ejecutando Tests por Categoría
+**Nota:** El watcher consume recursos del sistema. Úsalo solo cuando realmente necesites sincronización automática.
+
+## Flujo de Trabajo
+
+### Desarrollo Diario (Simple)
+
+```bash
+# 1. Iniciar desarrollo
+npm run dev
+
+# 2. Abrir http://localhost:5173 en el navegador
+
+# 3. Desarrollar normalmente - los cambios se ven automáticamente
+```
+
+### Desarrollo con Reportes en Tiempo Real (Avanzado)
+
+```bash
+# Terminal 1: Servidor de desarrollo
+npm start
+
+# Terminal 2: Watcher de reportes (opcional)
+npm run watch-reports
+
+# Ahora cuando ejecutes tests, los reportes se sincronizan automáticamente.
+# Para verlos en la web, haz clic en "Actualizar" en la interfaz.
+```
 ```bash
 # Ejecutar solo tests Core
 npm run test:core
@@ -389,6 +439,106 @@ APP_NAME="Mi Sistema Único"
 Esto permite que múltiples forks del mismo repositorio tengan reportes separados configurando diferentes `APP_NAME` en sus respectivos archivos `.env`.
 
 ## Configuración Avanzada
+
+### Variables de Entorno Completas
+
+El sistema utiliza un sistema completo de variables de entorno para máxima configurabilidad. Todas las variables tienen valores por defecto, pero puedes personalizarlas según tus necesidades.
+
+#### Archivo `.env` - Variables Principales
+
+```bash
+# ===========================================
+# CONFIGURACIÓN DE AUTENTICACIÓN
+# ===========================================
+USER=tu_usuario                    # Usuario para tests autenticados
+PASS=tu_password                   # Password para tests autenticados
+
+# ===========================================
+# CONFIGURACIÓN DE CYPRESS
+# ===========================================
+CYPRESS_BASE_URL=http://localhost:3000  # URL de la aplicación a testear
+CYPRESS_VIEWPORT_WIDTH=1280             # Ancho del viewport (opcional)
+CYPRESS_VIEWPORT_HEIGHT=720             # Alto del viewport (opcional)
+CYPRESS_DEFAULT_COMMAND_TIMEOUT=4000    # Timeout por defecto en ms (opcional)
+CYPRESS_REQUEST_TIMEOUT=5000            # Timeout de requests en ms (opcional)
+
+# ===========================================
+# CONFIGURACIÓN DEL SISTEMA DE REPORTES
+# ===========================================
+APP_NAME=Cypress-ReportingSystem        # Nombre único del sistema/aplicación
+APP_PREFIX=CYPRESS                      # Prefijo para identificar el sistema
+REPORTS_DIR=cypress/reports             # Directorio de reportes (absoluto o relativo)
+REPORTS_BASE_URL=                       # URL base para reportes en producción
+
+# ===========================================
+# CONFIGURACIÓN DE GITHUB (PARA FORKS)
+# ===========================================
+VITE_REPO_NAME=Cypress-ReportingSystem  # Nombre del repo en GitHub
+VITE_REPORTS_REPO_OWNER=tu_usuario       # Owner del repo en GitHub
+VITE_REPORTS_REPO_NAME=tu_repo           # Nombre del repo (opcional si es igual)
+
+# ===========================================
+# RUTAS DE SPECS DE CYPRESS (OPCIONAL)
+# ===========================================
+CYPRESS_CORE_SPECS=cypress/e2e/core/*.cy.js        # Patrón para tests core
+CYPRESS_FEATURES_SPECS=cypress/e2e/features/*.cy.js # Patrón para tests features
+CYPRESS_ALL_SPECS=cypress/e2e/**/*.cy.js           # Patrón para todos los tests
+
+# ===========================================
+# CONFIGURACIÓN AVANZADA (OPCIONAL)
+# ===========================================
+REPORTS_RETENTION_DAYS=30               # Días para retener reportes
+REPORTS_MAX_FILES_PER_DATE=50           # Máximo archivos por fecha
+```
+
+#### Variables de Entorno por Categoría
+
+**🔐 Autenticación:**
+- `USER`, `PASS`: Credenciales para tests que requieren login
+
+**🧪 Cypress:**
+- `CYPRESS_BASE_URL`: URL de la aplicación objetivo
+- `CYPRESS_VIEWPORT_*`: Dimensiones del navegador de testing
+- `CYPRESS_*_TIMEOUT`: Configuración de timeouts
+
+**📊 Reportes:**
+- `APP_NAME`: Identificador único del sistema (CRÍTICO para multi-sistema)
+- `REPORTS_DIR`: Ubicación centralizada de todos los reportes
+- `REPORTS_BASE_URL`: URL para compartir reportes entre sistemas
+
+**🔗 GitHub:**
+- `VITE_REPORTS_REPO_*`: Configuración para forks y deployments
+
+**📁 Rutas:**
+- `CYPRESS_*_SPECS`: Patrones de archivos para diferentes tipos de tests
+
+### Ejemplos de Configuración
+
+#### Para Desarrollo Local
+```bash
+# .env
+CYPRESS_BASE_URL=http://localhost:3000
+REPORTS_DIR=C:\Users\dev\Desktop\shared-reports
+APP_NAME=MiApp-Dev
+```
+
+#### Para Sistema de Producción
+```bash
+# .env
+CYPRESS_BASE_URL=https://mi-app.com
+REPORTS_DIR=/opt/shared-reports
+APP_NAME=MiApp-Prod
+VITE_REPORTS_BASE_URL=https://reports.mi-app.com
+```
+
+#### Para Fork de GitHub
+```bash
+# .env
+APP_NAME=SistemaContable
+VITE_REPORTS_REPO_OWNER=miempresa
+VITE_REPORTS_REPO_NAME=sistema-contable-testing
+REPORTS_DIR=C:\Users\tester\Desktop\empresa-reports
+```
 
 ### Personalización de Reportes
 El sistema permite personalizar la generación de reportes a través de `reporter-config.json`:
