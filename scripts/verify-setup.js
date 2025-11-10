@@ -139,7 +139,7 @@ async function verifySetup() {
     console.log(`\nResultado: ${passedChecks}/${totalChecks} verificaciones pasaron`);
 
     if (errors.length > 0) {
-      console.log('\n⚠️  Errores encontrados:');
+      console.log('\nATENCION: Errores encontrados:');
       errors.forEach(error => console.log(`   - ${error}`));
     }
 
@@ -149,7 +149,7 @@ async function verifySetup() {
       console.log('   npm run test    # Ejecutar tests');
       console.log('   npm start       # Ver reportes');
     } else {
-      console.log('\n⚠️  Configuración incompleta. Ejecuta los scripts faltantes:');
+      console.log('\nATENCION: Configuración incompleta. Ejecuta los scripts faltantes:');
       if (!checks.env) console.log('   npm run setup:env');
       if (!checks.testStructure || !checks.fixtures) console.log('   npm run setup:tests');
     }

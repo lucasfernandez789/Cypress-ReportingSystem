@@ -62,7 +62,7 @@ Cada fork tendrá:
 # Instalar dependencias
 npm install
 
-# ⚠️ IMPORTANTE: Asegúrate de que tu aplicación esté corriendo
+# IMPORTANTE: Asegúrate de que tu aplicación esté corriendo
 # Los tests necesitan acceder a CYPRESS_BASE_URL (configurado en .env)
 
 # EJECUTAR TESTS (con reportes automáticos categorizados)

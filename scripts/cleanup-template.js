@@ -71,7 +71,7 @@ async function cleanupTemplate() {
             }
             console.log(`Limpiado: ${dir}/${item}`);
           } catch (error) {
-            console.log(`⚠️  No se pudo eliminar: ${dir}/${item}`);
+            console.log(`AVISO: No se pudo eliminar: ${dir}/${item}`);
           }
         });
       }
