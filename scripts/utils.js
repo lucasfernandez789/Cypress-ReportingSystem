@@ -7,6 +7,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { CONFIG } from './config.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -17,8 +18,8 @@ export const PATHS = {
   ROOT: path.join(__dirname, '..'),
   SCRIPTS: path.join(__dirname, '..', 'scripts'),
   CYPRESS: path.join(__dirname, '..', 'cypress'),
-  REPORTS: path.join(__dirname, '..', 'cypress', 'reports'),
-  REPORTS_TMP: path.join(__dirname, '..', 'cypress', 'reports', 'tmp'),
+  REPORTS: CONFIG.REPORTS_DIR,
+  REPORTS_TMP: path.join(CONFIG.REPORTS_DIR, 'tmp'),
   DOCS: path.join(__dirname, '..', 'docs'),
   DOCS_REPORTS: path.join(__dirname, '..', 'docs', 'reports'),
   PUBLIC: path.join(__dirname, '..', 'public'),

@@ -38,7 +38,7 @@ function generateTimestampedReport() {
   fs.mkdirSync(reportsDir, { recursive: true });
 
   // Generar reporte HTML
-  const reportJsonPath = path.join(__dirname, '..', 'cypress', 'reports', 'report.json');
+  const reportJsonPath = path.join(CONFIG.REPORTS_DIR, 'report.json');
   const assetsDir = path.join(reportsDir, 'assets');
   const reportFilename = `report-${date}T${time}.html`;
 

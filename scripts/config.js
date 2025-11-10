@@ -43,10 +43,10 @@ export function loadConfig() {
     REPORTS_DIR: process.env.REPORTS_DIR || 'cypress/reports',
     REPORTS_BASE_URL: process.env.REPORTS_BASE_URL,
 
-    // Rutas de destino para sincronización
-    PUBLIC_REPORTS_DIR: process.env.PUBLIC_REPORTS_DIR || 'public/cypress/reports',
-    SRC_DATA_DIR: process.env.SRC_DATA_DIR || 'src/data',
-    PUBLIC_DATA_DIR: process.env.PUBLIC_DATA_DIR || 'public/data',
+    // Rutas de specs de Cypress
+    CYPRESS_CORE_SPECS: process.env.CYPRESS_CORE_SPECS || 'cypress/e2e/core/*.cy.js',
+    CYPRESS_FEATURES_SPECS: process.env.CYPRESS_FEATURES_SPECS || 'cypress/e2e/features/*.cy.js',
+    CYPRESS_ALL_SPECS: process.env.CYPRESS_ALL_SPECS || 'cypress/e2e/**/*.cy.js',
 
     // Configuración avanzada
     CYPRESS_VIEWPORT_WIDTH: parseInt(process.env.CYPRESS_VIEWPORT_WIDTH) || 1280,

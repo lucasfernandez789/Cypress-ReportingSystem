@@ -11,7 +11,7 @@ import { CONFIG } from './config.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-function generateReportsJson(sourceDir, outputPath) {
+function generateReportsJson(sourceDir = CONFIG.REPORTS_DIR, outputPath = path.join(CONFIG.REPORTS_DIR, 'report.json')) {
   const reportsDir = path.join(sourceDir);
   const reportJsonPath = path.join(reportsDir, 'report.json');
 
@@ -217,3 +217,15 @@ function generateReportsJson(sourceDir, outputPath) {
 }
 
 export default generateReportsJson;
+
+// Ejecutar si se llama directamente
+const normalizedImportMeta = import.meta.url;
+const normalizedArgv = 'file:///' + process.argv[1].replace(/\\/g, '/');
+
+if (normalizedImportMeta === normalizedArgv) {
+  const args = process.argv.slice(2);
+  const sourceDir = args[0] || CONFIG.REPORTS_DIR;
+  const outputPath = args[1] || path.join(CONFIG.REPORTS_DIR, 'report.json');
+  
+  generateReportsJson(sourceDir, outputPath);
+}

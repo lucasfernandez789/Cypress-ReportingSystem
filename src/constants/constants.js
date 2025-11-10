@@ -13,11 +13,13 @@ export const API_ENDPOINTS = {
   // URL base para reportes (configurable por fork)
   REPORTS_BASE_URL: import.meta.env.VITE_REPORTS_BASE_URL || `${import.meta.env.BASE_URL}cypress/reports`,
   // URL completa para el archivo JSON de reportes
-  REPORTS_DATA: import.meta.env.DEV
-    ? `${import.meta.env.BASE_URL}cypress/reports/report.json`
-    : `${import.meta.env.VITE_REPORTS_BASE_URL || import.meta.env.BASE_URL}cypress/reports/report.json`,
+  REPORTS_DATA: '/cypress/reports/report.json',
   DELETE_REPORT: 'http://localhost:3001/api/delete-report',
 };
+
+// Debug logging
+// console.log('BASE_URL:', import.meta.env.BASE_URL);
+// console.log('REPORTS_DATA URL:', API_ENDPOINTS.REPORTS_DATA);
 
 /**
  * Configuración del repositorio (para forks)
