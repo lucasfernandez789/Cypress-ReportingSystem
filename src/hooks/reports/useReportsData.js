@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { API_ENDPOINTS } from '../../constants/constants.js';
+// import { reportsData } from '../../data/reports-data.js'; // Comentado - ahora se carga dinámicamente
 
 /**
  * Hook para cargar datos de reportes desde archivos JSON.
@@ -14,19 +14,50 @@ export function useReportsData() {
   const [reports, setReports] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [lastUpdate, setLastUpdate] = useState(null);
 
   const loadReports = async () => {
     try {
       setLoading(true);
       setError(null);
 
-      // Cargar datos de reportes desde URL configurable
-      const response = await fetch(API_ENDPOINTS.REPORTS_DATA);
+      console.log('Loading reports from local data');
+
+      // Cargar datos dinámicamente para detectar cambios automáticos
+      const response = await fetch('/data/reports-data.js', {
+        headers: {
+          'Cache-Control': 'no-cache'
+        }
+      });
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      const data = await response.json();
 
+      const scriptText = await response.text();
+
+      // Extraer el objeto reportsData del script
+      const reportsDataMatch = scriptText.match(/export const reportsData = (\[[\s\S]*?\]);/);
+      if (!reportsDataMatch) {
+        throw new Error('No se pudo encontrar reportsData en el archivo');
+      }
+
+      const data = JSON.parse(reportsDataMatch[1]);
+      console.log('Data loaded dynamically:', data);
+
+      await loadReportsFromData(data);
+    } catch (err) {
+      console.error('Error loading reports:', err);
+      setError(err);
+      // Fallback a datos mock si falla la carga
+      setReports(await loadMockReports());
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const loadReportsFromData = async (data) => {
+    try {
       // Procesar y enriquecer los datos con estadísticas
       const processedReports = await Promise.all(
         data.map(async (dateGroup) => {
@@ -57,20 +88,21 @@ export function useReportsData() {
 
       setReports(processedReports);
     } catch (err) {
-      console.error('Error loading reports:', err);
-      setError(err);
-      // Fallback a datos mock si falla la carga
+      console.error('Error processing reports:', err);
       setReports(await loadMockReports());
-    } finally {
-      setLoading(false);
     }
   };
 
   useEffect(() => {
     loadReports();
+    // Polling deshabilitado temporalmente para evitar sobrecarga
+    // const interval = setInterval(() => {
+    //   loadReports();
+    // }, 10000);
+    // return () => clearInterval(interval);
   }, []);
 
-  return { reports, loading, error, loadReports };
+  return { reports, loading, error, loadReports, loadReportsFromData };
 }
 
 /**
