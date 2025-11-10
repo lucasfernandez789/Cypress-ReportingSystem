@@ -15,9 +15,9 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // Rutas
 const centralReportsDir = CONFIG.REPORTS_DIR;
-const publicReportsDir = path.join(__dirname, "..", "public", "cypress", "reports");
-const srcDataDir = path.join(__dirname, "..", "src", "data");
-const publicDataDir = path.join(__dirname, "..", "public", "data");
+const publicReportsDir = CONFIG.PUBLIC_REPORTS_DIR;
+const srcDataDir = CONFIG.SRC_DATA_DIR;
+const publicDataDir = CONFIG.PUBLIC_DATA_DIR;
 const reportsDataFile = path.join(srcDataDir, "reports-data.js");
 const publicReportsDataFile = path.join(publicDataDir, "reports-data.js");
 
