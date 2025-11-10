@@ -133,7 +133,7 @@ function generateReportsJson(sourceDir, outputPath) {
     };
   }
 
-  // Escanear directorios de reportes
+  // Escanear directorios de reportes con nueva estructura APP_NAME/fecha_APP_NAME/
   if (fs.existsSync(reportsDir)) {
     const items = fs.readdirSync(reportsDir);
 
@@ -141,49 +141,59 @@ function generateReportsJson(sourceDir, outputPath) {
       const itemPath = path.join(reportsDir, item);
       const stat = fs.statSync(itemPath);
 
-      if (stat.isDirectory() && (/^\d{4}-\d{2}-\d{2}$/.test(item) || /^\d{4}-\d{2}-\d{2}_/.test(item))) {
-        // Es un directorio con fecha (ej: 2025-10-30) o fecha con APP_NAME (ej: 2025-10-30_MiApp)
-        const dateMatch = item.match(/^(\d{4}-\d{2}-\d{2})/);
-        const date = dateMatch ? dateMatch[1] : item;
-        const folderName = item; // Usar el nombre completo de la carpeta
-        const dateFiles = fs.readdirSync(itemPath);
+      if (stat.isDirectory() && item !== 'mocha' && item !== 'tmp') {
+        // Verificar si es una carpeta de sistema (contiene subcarpetas con fechas)
+        const subItems = fs.readdirSync(itemPath);
 
-        for (const file of dateFiles) {
-          if (file.startsWith('report-') && file.endsWith('.html')) {
-            // Extraer información del archivo
-            const match = file.match(/report-(\d{4}-\d{2}-\d{2})T(\d{2}-\d{2}-\d{2})\.html/);
-            if (match) {
-              const fileDate = match[1];
-              const time = match[2].replace(/-/g, ':');
+        for (const subItem of subItems) {
+          const subItemPath = path.join(itemPath, subItem);
+          const subStat = fs.statSync(subItemPath);
 
-              const { category, systemName, systemId } = determineCategoryAndSystem(`${folderName}/${file}`, folderName);
+          if (subStat.isDirectory() && (/^\d{4}-\d{2}-\d{2}_/.test(subItem))) {
+            // Es un directorio con fecha_APP_NAME (ej: 2025-11-10_Cypress-ReportingSystem)
+            const dateMatch = subItem.match(/^(\d{4}-\d{2}-\d{2})/);
+            const date = dateMatch ? dateMatch[1] : subItem;
+            const folderName = subItem; // Usar el nombre completo de la carpeta
+            const dateFiles = fs.readdirSync(subItemPath);
 
-              // Extraer estadísticas del HTML
-              const stats = extractStatsFromHtml(path.join(reportsDir, folderName, file));
+            for (const file of dateFiles) {
+              if (file.startsWith('report-') && file.endsWith('.html')) {
+                // Extraer información del archivo
+                const match = file.match(/report-(\d{4}-\d{2}-\d{2})T(\d{2}-\d{2}-\d{2})\.html/);
+                if (match) {
+                  const fileDate = match[1];
+                  const time = match[2].replace(/-/g, ':');
 
-              const reportInfo = {
-                date: fileDate,
-                time: time,
-                path: `${folderName}/${file}`,
-                url: `${folderName}/${file}`,
-                category: category,
-                systemName: systemName,
-                systemId: systemId,
-                stats: stats
-              };
+                  const { category, systemName, systemId } = determineCategoryAndSystem(`${item}/${subItem}/${file}`, subItem);
 
-              if (!reportsByDate.has(date)) {
-                reportsByDate.set(date, {
-                  date: date,
-                  files: [],
-                  dateFormatted: formatDate(date),
-                  executions: 0,
-                  lastExecution: time
-                });
+                  // Extraer estadísticas del HTML
+                  const stats = extractStatsFromHtml(path.join(reportsDir, item, subItem, file));
+
+                  const reportInfo = {
+                    date: fileDate,
+                    time: time,
+                    path: `${item}/${subItem}/${file}`,
+                    url: `${item}/${subItem}/${file}`,
+                    category: category,
+                    systemName: systemName,
+                    systemId: systemId,
+                    stats: stats
+                  };
+
+                  if (!reportsByDate.has(date)) {
+                    reportsByDate.set(date, {
+                      date: date,
+                      files: [],
+                      dateFormatted: formatDate(date),
+                      executions: 0,
+                      lastExecution: time
+                    });
+                  }
+
+                  reportsByDate.get(date).files.push(reportInfo);
+                  reportsByDate.get(date).executions++;
+                }
               }
-
-              reportsByDate.get(date).files.push(reportInfo);
-              reportsByDate.get(date).executions++;
             }
           }
         }

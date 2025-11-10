@@ -24,13 +24,17 @@ function generateTimestampedReport() {
   const date = `${year}-${month}-${day}`;
   const time = `${hours}-${minutes}-${seconds}`;
 
-  // Crear directorio con APP_NAME si está configurado
+  // Crear directorio con estructura APP_NAME/fecha_APP_NAME
   const baseReportsDir = CONFIG.REPORTS_DIR.startsWith('/') || CONFIG.REPORTS_DIR.includes(':')
     ? CONFIG.REPORTS_DIR  // Ruta absoluta
     : path.join(__dirname, '..', CONFIG.REPORTS_DIR); // Ruta relativa
 
-  const folderName = CONFIG.APP_NAME ? `${date}_${CONFIG.APP_NAME}` : date;
-  const reportsDir = path.join(baseReportsDir, folderName);
+  // Crear carpeta del sistema si no existe
+  const systemDir = path.join(baseReportsDir, CONFIG.APP_NAME);
+  fs.mkdirSync(systemDir, { recursive: true });
+
+  const folderName = `${date}_${CONFIG.APP_NAME}`;
+  const reportsDir = path.join(systemDir, folderName);
   fs.mkdirSync(reportsDir, { recursive: true });
 
   // Generar reporte HTML
