@@ -1,5 +1,30 @@
 [
   {
+    "date": "2025-11-10",
+    "files": [
+      {
+        "date": "2025-11-10",
+        "time": "08:13:35",
+        "path": "2025-11-10_Cypress-ReportingSystem/report-2025-11-10T08-13-35.html",
+        "url": "2025-11-10_Cypress-ReportingSystem/report-2025-11-10T08-13-35.html",
+        "category": "core",
+        "systemName": "Cypress-ReportingSystem",
+        "systemId": "cypressreportingsystem",
+        "stats": {
+          "suites": 1,
+          "tests": 1,
+          "passes": 1,
+          "failures": 0,
+          "total": 1,
+          "duration": 2214
+        }
+      }
+    ],
+    "dateFormatted": "lunes, 10 de noviembre de 2025",
+    "executions": 1,
+    "lastExecution": "08:13:35"
+  },
+  {
     "date": "2025-11-07",
     "files": [
       {

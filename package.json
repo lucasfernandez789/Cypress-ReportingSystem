@@ -1,7 +1,7 @@
 {
-  "name": "cypress-leyes",
+  "name": "cypress-leyes-cypress-reportingsystem",
   "version": "1.0.0",
-  "description": "",
+  "description": "Sistema de reportes Cypress para aplicación de leyes",
   "type": "module",
   "main": "index.js",
   "dependencies": {
